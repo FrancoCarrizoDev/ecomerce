@@ -1,4 +1,4 @@
-import { actionTest } from "components/actions/actionTest";
+import { actionTest } from "actions/actionTest";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
