@@ -1,76 +1,96 @@
-import {
-  Container,
-  Form,
-  FormControl,
-  Nav,
-  Navbar,
-  NavDropdown,
-} from "react-bootstrap";
-import logo from "../images/logos_transparent.png";
-
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import logo from "../images/owl.png";
+import shopingCartIcon from "../images/shopping-cart.png";
+import notificationIcon from "../images/ringing.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
 export const Menu = () => {
   return (
-    <Navbar bg="white" expand="lg">
+    <Navbar collapseOnSelect expand="md" bg="white" variant="light">
       <Container>
-        <Navbar.Brand href="#">
-          <div className="d-flex">
-            <img src={logo} alt="Logo de la web" id="logo" />
-            <div className="d-flex flex-column">
-              <Form className="d-flex">
-                <FormControl
-                  type="search"
-                  placeholder="Search"
-                  className="me-2"
-                  aria-label="Search"
-                />
-              </Form>
-              <Nav
-                className="me-auto my-2 my-lg-0 d-none d-sm-none d-md-none d-lg-flex"
-                navbarScroll
-              >
-                <Nav.Link href="#action1">Home</Nav.Link>
-                <Nav.Link href="#action2">Link</Nav.Link>
-                <NavDropdown title="Link" id="navbarScrollingDropdown">
-                  <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-                  <NavDropdown.Item href="#action4">
-                    Another action
-                  </NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="#action5">
-                    Something else here
-                  </NavDropdown.Item>
-                </NavDropdown>
-                <Nav.Link href="#" disabled>
-                  Link
-                </Nav.Link>
-              </Nav>
-            </div>
-          </div>
+        <Navbar.Brand href="#" className="d-flex">
+          <img
+            src={logo}
+            width="40"
+            height="40"
+            className="d-inline-block align-top"
+            alt="React Bootstrap logo"
+          />
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="navbarScroll" />
-        <Navbar.Collapse id="navbarScroll">
-          <Nav
-            className="me-auto my-2 my-lg-0 d-flex d-sm-flex d-md-flex d-lg-none "
-            style={{ maxHeight: "100px" }}
-            navbarScroll
-          >
-            <Nav.Link href="#action1">Home</Nav.Link>
-            <Nav.Link href="#action2">Link</Nav.Link>
-            <NavDropdown title="Link" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">Action</NavDropdown.Item>
-              <NavDropdown.Item href="#action4">
-                Another action
-              </NavDropdown.Item>
+        <h1>
+          <span className="fw-normal">Owl</span>
+          <span className="fw-light">Ship</span>
+        </h1>
+
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto ">
+            <Nav.Link href="#">Hombre</Nav.Link>
+            <Nav.Link href="#">Mujer</Nav.Link>
+            <NavDropdown title="Categorías" id="collasible-nav-dropdown">
+              <NavDropdown.Item href="#">Calzados</NavDropdown.Item>
+              <NavDropdown.Item href="#">Remeras</NavDropdown.Item>
+              <NavDropdown.Item href="#">Camisas</NavDropdown.Item>
               <NavDropdown.Divider />
-              <NavDropdown.Item href="#action5">
-                Something else here
-              </NavDropdown.Item>
+              <NavDropdown.Item href="#">Vestidos</NavDropdown.Item>
             </NavDropdown>
-            <Nav.Link href="#" disabled>
-              Link
-            </Nav.Link>
+            <Nav.Link href="#">Promociones</Nav.Link>
+            <Nav.Link href="#">FAQS</Nav.Link>
+            <Nav.Link href="#">Contacto</Nav.Link>
           </Nav>
         </Navbar.Collapse>
+        <div className="d-md-none w-100">
+          {/* esto va a ser un componente */}
+          <div className="input-group my-2">
+            <input
+              type="text"
+              className="form-control"
+              placeholder="Buscar ..."
+              aria-label="Buscar ..."
+              aria-describedby="buscador"
+            />
+            <button
+              className="btn btn-outline-secondary"
+              type="button"
+              id="buscador"
+            >
+              <FontAwesomeIcon icon={faSearch} fixedWidth />
+            </button>
+          </div>
+          <div className="d-flex align-items-center">
+            <Nav className="me-auto flex-row" style={{ gap: "7px" }}>
+              <Nav.Link href="#deets" className="fw-bold">
+                Jhon
+              </Nav.Link>
+              <Nav.Link eventKey={2} href="#memes">
+                Mis Compras
+              </Nav.Link>
+              <Nav.Link eventKey={2} href="#memes">
+                Favoritos
+              </Nav.Link>
+            </Nav>
+
+            <div className="d-flex align-items-center" style={{ gap: "7px" }}>
+              <span>
+                <img
+                  src={notificationIcon}
+                  alt="shopingcart"
+                  style={{ width: 1.8 + "em" }}
+                />
+              </span>
+              <span>
+                <img
+                  src={shopingCartIcon}
+                  alt="shopingcart"
+                  style={{ width: 2 + "em" }}
+                />
+              </span>
+              <span className="border rounded-circle px-2 d-flex align-items-center ">
+                3
+              </span>
+            </div>
+          </div>
+        </div>
       </Container>
     </Navbar>
   );
