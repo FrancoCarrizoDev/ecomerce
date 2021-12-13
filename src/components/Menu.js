@@ -10,10 +10,10 @@ export const Menu = () => {
   const { width } = useWindowsSize();
 
   return (
-    <Navbar collapseOnSelect expand="md" bg="white" variant="light">
+    <Navbar collapseOnSelect expand="lg" bg="white" variant="light">
       <Container>
-        <div className="d-flex align-items-center">
-          <Navbar.Brand href="#" className="d-flex">
+        <div className="d-flex align-items-center mb-auto pt-1">
+          <Navbar.Brand href="#" className="d-flex me-2">
             <img
               src={logo}
               width="40"
@@ -29,10 +29,10 @@ export const Menu = () => {
         </div>
 
         <div className=" align-content-center flex-column d-none d-lg-flex ">
-          <div className="input-group my-2">
+          <div className="input-group  my-2">
             <input
               type="text"
-              className="form-control"
+              className="form-control "
               placeholder="Buscar ..."
               aria-label="Buscar ..."
               aria-describedby="buscador"
@@ -64,20 +64,14 @@ export const Menu = () => {
           </Navbar.Collapse>
         </div>
 
-        <div className="d-none d-lg-flex align-items-center">
-          <Nav className="me-auto flex-row" style={{ gap: "7px" }}>
-            <Nav.Link href="#deets" className="fw-bold">
-              Jhon
-            </Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-              Mis Compras
-            </Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-              Favoritos
-            </Nav.Link>
-          </Nav>
-
-          <div className="d-flex align-items-center" style={{ gap: "7px" }}>
+        <div
+          className="d-none d-lg-flex flex-column align-items-center justify-content-end"
+          style={{ height: "94px" }}
+        >
+          <div
+            className="w-100 d-flex align-items-center justify-content-end pe-2 "
+            style={{ gap: "7px" }}
+          >
             <span>
               <img
                 src={notificationIcon}
@@ -96,9 +90,20 @@ export const Menu = () => {
               3
             </span>
           </div>
+          <Nav className="me-auto flex-row pe-2 pt-2 mt-1">
+            <Nav.Link href="#deets" className="fw-bold">
+              Jhon
+            </Nav.Link>
+            <Nav.Link eventKey={2} href="#memes">
+              Mis Compras
+            </Nav.Link>
+            <Nav.Link eventKey={2} href="#memes">
+              Favoritos
+            </Nav.Link>
+          </Nav>
         </div>
 
-        {width < 768 && (
+        {width < 991 && (
           <>
             <Navbar.Toggle aria-controls="responsive-navbar-nav " />
             <Navbar.Collapse id="responsive-navbar-nav ">
@@ -119,7 +124,7 @@ export const Menu = () => {
             </Navbar.Collapse>
           </>
         )}
-        <div className="d-md-none w-100">
+        <div className="d-lg-none w-100">
           {/* esto va a ser un componente */}
           <div className="input-group my-2">
             <input
