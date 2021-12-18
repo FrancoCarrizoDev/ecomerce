@@ -1,7 +1,7 @@
 import { Carousel } from "react-bootstrap";
-import car1 from "../images/carousel/car1.jpg";
+import car3 from "../images/carousel/car1.jpg";
 import car2 from "../images/carousel/car2.jpg";
-import car3 from "../images/carousel/car3.jpg";
+import car1 from "../images/carousel/car3.jpg";
 
 export const BootstrapCarousel = () => {
   return (
@@ -21,8 +21,8 @@ export const BootstrapCarousel = () => {
           className="rounded-3"
           style={{ backgroundColor: "rgba(0,0,0,.7)" }}
         >
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <h3>Llevando 2 prendas</h3>
+          <p>La segunda queda 50% off.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -41,8 +41,8 @@ export const BootstrapCarousel = () => {
           className="rounded-3"
           style={{ backgroundColor: "rgba(0,0,0,.7)" }}
         >
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h3>Combos imperdibles</h3>
+          <p>Jean + Camisa + Calzado = Precio Único</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -61,10 +61,8 @@ export const BootstrapCarousel = () => {
           className="rounded-3"
           style={{ backgroundColor: "rgba(0,0,0,.7)" }}
         >
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
+          <h3>Envios a todo el país</h3>
+          <p>A partir de los $5000 de compra</p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>

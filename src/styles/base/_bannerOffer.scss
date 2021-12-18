@@ -1,0 +1,81 @@
+// #bannerOffer *img {
+//   transition: all 300ms;
+//   filter: brightness(75%);
+// }
+
+// #bannerOffer *img:hover {
+//   transition: all 300ms;
+//   transform: scale(1.03, 1.03);
+//   cursor: pointer;
+// }
+
+#bannerOffer_IMG1 {
+  background-image: url("../../images/bannerOffer/mujer.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+#bannerOffer_IMG2 {
+  background-image: url("../../images/bannerOffer/hombre.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+#bannerOffer_IMG3 {
+  background-image: url("../../images/bannerOffer/nene.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+#bannerOffer_IMG4 {
+  background-image: url("../../images/bannerOffer/nena.jpg");
+  background-position: center;
+  background-size: cover;
+}
+
+.grid-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: #03afff;
+  border-radius: 4px;
+  transition: transform 0.3s ease-in-out;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: all 300ms;
+}
+
+.grid-item:hover {
+  transform: scale(1.04);
+  cursor: pointer;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: minmax(280px, auto);
+  gap: 20px;
+
+  grid-auto-flow: dense;
+}
+
+.grid-item > div {
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+@media (min-width: 600px) {
+  .wide {
+    grid-column: span 2;
+  }
+
+  .tall {
+    grid-row: span 2;
+  }
+}
+
+.grid-item:nth-child(3) {
+  background-position: 100% 0% !important;
+}

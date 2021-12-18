@@ -1,0 +1,19 @@
+.card-img,
+.card-img-top,
+.card-img-bottom {
+  height: 20rem;
+  object-fit: cover;
+}
+
+.card {
+  transition: all 300ms;
+}
+
+.card:hover {
+  transition: all 300ms;
+  cursor: pointer;
+}
+
+hr {
+  margin-top: 0px;
+}

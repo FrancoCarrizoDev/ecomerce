@@ -10,7 +10,13 @@ export const Menu = () => {
   const { width } = useWindowsSize();
 
   return (
-    <Navbar collapseOnSelect expand="lg" bg="white" variant="light">
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      bg="white"
+      variant="light"
+      sticky="top"
+    >
       <Container>
         <div className="d-flex align-items-center mb-auto pt-1">
           <Navbar.Brand href="#" className="d-flex me-2">
