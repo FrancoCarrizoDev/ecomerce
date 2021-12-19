@@ -1,0 +1,40 @@
+.footerList {
+  ul {
+    list-style: none;
+  }
+  h6 {
+    font-weight: 700;
+  }
+  a {
+    text-decoration: none;
+    font-size: 0.8rem;
+  }
+}
+
+.postFooter {
+  list-style: none;
+
+  gap: 1rem;
+  a {
+    text-decoration: none;
+    small {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+@media (max-width: 578px) {
+  .postFooter {
+    gap: 0.5rem;
+  }
+  .footerList {
+    margin: 1rem 0rem;
+    padding: 0 1rem;
+    h6 {
+      margin: 0 0;
+    }
+    ul {
+      padding-left: 0px;
+    }
+  }
+}

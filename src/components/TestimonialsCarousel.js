@@ -15,7 +15,7 @@ const responsive = {
   },
   tablet: {
     breakpoint: { max: 1024, min: 464 },
-    items: 2,
+    items: 1,
   },
   mobile: {
     breakpoint: { max: 464, min: 0 },
@@ -27,12 +27,16 @@ const arrTest = [0, 1, 2, 3, 4];
 
 export const TestimonialsCarousel = () => {
   return (
-    <div className="container">
+    <div className="container pb-5">
       <h4>¿Que opinan nuestros clientes?</h4>
       <hr />
       <Carousel responsive={responsive}>
-        {arrTest.map(() => (
-          <Card style={{ width: "18rem" }} className="mx-auto">
+        {arrTest.map((i) => (
+          <Card
+            style={{ width: "18rem" }}
+            key={`testimonial-${i}`}
+            className="mx-auto"
+          >
             <Card.Body>
               <div className="d-flex pb-3">
                 <img src={star} alt="#" style={{ width: "1rem" }} />
@@ -63,7 +67,6 @@ export const TestimonialsCarousel = () => {
           </Card>
         ))}
       </Carousel>
-      ;
     </div>
   );
 };
