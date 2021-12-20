@@ -1,7 +1,7 @@
 import { Carousel } from "react-bootstrap";
-import car3 from "../images/carousel/car1.jpg";
-import car2 from "../images/carousel/car2.jpg";
-import car1 from "../images/carousel/car3.jpg";
+import car3 from "../images/carousel/car4.jpg";
+import car2 from "../images/carousel/car6.jpg";
+import car1 from "../images/carousel/car5.jpg";
 
 export const BootstrapCarousel = () => {
   return (
@@ -14,7 +14,7 @@ export const BootstrapCarousel = () => {
           style={{
             height: "50vh",
             objectFit: "cover",
-            objectPosition: "top",
+            objectPosition: "50% 35%",
           }}
         />
         <Carousel.Caption
@@ -28,12 +28,12 @@ export const BootstrapCarousel = () => {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src={car2}
+          src={car3}
           alt="Second slide"
           style={{
             height: "50vh",
             objectFit: "cover",
-            objectPosition: "center",
+            objectPosition: "50% 35%",
           }}
         />
 
@@ -48,12 +48,12 @@ export const BootstrapCarousel = () => {
       <Carousel.Item>
         <img
           className="d-block w-100 "
-          src={car3}
+          src={car2}
           alt="Third slide"
           style={{
             height: "50vh",
             objectFit: "cover",
-            objectPosition: "top",
+            objectPosition: "50% 35%",
           }}
         />
 
