@@ -1,40 +1,47 @@
-import { BannerOffer } from "components/BannerOffer";
-import { BannerSale } from "components/BannerSale";
-import { BannerShopInfo } from "components/BannerShopInfo";
-import { BootstrapCarousel } from "components/BootstrapCarousel";
 import { Footer } from "components/Footer";
 import { Menu } from "components/Menu";
-import { TestimonialsCarousel } from "components/TestimonialsCarousel";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { SeasonCarousel } from "../components/SeasonCarousel";
+import { Home } from "pages/Home";
+import { Product } from "pages/Product";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
+import { useRouteMatch } from "../../node_modules/react-router-dom/cjs/react-router-dom.min";
 
 export const GlobalRouter = () => {
+  let match = useRouteMatch();
   return (
     <Router>
       <div>
         <Menu />
-        <BootstrapCarousel />
-        <BannerSale />
-        <BannerOffer />
-        <BannerShopInfo />
-        <BannerSale />
-        <SeasonCarousel />
-        <BannerSale />
-        <TestimonialsCarousel />
-        <Footer />
+
         {/* A <Switch> looks through its children <Route>s and
       renders the first one that matches the current URL. */}
         <Switch>
-          <Route path="/about">
+          <Route exact path={match.path}>
+            <Home />
+          </Route>
+          <Route exact path="/about">
             <h1>About</h1>
           </Route>
-          <Route path="/users">
+          <Route path={`${match.path}users`}>
             <h1>Users</h1>
           </Route>
-          <Route path="/">
-            <></>
+          <Route exact path={`${match.path}hombre`}>
+            <div className="min-vh-100">
+              <Product />
+            </div>
           </Route>
+          <Route path={`${match.path}hombre/:id`}>
+            <div className="min-vh-100">
+              <Product />
+            </div>
+          </Route>
+          <Redirect to="/" />
         </Switch>
+        <Footer />
       </div>
     </Router>
   );

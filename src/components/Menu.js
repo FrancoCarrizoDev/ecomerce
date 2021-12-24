@@ -5,6 +5,7 @@ import notificationIcon from "../images/ringing.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import useWindowsSize from "../hooks/useWindowsSize";
+import { Link, NavLink } from "react-router-dom";
 
 export const Menu = () => {
   const { width } = useWindowsSize();
@@ -18,21 +19,23 @@ export const Menu = () => {
       sticky="top"
     >
       <Container>
-        <div className="d-flex align-items-center mb-auto pt-1">
-          <Navbar.Brand href="#" className="d-flex me-2">
-            <img
-              src={logo}
-              width="40"
-              height="40"
-              className="d-inline-block align-top"
-              alt="React Bootstrap logo"
-            />
-          </Navbar.Brand>
-          <h1 className="mb-0">
-            <span className="fw-normal">Owl</span>
-            <span className="fw-light">Ship</span>
-          </h1>
-        </div>
+        <Link to="/" id="logo">
+          <div className="d-flex align-items-center mb-auto pt-1">
+            <Navbar.Brand href="#" className="d-flex me-2">
+              <img
+                src={logo}
+                width="40"
+                height="40"
+                className="d-inline-block align-top"
+                alt="React Bootstrap logo"
+              />
+            </Navbar.Brand>
+            <h1 className="mb-0 ">
+              <span className="fw-normal text-dark">Owl</span>
+              <span className="fw-light text-dark">Ship</span>
+            </h1>
+          </div>
+        </Link>
 
         <div className=" align-content-center flex-column d-none d-lg-flex ">
           <div className="input-group  my-2">
@@ -54,18 +57,29 @@ export const Menu = () => {
 
           <Navbar.Collapse id="responsive-navbar-nav ">
             <Nav className="me-auto">
-              <Nav.Link href="#">Hombre</Nav.Link>
-              <Nav.Link href="#">Mujer</Nav.Link>
-              <NavDropdown title="Categorías" id="collasible-nav-dropdown">
-                <NavDropdown.Item href="#">Calzados</NavDropdown.Item>
-                <NavDropdown.Item href="#">Remeras</NavDropdown.Item>
-                <NavDropdown.Item href="#">Camisas</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#">Vestidos</NavDropdown.Item>
-              </NavDropdown>
-              <Nav.Link href="#">Promociones</Nav.Link>
-              <Nav.Link href="#">FAQS</Nav.Link>
-              <Nav.Link href="#">Contacto</Nav.Link>
+              <NavLink
+                className={(isActive) =>
+                  !isActive ? " nav-link" : "nav-link text-primary"
+                }
+                to="/hombre"
+              >
+                Hombre
+              </NavLink>
+              <NavLink to="/" className="nav-link">
+                Mujer
+              </NavLink>
+              <NavLink to="/" className="nav-link">
+                Teen & Kids
+              </NavLink>
+              <NavLink to="/" className="nav-link">
+                Promociones
+              </NavLink>
+              <NavLink to="/" className="nav-link">
+                FAQS
+              </NavLink>
+              <NavLink to="/" className="nav-link">
+                Contacto
+              </NavLink>
             </Nav>
           </Navbar.Collapse>
         </div>
@@ -114,18 +128,36 @@ export const Menu = () => {
             <Navbar.Toggle aria-controls="responsive-navbar-nav " />
             <Navbar.Collapse id="responsive-navbar-nav ">
               <Nav className="me-auto d-md-none">
-                <Nav.Link href="#">Hombre</Nav.Link>
-                <Nav.Link href="#">Mujer</Nav.Link>
+                <NavLink to="/nombre" className="nav-link">
+                  Hombre
+                </NavLink>
+                <NavLink to="/nombre" href="#" className="nav-link">
+                  Mujer
+                </NavLink>
                 <NavDropdown title="Categorías" id="collasible-nav-dropdown">
-                  <NavDropdown.Item href="#">Calzados</NavDropdown.Item>
-                  <NavDropdown.Item href="#">Remeras</NavDropdown.Item>
-                  <NavDropdown.Item href="#">Camisas</NavDropdown.Item>
+                  <NavLink to="/nombre" href="#" className="nav-link  ps-2">
+                    Calzados
+                  </NavLink>
+                  <NavLink to="/nombre" href="#" className="nav-link ps-2">
+                    Remeras
+                  </NavLink>
+                  <NavLink to="/nombre" href="#" className="nav-link ps-2">
+                    Camisas
+                  </NavLink>
                   <NavDropdown.Divider />
-                  <NavDropdown.Item href="#">Vestidos</NavDropdown.Item>
+                  <NavLink to="/nombre" href="#" className="nav-link ps-2">
+                    Vestidos
+                  </NavLink>
                 </NavDropdown>
-                <Nav.Link href="#">Promociones</Nav.Link>
-                <Nav.Link href="#">FAQS</Nav.Link>
-                <Nav.Link href="#">Contacto</Nav.Link>
+                <NavLink to="/nombre" href="#" className="nav-link ">
+                  Promociones
+                </NavLink>
+                <NavLink to="/nombre" href="#" className="nav-link ">
+                  FAQS
+                </NavLink>
+                <NavLink to="/nombre" href="#" className="nav-link ">
+                  Contacto
+                </NavLink>
               </Nav>
             </Navbar.Collapse>
           </>
@@ -166,6 +198,7 @@ export const Menu = () => {
                 <img
                   src={notificationIcon}
                   alt="shopingcart"
+                  f="#"
                   style={{ width: 1.8 + "em" }}
                 />
               </span>

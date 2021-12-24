@@ -1,7 +1,7 @@
 import { actionTest } from "actions/actionTest";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { BrowserRouter as Router, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { AdminRouter } from "./AdminRouter";
 import { GlobalRouter } from "./GlobalRouter";
 
@@ -16,9 +16,8 @@ export const AppRouter = () => {
     <Router>
       <div>
         <Switch>
-          <GlobalRouter exact path="/" />
           <AdminRouter path="/auth" />
-          <Redirect to="/" />
+          <GlobalRouter path="/" />
         </Switch>
       </div>
     </Router>
