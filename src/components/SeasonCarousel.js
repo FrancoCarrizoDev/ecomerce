@@ -1,6 +1,6 @@
+import { ImageAndHoverImage } from "helpers/ImageAndHoverImage";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import styled from "styled-components";
 import foto1 from "../images/modelo/prueba1.jpeg";
 import foto2 from "../images/modelo/prueba2.jpeg";
 import foto3 from "../images/modelo/prueba3.jpeg";
@@ -23,36 +23,6 @@ const responsive = {
     breakpoint: { max: 464, min: 0 },
     items: 1,
   },
-};
-
-const ImageAndHoverImage = ({ background, hoverBackground }) => {
-  const Img = styled.img`
-    background: ${(props) => `url(${props.background}) no-repeat  center`};
-    background-size: cover;
-    -webkit-animation: fadeinTwo 0.5s; /* Safari, Chrome and Opera > 12.1 */
-    -moz-animation: fadeinTwo 0.5s; /* Firefox < 16 */
-    -ms-animation: fadeinTwo 0.5s; /* Internet Explorer */
-    -o-animation: fadeinTwo 0.5s; /* Opera < 12.1 */
-    animation: fadeinTwo 0.5s;
-    &:hover {
-      -webkit-animation: fadein 0.5s; /* Safari, Chrome and Opera > 12.1 */
-      -moz-animation: fadein 0.5s; /* Firefox < 16 */
-      -ms-animation: fadein 0.5s; /* Internet Explorer */
-      -o-animation: fadein 0.5s; /* Opera < 12.1 */
-      animation: fadein 0.5s;
-      background: ${(props) =>
-        `url(${props.hoverBackground}) no-repeat  center`};
-      background-size: cover;
-    }
-  `;
-
-  return (
-    <Img
-      background={background}
-      hoverBackground={hoverBackground}
-      className="logoContent card-img-top"
-    />
-  );
 };
 
 export const SeasonCarousel = () => {

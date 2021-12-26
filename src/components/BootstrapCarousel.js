@@ -3,7 +3,7 @@ import car3 from "../images/carousel/car4.jpg";
 import car2 from "../images/carousel/car6.jpg";
 import car1 from "../images/carousel/car5.jpg";
 
-export const BootstrapCarousel = () => {
+export const BootstrapCarousel = ({ height = "50vh" }) => {
   return (
     <Carousel fade>
       <Carousel.Item>
@@ -12,7 +12,7 @@ export const BootstrapCarousel = () => {
           src={car1}
           alt="First slide"
           style={{
-            height: "50vh",
+            height,
             objectFit: "cover",
             objectPosition: "50% 35%",
           }}
@@ -31,7 +31,7 @@ export const BootstrapCarousel = () => {
           src={car3}
           alt="Second slide"
           style={{
-            height: "50vh",
+            height,
             objectFit: "cover",
             objectPosition: "50% 35%",
           }}
@@ -51,7 +51,7 @@ export const BootstrapCarousel = () => {
           src={car2}
           alt="Third slide"
           style={{
-            height: "50vh",
+            height,
             objectFit: "cover",
             objectPosition: "50% 35%",
           }}

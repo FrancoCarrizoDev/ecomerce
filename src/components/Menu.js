@@ -5,7 +5,7 @@ import notificationIcon from "../images/ringing.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import useWindowsSize from "../hooks/useWindowsSize";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export const Menu = () => {
   const { width } = useWindowsSize();
@@ -19,23 +19,21 @@ export const Menu = () => {
       sticky="top"
     >
       <Container>
-        <Link to="/" id="logo">
-          <div className="d-flex align-items-center mb-auto pt-1">
-            <Navbar.Brand href="#" className="d-flex me-2">
-              <img
-                src={logo}
-                width="40"
-                height="40"
-                className="d-inline-block align-top"
-                alt="React Bootstrap logo"
-              />
-            </Navbar.Brand>
-            <h1 className="mb-0 ">
-              <span className="fw-normal text-dark">Owl</span>
-              <span className="fw-light text-dark">Ship</span>
-            </h1>
-          </div>
-        </Link>
+        <div className="d-flex align-items-center mb-auto pt-1">
+          <Navbar.Brand href="#" className="d-flex me-2">
+            <img
+              src={logo}
+              width="40"
+              height="40"
+              className="d-inline-block align-top"
+              alt="React Bootstrap logo"
+            />
+          </Navbar.Brand>
+          <h1 className="mb-0 ">
+            <span className="fw-normal text-dark">Owl</span>
+            <span className="fw-light text-dark">Ship</span>
+          </h1>
+        </div>
 
         <div className=" align-content-center flex-column d-none d-lg-flex ">
           <div className="input-group  my-2">
