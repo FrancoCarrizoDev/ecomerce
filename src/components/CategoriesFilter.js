@@ -1,4 +1,4 @@
-import { Accordion } from "react-bootstrap";
+import { Accordion, Form } from "react-bootstrap";
 
 export const CategoriesFilter = () => {
   return (
@@ -7,8 +7,17 @@ export const CategoriesFilter = () => {
         <Accordion.Item eventKey="0">
           <Accordion.Header>TALLE</Accordion.Header>
           <Accordion.Body>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt.
+            <Form>
+              <div className="mb-3">
+                <Form.Check type="checkbox" label={"XL"} />
+              </div>
+              <div className="mb-3">
+                <Form.Check type="checkbox" label={"L"} />
+              </div>
+              <div className="mb-3">
+                <Form.Check type="checkbox" label={"M"} />
+              </div>
+            </Form>
           </Accordion.Body>
         </Accordion.Item>
         <Accordion.Item eventKey="1">
