@@ -109,14 +109,14 @@ export const Menu = () => {
             </span>
           </div>
           <Nav className="me-auto flex-row pe-2 pt-2 mt-1">
-            <Nav.Link href="#deets" className="fw-bold">
-              Jhon
+            <NavLink to="/login" className="fw-bold">
+              Ingresar
+            </NavLink>
+            <Nav.Link eventKey={2} href="#memes">
+              Registrar
             </Nav.Link>
             <Nav.Link eventKey={2} href="#memes">
-              Mis Compras
-            </Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-              Favoritos
+              Ayuda
             </Nav.Link>
           </Nav>
         </div>

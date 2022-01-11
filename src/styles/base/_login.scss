@@ -1,0 +1,16 @@
+.loginContainer {
+  min-height: 100vh;
+  background-image: url("../../images/rombos.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: grid;
+  place-content: center;
+}
+
+.loginFormContainer {
+  display: grid;
+  place-content: center;
+  background-color: #f8f8f8;
+  max-width: 400px;
+}
