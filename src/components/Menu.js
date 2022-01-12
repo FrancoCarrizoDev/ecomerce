@@ -6,10 +6,11 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import useWindowsSize from "../hooks/useWindowsSize";
 import { NavLink } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 export const Menu = () => {
   const { width } = useWindowsSize();
-
+  const { auth } = useSelector((state) => state.rootReducer);
   return (
     <Navbar
       collapseOnSelect
@@ -82,10 +83,7 @@ export const Menu = () => {
           </Navbar.Collapse>
         </div>
 
-        <div
-          className="d-none d-lg-flex flex-column align-items-center justify-content-end"
-          style={{ height: "94px" }}
-        >
+        <div className=" d-none d-lg-flex flex-column gap-md  ">
           <div
             className="w-100 d-flex align-items-center justify-content-end pe-2 "
             style={{ gap: "7px" }}
@@ -108,16 +106,19 @@ export const Menu = () => {
               3
             </span>
           </div>
-          <Nav className="me-auto flex-row pe-2 pt-2 mt-1">
-            <NavLink to="/login" className="fw-bold">
-              Ingresar
+          <Nav className=" align-items-center justify-content-center  flex-row gap-md pe-2  ">
+            <NavLink
+              to={`${auth.name ? "/my-acount" : "/login"}`}
+              className="fw-bold"
+            >
+              {auth.name?.toUpperCase() || "Ingresar"}
             </NavLink>
-            <Nav.Link eventKey={2} href="#memes">
-              Registrar
-            </Nav.Link>
-            <Nav.Link eventKey={2} href="#memes">
-              Ayuda
-            </Nav.Link>
+            <NavLink
+              to={`${auth.name ? "/my-acount/my-shopping" : "/register"}`}
+            >
+              {auth.name ? "Mis Compras" : "Registrarse"}
+            </NavLink>
+            <NavLink to="/logout">{auth.name ? "Salir" : "Ayuda"}</NavLink>
           </Nav>
         </div>
 

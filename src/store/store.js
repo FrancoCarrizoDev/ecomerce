@@ -1,4 +1,4 @@
-import { testReducer } from "reducers/testReducer";
+import { rootReducer } from "../reducers/rootReducer";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 
 import thunk from "redux-thunk";
@@ -9,7 +9,7 @@ const composeEnhancers =
   compose;
 
 const reducers = combineReducers({
-  test: testReducer,
+  rootReducer,
 });
 
 export const store = createStore(

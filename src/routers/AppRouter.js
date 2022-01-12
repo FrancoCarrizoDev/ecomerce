@@ -1,10 +1,12 @@
-import { actionTest } from "actions/actionTest";
+import { startCheking } from "actions/auth";
+import { Footer } from "components/Footer";
+import { Loading } from "components/Loading";
 
 import { Home } from "pages/Home";
 import { Login } from "pages/Login";
 import { Product } from "pages/Product";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
   Redirect,
@@ -14,14 +16,20 @@ import {
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
+  const { checking } = useSelector((state) => state.rootReducer.auth);
 
   useEffect(() => {
-    dispatch(actionTest());
+    dispatch(startCheking());
   }, [dispatch]);
+
+  // if (checking) {
+  //   return <Loading />;
+  // }
 
   return (
     <Router>
       <div>
+        {checking && <Loading />}
         <Switch>
           <Route exact path="/">
             <Home />
@@ -41,6 +49,7 @@ export const AppRouter = () => {
           </Route>
           <Redirect to="/" />
         </Switch>
+        <Footer />
       </div>
     </Router>
   );

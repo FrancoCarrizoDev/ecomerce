@@ -9,7 +9,6 @@ export default function login({ email, password }) {
     body: JSON.stringify({ email, password }),
   })
     .then((res) => {
-      debugger;
       if (!res.ok) throw new Error("Response is NOT ok");
       return res.json();
     })
