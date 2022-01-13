@@ -6,11 +6,19 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import useWindowsSize from "../hooks/useWindowsSize";
 import { NavLink } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { startLogout } from "actions/auth";
 
 export const Menu = () => {
   const { width } = useWindowsSize();
   const { auth } = useSelector((state) => state.rootReducer);
+  const dispatch = useDispatch();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+
+    dispatch(startLogout());
+  };
   return (
     <Navbar
       collapseOnSelect
@@ -118,7 +126,14 @@ export const Menu = () => {
             >
               {auth.name ? "Mis Compras" : "Registrarse"}
             </NavLink>
-            <NavLink to="/logout">{auth.name ? "Salir" : "Ayuda"}</NavLink>
+            {auth.name ? (
+              <button className="btn nav-link" onClick={handleLogout}>
+                Salir
+              </button>
+            ) : (
+              <NavLink to="/ayuda">Ayuda</NavLink>
+            )}
+            {/* <NavLink to="/logout">{auth.name ? "Salir" : "Ayuda"}</NavLink> */}
           </Nav>
         </div>
 

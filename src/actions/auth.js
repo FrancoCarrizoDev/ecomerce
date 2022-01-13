@@ -11,19 +11,30 @@ const loginAction = (user) => ({
 export const startLogin = (email, password) => {
   return async (dispatch) => {
     try {
+      debugger;
       const response = await login({ email, password });
-      localStorage.setItem("token", response.token);
-      localStorage.setItem("token-init-date", new Date().getTime());
-      dispatch(
-        loginAction({
-          uid: response.user.uid,
-          name: response.user.name,
-        })
-      );
-      Swal.fire("Bienvenido!", "Nos alegra tenerte por aqui :)", "success");
+      const body = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("token", body.token);
+        localStorage.setItem("token-init-date", new Date().getTime());
+        dispatch(
+          loginAction({
+            uid: body.user.uid,
+            name: body.user.name,
+          })
+        );
+        Swal.fire("Bienvenido!", "Nos alegra tenerte por aqui :)", "success");
+      } else {
+        Swal.fire("Error", body.msg, "error");
+        console.log(body.msg);
+      }
     } catch (error) {
-      Swal.fire("Error", error.toString(), "error");
-      console.log(error);
+      Swal.fire(
+        "Error",
+        "Algo salió mal, por favor intente nuevamente más tarde",
+        "error"
+      );
     }
   };
 };
@@ -51,3 +62,19 @@ export const startCheking = () => {
     }
   };
 };
+
+export const startLogout = () => {
+  return (dispatch) => {
+    localStorage.clear();
+    dispatch(eventLogout());
+    dispatch(logout());
+  };
+};
+
+export const logout = () => ({
+  type: types.authLogout,
+});
+
+export const eventLogout = () => ({
+  type: types.eventLogout,
+});

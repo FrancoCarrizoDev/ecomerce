@@ -5,6 +5,7 @@ import { Loading } from "components/Loading";
 import { Home } from "pages/Home";
 import { Login } from "pages/Login";
 import { Product } from "pages/Product";
+import { Register } from "pages/Register";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -22,10 +23,6 @@ export const AppRouter = () => {
     dispatch(startCheking());
   }, [dispatch]);
 
-  // if (checking) {
-  //   return <Loading />;
-  // }
-
   return (
     <Router>
       <div>
@@ -33,6 +30,7 @@ export const AppRouter = () => {
         <Switch>
           <Route exact path="/">
             <Home />
+            <Footer />
           </Route>
           <Route path={`/hombre`}>
             <div className="min-vh-100">
@@ -47,9 +45,11 @@ export const AppRouter = () => {
           <Route path="/login">
             <Login />
           </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
           <Redirect to="/" />
         </Switch>
-        <Footer />
       </div>
     </Router>
   );

@@ -1,6 +1,8 @@
 import { startLogin } from "actions/auth";
+import { useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { NavLink } from "react-router-dom";
 import {
   useHistory,
   useLocation,
@@ -11,6 +13,8 @@ import logo from "../images/owl.png";
 
 export const Login = () => {
   const dispatch = useDispatch();
+  const { auth } = useSelector((state) => state.rootReducer);
+  console.log(auth);
 
   const email = useField({ type: "text" });
   const password = useField({ type: "password" });
@@ -22,9 +26,13 @@ export const Login = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(startLogin(email.value, password.value));
-    history.replace(from);
   };
 
+  useEffect(() => {
+    if (auth.uid) {
+      history.replace(from);
+    }
+  }, [auth.uid, from, history]);
   return (
     <div className="loginContainer">
       <div className="loginFormContainer border shadow-sm rounded-3 p-5">
@@ -69,14 +77,14 @@ export const Login = () => {
             <Button variant="dark" type="submit" size="sm">
               Entrar
             </Button>
-            <Button variant="light" type="submit" size="sm">
+            <NavLink className="btn btn-light btn-sm" to="/register">
               Crear cuenta
-            </Button>
+            </NavLink>
           </Form.Group>
           <Form.Group>
             <Form.Text className="text-primary d-flex justify-content-center">
               <a href="#id" className="">
-                Necesito ayuda para ingresar.
+                Necesito ayuda para ingresar
               </a>
             </Form.Text>
           </Form.Group>

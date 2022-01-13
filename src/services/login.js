@@ -7,12 +7,5 @@ export default function login({ email, password }) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ email, password }),
-  })
-    .then((res) => {
-      if (!res.ok) throw new Error("Response is NOT ok");
-      return res.json();
-    })
-    .then((res) => {
-      return res;
-    });
+  });
 }

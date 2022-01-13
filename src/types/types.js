@@ -3,4 +3,5 @@ export const types = {
   authLogin: "[auth] Login",
   authChekingFinish: "[auth] Finish chechking login state",
   authLogout: "[auth] Logout",
+  eventLogout: "[event] Logout Event",
 };
