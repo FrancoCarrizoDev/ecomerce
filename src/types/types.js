@@ -4,4 +4,6 @@ export const types = {
   authChekingFinish: "[auth] Finish chechking login state",
   authLogout: "[auth] Logout",
   eventLogout: "[event] Logout Event",
+  startLoading: "[loading] Start",
+  stopLoading: "[loading] Stop",
 };

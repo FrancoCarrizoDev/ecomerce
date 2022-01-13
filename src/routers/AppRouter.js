@@ -1,4 +1,4 @@
-import { startCheking } from "actions/auth";
+import { startCheking, chek } from "actions/auth";
 import { Footer } from "components/Footer";
 import { Loading } from "components/Loading";
 
@@ -17,10 +17,14 @@ import {
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
-  const { checking } = useSelector((state) => state.rootReducer.auth);
+  const { checking } = useSelector((state) => state.rootReducer.loading);
 
   useEffect(() => {
-    dispatch(startCheking());
+    if (
+      window.localStorage.getItem("token") &&
+      window.localStorage.getItem("token") !== "undefined"
+    )
+      return dispatch(startCheking());
   }, [dispatch]);
 
   return (

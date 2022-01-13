@@ -11,7 +11,7 @@ const loginAction = (user) => ({
 export const startLogin = (email, password) => {
   return async (dispatch) => {
     try {
-      debugger;
+      dispatch(loadingStart());
       const response = await login({ email, password });
       const body = await response.json();
 
@@ -29,12 +29,14 @@ export const startLogin = (email, password) => {
         Swal.fire("Error", body.msg, "error");
         console.log(body.msg);
       }
+      dispatch(loadingStop());
     } catch (error) {
       Swal.fire(
         "Error",
         "Algo salió mal, por favor intente nuevamente más tarde",
         "error"
       );
+      dispatch(loadingStop());
     }
   };
 };
@@ -43,9 +45,19 @@ const checkingFinish = () => ({
   type: types.authChekingFinish,
 });
 
+// TODO van en otro lado
+const loadingStart = () => ({
+  type: types.startLoading,
+});
+
+const loadingStop = () => ({
+  type: types.stopLoading,
+});
+
 export const startCheking = () => {
   return async (dispatch) => {
     try {
+      dispatch(loadingStart());
       const response = await fetchWithToken("auth/renew");
       const body = await response.json();
 
@@ -57,8 +69,10 @@ export const startCheking = () => {
           name: body.user.name,
         })
       );
+      dispatch(loadingStop());
     } catch (error) {
       dispatch(checkingFinish());
+      dispatch(loadingStop());
     }
   };
 };
