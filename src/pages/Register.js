@@ -1,3 +1,4 @@
+/* eslint-disable no-template-curly-in-string */
 import { startLogin } from "actions/auth";
 import { useEffect, useState } from "react";
 import { Button, Form } from "react-bootstrap";
@@ -10,21 +11,26 @@ import {
 import { useField } from "../hooks/useField";
 import logo from "../images/owl.png";
 import * as yup from "yup";
-
-yup.setLocale({
-  mixed: {
-    default: "Error",
-    required: "El campo ${path} es requerido",
-  },
-  string: {
-    email: "El mail es inválido",
-  },
-});
+import createUser from "services/createUser";
 
 const userSchema = yup.object().shape({
-  name: yup.string().required().min(3).max(15),
-  email: yup.string().email().required(),
-  password: yup.string().min(4).max(15),
+  password2: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Las contraseñas deben coincidir"),
+  password: yup
+    .string()
+    .required("La contraseña es requerida")
+    .min(4, "La contraseña es muy corta")
+    .max(15, "La contraseña es muy larga"),
+  email: yup
+    .string()
+    .required("El campo email es requerido")
+    .email("El mail es inválido"),
+  name: yup
+    .string()
+    .required("El campo nombre es requerido")
+    .min(3, "El campo nombre es muy corto")
+    .max(15, "El campo nombre es muy largo"),
 });
 
 export const Register = () => {
@@ -53,14 +59,26 @@ export const Register = () => {
 
     const isValid = await userSchema
       .validate(formData)
-      .then(function () {
+      .then(function (data) {
         setErrors(null);
+        return true;
       })
       .catch(function (err) {
         setErrors(err.errors);
+        return false;
       });
-    console.log(errors);
-    console.log(formData);
+
+    if (!isValid) return;
+
+    try {
+      const createUserResponse = await createUser(formData);
+
+      if (createUserResponse.ok) {
+        dispatch(startLogin(formData.email, formData.password));
+      }
+    } catch (err) {
+      console.log(err);
+    }
     // dispatch(startLogin(email.value, password.value));
   };
 
@@ -102,12 +120,12 @@ export const Register = () => {
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Password</Form.Label>
+            <Form.Label>Contraseña</Form.Label>
             <Form.Control placeholder="******" size="sm" {...password} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
-            <Form.Label>Repite la Password</Form.Label>
+            <Form.Label>Repite la contraseña</Form.Label>
             <Form.Control placeholder="******" size="sm" {...password2} />
             <Form.Text className="text-muted">
               <small>Nadie de OwlShip va a pedirte nunca tus datos.</small>
@@ -116,7 +134,7 @@ export const Register = () => {
 
           {errors && (
             <Form.Text className="text-danger mb-3">
-              <small>Error - {errors[0]} ⛔ </small>
+              <small className="fw-bold">Error - {errors[0]} ⛔ </small>
             </Form.Text>
           )}
 

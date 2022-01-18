@@ -1,7 +1,6 @@
-const ENDPOINT = "http://localhost:8080/api/auth";
-
+const baseUrl = process.env.REACT_APP_API_URL;
 export default function login({ email, password }) {
-  return fetch(`${ENDPOINT}/login`, {
+  return fetch(`${baseUrl}/auth/login`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",

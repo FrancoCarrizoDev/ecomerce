@@ -1,13 +1,13 @@
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import logo from "../images/owl.png";
-import shopingCartIcon from "../images/shopping-cart.png";
 import notificationIcon from "../images/ringing.png";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import shopingCartIcon from "../images/shopping-cart.png";
 import useWindowsSize from "../hooks/useWindowsSize";
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NavLink } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
 import { startLogout } from "actions/auth";
+import { useDispatch, useSelector } from "react-redux";
 
 export const Menu = () => {
   const { width } = useWindowsSize();
@@ -64,12 +64,7 @@ export const Menu = () => {
 
           <Navbar.Collapse id="responsive-navbar-nav ">
             <Nav className="me-auto">
-              <NavLink
-                className={(isActive) =>
-                  !isActive ? " nav-link" : "nav-link text-primary"
-                }
-                to="/hombre"
-              >
+              <NavLink className="nav-link text-black" to="/hombre">
                 Hombre
               </NavLink>
               <NavLink to="/" className="nav-link">
@@ -100,26 +95,33 @@ export const Menu = () => {
               <img
                 src={notificationIcon}
                 alt="shopingcart"
-                style={{ width: 1.8 + "em" }}
+                className="smallIcon"
               />
             </span>
             <span>
               <img
                 src={shopingCartIcon}
                 alt="shopingcart"
-                style={{ width: 2 + "em" }}
+                className="smallIcon"
               />
             </span>
-            <span className="border rounded-circle px-2 d-flex align-items-center ">
-              3
+            <span className="border border-dark rounded-circle px-2 d-flex align-items-center ">
+              0
             </span>
           </div>
           <Nav className=" align-items-center justify-content-center  flex-row gap-md pe-2  ">
             <NavLink
               to={`${auth.name ? "/my-acount" : "/login"}`}
-              className="fw-bold"
+              className="fw-bold d-flex gap-xs"
             >
-              {auth.name?.toUpperCase() || "Ingresar"}
+              {auth.name ? auth.name.split(" ")[0].toUpperCase() : "Ingresar"}
+              {/* <span>
+                <img
+                  src={downArrowIcon}
+                  alt="shopingcart"
+                  className="xSmallIcon"
+                />
+              </span> */}
             </NavLink>
             <NavLink
               to={`${auth.name ? "/my-acount/my-shopping" : "/register"}`}
@@ -196,15 +198,24 @@ export const Menu = () => {
           </div>
           <div className="d-flex align-items-center">
             <Nav className="me-auto flex-row" style={{ gap: "7px" }}>
-              <Nav.Link href="#deets" className="fw-bold">
-                Jhon
-              </Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
-                Mis Compras
-              </Nav.Link>
-              <Nav.Link eventKey={2} href="#memes">
-                Favoritos
-              </Nav.Link>
+              <NavLink
+                to={`${auth.name ? "/my-acount" : "/login"}`}
+                className="fw-bold"
+              >
+                {auth.name?.toUpperCase() || "Ingresar"}
+              </NavLink>
+              <NavLink
+                to={`${auth.name ? "/my-acount/my-shopping" : "/register"}`}
+              >
+                {auth.name ? "Mis Compras" : "Registrarse"}
+              </NavLink>
+              {auth.name ? (
+                <button className="btn nav-link" onClick={handleLogout}>
+                  Salir
+                </button>
+              ) : (
+                <NavLink to="/ayuda">Ayuda</NavLink>
+              )}
             </Nav>
 
             <div className="d-flex align-items-center" style={{ gap: "7px" }}>
@@ -213,18 +224,18 @@ export const Menu = () => {
                   src={notificationIcon}
                   alt="shopingcart"
                   f="#"
-                  style={{ width: 1.8 + "em" }}
+                  className="smallIcon"
                 />
               </span>
               <span>
                 <img
                   src={shopingCartIcon}
                   alt="shopingcart"
-                  style={{ width: 2 + "em" }}
+                  className="smallIcon"
                 />
               </span>
-              <span className="border rounded-circle px-2 d-flex align-items-center ">
-                3
+              <span className="border rounded-circle px-2 d-flex align-items-center">
+                0
               </span>
             </div>
           </div>

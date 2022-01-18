@@ -1,6 +1,7 @@
-import { startCheking, chek } from "actions/auth";
+import { startCheking } from "actions/auth";
 import { Footer } from "components/Footer";
 import { Loading } from "components/Loading";
+import { Menu } from "components/Menu";
 
 import { Home } from "pages/Home";
 import { Login } from "pages/Login";
@@ -33,12 +34,15 @@ export const AppRouter = () => {
         {checking && <Loading />}
         <Switch>
           <Route exact path="/">
+            <Menu />
             <Home />
             <Footer />
           </Route>
           <Route path={`/hombre`}>
             <div className="min-vh-100">
+              <Menu />
               <Product />
+              <Footer />
             </div>
           </Route>
           <Route path="hombre/:id">
