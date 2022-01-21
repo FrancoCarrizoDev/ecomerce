@@ -1,13 +1,10 @@
 /* eslint-disable no-template-curly-in-string */
 import { startLogin } from "actions/auth";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import {
-  useHistory,
-  useLocation,
-} from "../../node_modules/react-router-dom/cjs/react-router-dom.min";
+
 import { useField } from "../hooks/useField";
 import logo from "../images/owl.png";
 import * as yup from "yup";
@@ -34,11 +31,8 @@ const userSchema = yup.object().shape({
 });
 
 export const Register = () => {
-  let history = useHistory();
-  let location = useLocation();
-  let { from } = location.state || { from: { pathname: "/" } };
   const dispatch = useDispatch();
-  const { auth } = useSelector((state) => state.rootReducer);
+
   const [errors, setErrors] = useState(null);
 
   const name = useField({ type: "text" });
@@ -79,14 +73,7 @@ export const Register = () => {
     } catch (err) {
       console.log(err);
     }
-    // dispatch(startLogin(email.value, password.value));
   };
-
-  useEffect(() => {
-    if (auth.uid) {
-      history.replace(from);
-    }
-  }, [auth.uid, from, history]);
 
   return (
     <div className="loginContainer">

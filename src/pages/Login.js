@@ -1,12 +1,7 @@
 import { startLogin } from "actions/auth";
-import { useEffect } from "react";
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
-import {
-  useHistory,
-  useLocation,
-} from "../../node_modules/react-router-dom/cjs/react-router-dom.min";
 
 import { useField } from "../hooks/useField";
 import logo from "../images/owl.png";
@@ -18,21 +13,12 @@ export const Login = () => {
 
   const email = useField({ type: "text" });
   const password = useField({ type: "password" });
-  let history = useHistory();
-  let location = useLocation();
-
-  let { from } = location.state || { from: { pathname: "/" } };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(startLogin(email.value, password.value));
   };
 
-  useEffect(() => {
-    if (auth.uid) {
-      history.replace(from);
-    }
-  }, [auth.uid, from, history]);
   return (
     <div className="loginContainer">
       <div className="loginFormContainer border shadow-sm rounded-3 p-5">

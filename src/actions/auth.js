@@ -8,6 +8,11 @@ const loginAction = (user) => ({
   payload: user,
 });
 
+const adminLoginAction = (user) => ({
+  type: types.authAdminLogin,
+  payload: user,
+});
+
 export const startLogin = (email, password) => {
   return async (dispatch) => {
     try {
@@ -18,12 +23,23 @@ export const startLogin = (email, password) => {
       if (response.ok) {
         localStorage.setItem("token", body.token);
         localStorage.setItem("token-init-date", new Date().getTime());
-        dispatch(
-          loginAction({
-            uid: body.user.uid,
-            name: body.user.name,
-          })
-        );
+        if (!!body.user.role) {
+          dispatch(
+            adminLoginAction({
+              uid: body.user.uid,
+              name: body.user.name,
+              role: body.user.role,
+            })
+          );
+        } else {
+          dispatch(
+            loginAction({
+              uid: body.user.uid,
+              name: body.user.name,
+            })
+          );
+        }
+
         Swal.fire("Bienvenido!", "Nos alegra tenerte por aqui :)", "success");
       } else {
         Swal.fire("Error", body.msg, "error");

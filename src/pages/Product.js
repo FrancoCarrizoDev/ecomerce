@@ -8,7 +8,7 @@ import useWindowsSize from "../hooks/useWindowsSize";
 export const Product = () => {
   const { width } = useWindowsSize();
   return (
-    <>
+    <div className="min-vh-100">
       <div className="container my-4">
         <Row>
           <Col lg="3">
@@ -21,6 +21,6 @@ export const Product = () => {
           </Col>
         </Row>
       </div>
-    </>
+    </div>
   );
 };

@@ -21,6 +21,12 @@ export const authReducer = (state = initialState, action) => {
       return {
         checking: false,
       };
+    case types.authAdminLogin:
+      return {
+        ...state,
+        ...action.payload,
+        checking: false,
+      };
     default:
       return state;
   }
