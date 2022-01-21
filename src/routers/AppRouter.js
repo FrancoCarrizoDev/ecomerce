@@ -1,8 +1,5 @@
 import { startCheking } from "actions/auth";
-import { Footer } from "components/Footer";
 import { Loading } from "components/Loading";
-import { Menu } from "components/Menu";
-
 import { Home } from "pages/Home";
 import { Login } from "pages/Login";
 import { Product } from "pages/Product";
@@ -17,7 +14,7 @@ import {
   Switch,
 } from "react-router-dom";
 import { CustomRoute } from "./CustomRoute";
-import { CustomRouteWithAuth } from "./CustomRouteWithAuth";
+// import { CustomRouteWithAuth } from "./CustomRouteWithAuth";
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
@@ -40,10 +37,14 @@ export const AppRouter = () => {
           <CustomRoute exact path="/" component={Home} />
           <CustomRoute path={`/hombre`} component={Product} />
           <CustomRoute exact path="hombre/:id" component={Product} />
-          <CustomRouteWithAuth
+          {/* <CustomRouteWithAuth
             path="/my-account/:id"
             component={UserPanel}
             uid={!!uid}
+          /> */}
+          <Route
+            path="/my-account/:id"
+            render={() => (!!uid ? <UserPanel /> : <Redirect to="/login" />)}
           />
           <Route
             path="/login"
