@@ -18,11 +18,6 @@ const reducers = combineReducers({
   rootReducer,
 });
 
-// export const store = createStore(
-//   reducers /* preloadedState, */,
-//   composeEnhancers(applyMiddleware(thunk))
-// );
-
 const myPersistReducer = persistReducer(storageConfig, reducers);
 const store = createStore(
   myPersistReducer,

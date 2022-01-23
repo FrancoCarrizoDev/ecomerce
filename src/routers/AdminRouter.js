@@ -8,6 +8,7 @@ import {
   Redirect,
 } from "react-router-dom";
 import { useRouteMatch } from "../../node_modules/react-router-dom/cjs/react-router-dom.min";
+import { ProductAdminRouter } from "./ProductAdminRouter";
 
 export const AdminRouter = () => {
   let { path, url } = useRouteMatch();
@@ -21,7 +22,7 @@ export const AdminRouter = () => {
             <HomeAdminPanel />
           </Route>
           <Route path={`${path}/products`}>
-            <ProductAdminPanel />
+            <ProductAdminRouter />
           </Route>
           <Redirect to={`${path}/`} />
         </Switch>
