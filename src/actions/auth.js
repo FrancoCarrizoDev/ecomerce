@@ -87,6 +87,7 @@ export const startCheking = () => {
       );
       dispatch(loadingStop());
     } catch (error) {
+      dispatch(startLogout());
       dispatch(checkingFinish());
       dispatch(loadingStop());
     }

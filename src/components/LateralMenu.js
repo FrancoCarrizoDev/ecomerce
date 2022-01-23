@@ -23,7 +23,7 @@ export const LateralMenu = ({ url }) => {
         </ListGroup.Item>
         <ListGroup.Item as="li" to="/">
           <FontAwesomeIcon icon={faTshirt} />
-          <NavLink to={`${url}products`}>Productos</NavLink>
+          <NavLink to={`${url}/products`}>Productos</NavLink>
         </ListGroup.Item>
         <ListGroup.Item as="li">
           <FontAwesomeIcon icon={faBoxOpen} />
