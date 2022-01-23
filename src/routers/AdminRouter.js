@@ -14,7 +14,7 @@ export const AdminRouter = () => {
 
   return (
     <Router>
-      <div>
+      <div className="d-flex">
         <LateralMenu url={url} />
         <Switch>
           <Route exact path={`${path}/`}>

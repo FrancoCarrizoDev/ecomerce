@@ -1,7 +1,8 @@
 .lateralMenuContainer {
-  width: 300px;
+  width: 250px;
   height: 100vh;
   background-color: #0005ffcf;
+  color: white;
   .list-group-item:first-child {
     border-top: 0.5px solid #fff;
   }
@@ -12,6 +13,10 @@
     border-radius: 0;
     cursor: pointer;
     transition: all 300ms;
+    a {
+      color: white;
+      padding-left: 0.5rem;
+    }
   }
   .list-group-item:hover {
     background-color: darken(#0005ffcf, 30%);
