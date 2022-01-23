@@ -111,9 +111,7 @@ export const Menu = () => {
           </div>
           <Nav className=" align-items-center justify-content-center  flex-row gap-md pe-2  ">
             <NavLink
-              to={`${
-                auth.name ? `/my-account/${auth.name.toLowerCase()}` : "/login"
-              }`}
+              to={`${auth.name ? `/my-account` : "/login"}`}
               className="fw-bold d-flex gap-xs"
             >
               {auth.name ? auth.name.split(" ")[0].toUpperCase() : "Ingresar"}

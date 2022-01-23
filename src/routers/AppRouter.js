@@ -4,7 +4,6 @@ import { Home } from "pages/Home";
 import { Login } from "pages/Login";
 import { Product } from "pages/Product";
 import { Register } from "pages/Register";
-import { UserPanel } from "pages/UserPanel";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -14,6 +13,7 @@ import {
   Switch,
 } from "react-router-dom";
 import { CustomRoute } from "./CustomRoute";
+import { AdminRouter } from "./AdminRouter";
 // import { CustomRouteWithAuth } from "./CustomRouteWithAuth";
 
 export const AppRouter = () => {
@@ -42,9 +42,10 @@ export const AppRouter = () => {
             component={UserPanel}
             uid={!!uid}
           /> */}
+          {/*Falta validar que sea el admin */}
           <Route
-            path="/my-account/:id"
-            render={() => (!!uid ? <UserPanel /> : <Redirect to="/login" />)}
+            path="/my-account"
+            render={() => (!!uid ? <AdminRouter /> : <Redirect to="/login" />)}
           />
           <Route
             path="/login"

@@ -18,7 +18,7 @@ export const CustomRouteWithAuth = ({
             <Footer />
           </>
         ) : (
-          <Redirect to="/login" />
+          // <Redirect to="/login" />
         )
       }
     />
