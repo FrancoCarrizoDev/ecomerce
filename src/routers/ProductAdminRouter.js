@@ -1,6 +1,3 @@
-import { LateralMenu } from "components/LateralMenu";
-import { ProductAdminPanel } from "components/ProductAdminPanel";
-import { HomeAdminPanel } from "pages/HomeAdminPanel";
 import {
   BrowserRouter as Router,
   Switch,
@@ -31,7 +28,7 @@ export const ProductAdminRouter = () => {
           <Route path={`${path}/list`}>
             <h1>List Product</h1>
           </Route>
-          <Redirect to={`${path}/create`} />
+          <Redirect to={`${path}/list`} />
         </Switch>
       </div>
     </Router>

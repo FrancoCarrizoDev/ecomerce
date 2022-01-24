@@ -1,5 +1,4 @@
 import { LateralMenu } from "components/LateralMenu";
-import { ProductAdminPanel } from "components/ProductAdminPanel";
 import { HomeAdminPanel } from "pages/HomeAdminPanel";
 import {
   BrowserRouter as Router,
