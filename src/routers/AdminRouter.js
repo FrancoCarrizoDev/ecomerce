@@ -1,5 +1,5 @@
 import { LateralMenu } from "components/LateralMenu";
-import { HomeAdminPanel } from "pages/HomeAdminPanel";
+import { AdminPanel } from "pages/AdminPanel";
 import {
   BrowserRouter as Router,
   Switch,
@@ -18,7 +18,7 @@ export const AdminRouter = () => {
         <LateralMenu url={url} />
         <Switch>
           <Route exact path={`${path}/`}>
-            <HomeAdminPanel />
+            <AdminPanel />
           </Route>
           <Route path={`${path}/products`}>
             <ProductAdminRouter />
