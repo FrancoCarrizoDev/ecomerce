@@ -30,13 +30,26 @@ export const constructorDataColumns = (dataColumn = {}) => {
 
 export const constructorDataRows = (dataRows = []) => {
   if (dataRows.length === 0) return;
-  const newDataRows = dataRows.map((data) => ({
-    id: data._id,
-    name: data.name,
+  const newDataRows = dataRows.map(({ _id, ...rest }) => ({
+    id: _id,
+    ...rest,
     action: (
       <div className="d-flex gap-sm">
-        <FontAwesomeIcon icon={faEye} />
-        <FontAwesomeIcon icon={faEdit} /> <FontAwesomeIcon icon={faTrashAlt} />
+        <FontAwesomeIcon
+          icon={faEye}
+          className="pointer"
+          onClick={() => alert("click Ver " + _id)}
+        />
+        <FontAwesomeIcon
+          icon={faEdit}
+          className="pointer"
+          onClick={() => alert("click Editar")}
+        />{" "}
+        <FontAwesomeIcon
+          icon={faTrashAlt}
+          className="pointer"
+          onClick={() => alert("click Borrar")}
+        />
       </div>
     ),
   }));

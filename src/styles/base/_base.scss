@@ -44,3 +44,16 @@ body {
 .gap-md {
   gap: 1rem;
 }
+
+.pointer {
+  cursor: pointer;
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.selectedRow {
+  border: 1px solid #ff7700ad !important;
+  background-color: #ff16372e !important;
+}

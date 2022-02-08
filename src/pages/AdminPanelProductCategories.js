@@ -1,9 +1,16 @@
 import { useEffect, useState } from "react";
-import { getProductsCategories } from "services/productCategories";
+import {
+  getProductsCategories,
+  getProductValuesCategories,
+} from "services/productCategories";
 import { DynamicDataTable } from "components/DynamicDataTable";
+import { addStyleOnSelectedRow } from "helpers/addStyleOnSelectedRow";
+import { Button } from "react-bootstrap";
 
 export const AdminPanelProductCategories = () => {
   const [categories, setCategories] = useState([]);
+  const [categorySelected, setCategorySelected] = useState("");
+  const [valuesCategories, setValuesCategories] = useState([]);
 
   useEffect(() => {
     let isSubscribed = true;
@@ -22,19 +29,36 @@ export const AdminPanelProductCategories = () => {
     <div className="container">
       <div className="row">
         <div className="col-6">
-          <h4>Categorías</h4>
-
+          <div className="d-flex justify-content-between mb-1">
+            <h5>Categorías</h5>{" "}
+            <Button variant="primary" size="sm" className="rounded-sm px-3">
+              +
+            </Button>
+          </div>
           <DynamicDataTable
             data={categories}
-            onRowClicked={(row, event) => {
-              console.log(row);
+            onRowClicked={(row) => {
+              addStyleOnSelectedRow(row.id);
+              getProductValuesCategories(row.id)
+                .then((data) => data.json())
+                .then((response) => {
+                  setCategorySelected(row.name.toLowerCase());
+                  setValuesCategories(response);
+                });
             }}
           />
         </div>
-        {/* <div className="col-6">
-          <h4>Talles</h4>
-          <DataTable columns={columns} data={data} />
-        </div> */}
+        {valuesCategories.length > 0 && (
+          <div className="col-6">
+            <div className="d-flex justify-content-between mb-1">
+              <h5 className="capitalize">{categorySelected}</h5>
+              <Button variant="primary" size="sm" className="rounded-sm px-3">
+                +
+              </Button>
+            </div>
+            <DynamicDataTable data={valuesCategories} className="fadeIn" />
+          </div>
+        )}
       </div>
     </div>
   );
