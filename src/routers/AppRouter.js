@@ -29,7 +29,6 @@ export const AppRouter = () => {
       return dispatch(startCheking());
   }, [dispatch]);
 
-  console.log(uid);
   return (
     <Router>
       <div>

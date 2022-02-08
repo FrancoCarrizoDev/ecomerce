@@ -1,6 +1,6 @@
 const baseUrl = process.env.REACT_APP_API_URL;
 
-export const fetchWithToken = (endpoint, data, method = "GET") => {
+export const fetchWithToken = async (endpoint, data, method = "GET") => {
   const url = `${baseUrl}/${endpoint}`;
 
   const token = localStorage.getItem("token") || "";
@@ -13,7 +13,7 @@ export const fetchWithToken = (endpoint, data, method = "GET") => {
       },
     });
   } else {
-    return fetch(url, {
+    return await fetch(url, {
       method,
       headers: {
         "Content-Type": "application/json",

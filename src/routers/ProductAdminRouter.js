@@ -11,6 +11,7 @@ import Container from "../../node_modules/react-bootstrap/esm/Container";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEdit, faTrashAlt, faEye } from "@fortawesome/free-solid-svg-icons";
 import { ListGroup } from "react-bootstrap";
+import { AdminPanelProductCategories } from "pages/AdminPanelProductCategories";
 
 const columns = [
   {
@@ -59,7 +60,7 @@ export const ProductAdminRouter = () => {
     <Router>
       <Container fluid>
         <div className="d-flex flex-column">
-          <ListGroup horizontal className="d-flex  p-3">
+          <ListGroup horizontal className="p-3">
             <ListGroup.Item>
               <NavLink to={`${url}/create`}>Crear</NavLink>
             </ListGroup.Item>
@@ -94,7 +95,7 @@ export const ProductAdminRouter = () => {
               />
             </Route>
             <Route exact path={`${path}/categories`}>
-              <h1>Categories of Products</h1>
+              <AdminPanelProductCategories />
             </Route>
             <Redirect to={`${path}/list`} />
           </Switch>
