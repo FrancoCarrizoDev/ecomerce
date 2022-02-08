@@ -6,15 +6,17 @@ export const AdminPanelProductCategories = () => {
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
+    let isSubscribed = true;
     getProductsCategories()
       .then((data) => data.json())
-      .then((response) => {
-        setCategories(response.categories);
-      })
+      .then((response) =>
+        isSubscribed ? setCategories(response.categories) : null
+      )
       .catch((err) => {
         throw new Error(err);
       });
-  }, [categories]);
+    return () => (isSubscribed = false);
+  }, []);
 
   return (
     <div className="container">
@@ -22,7 +24,12 @@ export const AdminPanelProductCategories = () => {
         <div className="col-6">
           <h4>Categorías</h4>
 
-          <DynamicDataTable data={categories} />
+          <DynamicDataTable
+            data={categories}
+            onRowClicked={(row, event) => {
+              console.log(row);
+            }}
+          />
         </div>
         {/* <div className="col-6">
           <h4>Talles</h4>

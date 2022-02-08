@@ -31,6 +31,7 @@ export const constructorDataColumns = (dataColumn = {}) => {
 export const constructorDataRows = (dataRows = []) => {
   if (dataRows.length === 0) return;
   const newDataRows = dataRows.map((data) => ({
+    id: data._id,
     name: data.name,
     action: (
       <div className="d-flex gap-sm">
@@ -42,7 +43,7 @@ export const constructorDataRows = (dataRows = []) => {
   return newDataRows;
 };
 
-export const DynamicDataTable = ({ data }) => {
+export const DynamicDataTable = ({ data, ...props }) => {
   const [dataColumns, setDataColumns] = useState([{}]);
   const [dataRows, setDataRows] = useState([{}]);
 
@@ -51,5 +52,5 @@ export const DynamicDataTable = ({ data }) => {
     setDataColumns(constructorDataColumns(data[0]));
   }, [data]);
 
-  return <DataTable columns={dataColumns} data={dataRows} />;
+  return <DataTable columns={dataColumns} data={dataRows} {...props} />;
 };
