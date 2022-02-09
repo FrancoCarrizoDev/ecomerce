@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react"
 import {
   createProductsValueCategory,
-  getProductsCategories,
   getProductValuesCategories,
 } from "src/services/productCategories"
 import { DynamicDataTable } from "src/components/DynamicDataTable"
@@ -9,27 +8,39 @@ import { addStyleOnSelectedRow } from "src/helpers/addStyleOnSelectedRow"
 import { Button } from "react-bootstrap"
 import Swal from "sweetalert2"
 import { openModalSuccess } from "src/helpers/sweetAlert"
-import { getProductValuesCategoriesD } from "src/actions/productValuesCategories"
-import { useDispatch } from "react-redux"
+// import { getProductValuesCategoriesD } from "src/actions/productValuesCategories"
+import { useDispatch, useSelector } from "react-redux"
+import { getProductCategoriesD } from "src/actions/productCategories"
 
 export const AdminPanelProductCategories = () => {
   const dispatch = useDispatch()
+  const { productCategories } = useSelector((state) => state.rootReducer)
   const [categories, setCategories] = useState([])
   const [categorySelected, setCategorySelected] = useState({})
   const [valuesCategories, setValuesCategories] = useState([])
 
   useEffect(() => {
-    const fetchGetCategories = async () => {
-      try {
-        const initialCategories = await getProductsCategories()
-        setCategories(initialCategories)
-      } catch (error) {
-        console.log(error)
-      }
-    }
-    fetchGetCategories()
-    dispatch(getProductValuesCategoriesD())
+    // const fetchGetCategories = async () => {
+    //   try {
+    //     const initialCategories = await getProductsCategories()
+    //     setCategories(initialCategories)
+    //   } catch (error) {
+    //     console.log(error)
+    //   }
+    // }
+    // fetchGetCategories()
+
+    // Prueba para ver si funciona el reducer de productCateg
+    dispatch(getProductCategoriesD())
+    // Prueba para ver si funciona el reducer de productValuesCat
+    // dispatch(getProductValuesCategoriesD())
   }, [])
+
+  useEffect(() => {
+    if (Object.keys(productCategories).length === 0) return
+    debugger
+    setCategories(productCategories)
+  }, [productCategories])
 
   const handleClickAddProductValueCategories = () => {
     Swal.fire({

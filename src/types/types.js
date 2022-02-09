@@ -9,4 +9,7 @@ export const types = {
 
   getProductValueCategories: "[PVC] Get PVC",
   createProductValueCategories: "[PVC] Create PVC",
+
+  getProductCategories: "[ProdCat] Get ProdCat",
+  createProductCategories: "[ProdCat] Create ProdCat",
 }
