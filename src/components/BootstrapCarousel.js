@@ -1,7 +1,7 @@
-import { Carousel } from "react-bootstrap";
-import car3 from "../images/carousel/car2.png";
-import car2 from "../images/carousel/car3.png";
-import car1 from "../images/carousel/car1.png";
+import { Carousel } from "react-bootstrap"
+import car3 from "../images/carousel/car2.png"
+import car2 from "../images/carousel/car3.png"
+import car1 from "../images/carousel/car1.png"
 
 export const BootstrapCarousel = ({ height = "50vh" }) => {
   return (
@@ -43,5 +43,5 @@ export const BootstrapCarousel = ({ height = "50vh" }) => {
         />
       </Carousel.Item>
     </Carousel>
-  );
-};
+  )
+}

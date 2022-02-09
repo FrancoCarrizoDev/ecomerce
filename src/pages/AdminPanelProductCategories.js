@@ -1,29 +1,29 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from "react"
 import {
   getProductsCategories,
   getProductValuesCategories,
-} from "services/productCategories";
-import { DynamicDataTable } from "components/DynamicDataTable";
-import { addStyleOnSelectedRow } from "helpers/addStyleOnSelectedRow";
-import { Button } from "react-bootstrap";
+} from "src/services/productCategories"
+import { DynamicDataTable } from "src/components/DynamicDataTable"
+import { addStyleOnSelectedRow } from "src/helpers/addStyleOnSelectedRow"
+import { Button } from "react-bootstrap"
 
 export const AdminPanelProductCategories = () => {
-  const [categories, setCategories] = useState([]);
-  const [categorySelected, setCategorySelected] = useState("");
-  const [valuesCategories, setValuesCategories] = useState([]);
+  const [categories, setCategories] = useState([])
+  const [categorySelected, setCategorySelected] = useState("")
+  const [valuesCategories, setValuesCategories] = useState([])
 
   useEffect(() => {
-    let isSubscribed = true;
+    let isSubscribed = true
     getProductsCategories()
       .then((data) => data.json())
       .then((response) =>
         isSubscribed ? setCategories(response.categories) : null
       )
       .catch((err) => {
-        throw new Error(err);
-      });
-    return () => (isSubscribed = false);
-  }, []);
+        throw new Error(err)
+      })
+    return () => (isSubscribed = false)
+  }, [])
 
   return (
     <div className="container">
@@ -38,13 +38,13 @@ export const AdminPanelProductCategories = () => {
           <DynamicDataTable
             data={categories}
             onRowClicked={(row) => {
-              addStyleOnSelectedRow(row.id);
+              addStyleOnSelectedRow(row.id)
               getProductValuesCategories(row.id)
                 .then((data) => data.json())
                 .then((response) => {
-                  setCategorySelected(row.name.toLowerCase());
-                  setValuesCategories(response);
-                });
+                  setCategorySelected(row.name.toLowerCase())
+                  setValuesCategories(response)
+                })
             }}
           />
         </div>
@@ -61,5 +61,5 @@ export const AdminPanelProductCategories = () => {
         )}
       </div>
     </div>
-  );
-};
+  )
+}

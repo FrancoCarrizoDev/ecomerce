@@ -1,14 +1,14 @@
 /* eslint-disable no-template-curly-in-string */
-import { startLogin } from "actions/auth";
-import { useState } from "react";
-import { Button, Form } from "react-bootstrap";
-import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { startLogin } from "src/actions/auth"
+import { useState } from "react"
+import { Button, Form } from "react-bootstrap"
+import { useDispatch } from "react-redux"
+import { NavLink } from "react-router-dom"
 
-import { useField } from "../hooks/useField";
-import logo from "../images/owl.png";
-import * as yup from "yup";
-import createUser from "services/createUser";
+import { useField } from "../hooks/useField"
+import logo from "../images/owl.png"
+import * as yup from "yup"
+import createUser from "src/services/createUser"
 
 const userSchema = yup.object().shape({
   password2: yup
@@ -28,52 +28,52 @@ const userSchema = yup.object().shape({
     .required("El campo nombre es requerido")
     .min(3, "El campo nombre es muy corto")
     .max(15, "El campo nombre es muy largo"),
-});
+})
 
 export const Register = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
-  const [errors, setErrors] = useState(null);
+  const [errors, setErrors] = useState(null)
 
-  const name = useField({ type: "text" });
-  const email = useField({ type: "text" });
-  const password = useField({ type: "password" });
-  const password2 = useField({ type: "password" });
-  const img = useField({ type: "file" });
+  const name = useField({ type: "text" })
+  const email = useField({ type: "text" })
+  const password = useField({ type: "password" })
+  const password2 = useField({ type: "password" })
+  const img = useField({ type: "file" })
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    let formData = {
+    const formData = {
       name: name.value,
       email: email.value,
       password: password.value,
       password2: password2.value,
-    };
+    }
 
     const isValid = await userSchema
       .validate(formData)
       .then(function (data) {
-        setErrors(null);
-        return true;
+        setErrors(null)
+        return true
       })
       .catch(function (err) {
-        setErrors(err.errors);
-        return false;
-      });
+        setErrors(err.errors)
+        return false
+      })
 
-    if (!isValid) return;
+    if (!isValid) return
 
     try {
-      const createUserResponse = await createUser(formData);
+      const createUserResponse = await createUser(formData)
 
       if (createUserResponse.ok) {
-        dispatch(startLogin(formData.email, formData.password));
+        dispatch(startLogin(formData.email, formData.password))
       }
     } catch (err) {
-      console.log(err);
+      console.log(err)
     }
-  };
+  }
 
   return (
     <div className="loginContainer">
@@ -155,5 +155,5 @@ export const Register = () => {
         </Form>
       </div>
     </div>
-  );
-};
+  )
+}

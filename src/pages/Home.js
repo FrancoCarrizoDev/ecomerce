@@ -1,9 +1,9 @@
-import { BannerOffer } from "components/BannerOffer";
-import { BannerSale } from "components/BannerSale";
-import { BannerShopInfo } from "components/BannerShopInfo";
-import { BootstrapCarousel } from "components/BootstrapCarousel";
-import { SeasonCarousel } from "components/SeasonCarousel";
-import { TestimonialsCarousel } from "components/TestimonialsCarousel";
+import { BannerOffer } from "src/components/BannerOffer"
+import { BannerSale } from "src/components/BannerSale"
+import { BannerShopInfo } from "src/components/BannerShopInfo"
+import { BootstrapCarousel } from "src/components/BootstrapCarousel"
+import { SeasonCarousel } from "src/components/SeasonCarousel"
+import { TestimonialsCarousel } from "src/components/TestimonialsCarousel"
 
 export const Home = () => {
   return (
@@ -17,5 +17,5 @@ export const Home = () => {
       <BannerSale />
       <TestimonialsCarousel />
     </>
-  );
-};
+  )
+}

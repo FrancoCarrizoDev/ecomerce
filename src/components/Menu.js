@@ -1,24 +1,24 @@
-import logo from "../images/owl.png";
-import notificationIcon from "../images/ringing.png";
-import shopingCartIcon from "../images/shopping-cart.png";
-import useWindowsSize from "../hooks/useWindowsSize";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
-import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NavLink } from "react-router-dom";
-import { startLogout } from "actions/auth";
-import { useDispatch, useSelector } from "react-redux";
+import logo from "../images/owl.png"
+import notificationIcon from "../images/ringing.png"
+import shopingCartIcon from "../images/shopping-cart.png"
+import useWindowsSize from "../hooks/useWindowsSize"
+import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
+import { faSearch } from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { NavLink } from "react-router-dom"
+import { startLogout } from "src/actions/auth"
+import { useDispatch, useSelector } from "react-redux"
 
 export const Menu = () => {
-  const { width } = useWindowsSize();
-  const { auth } = useSelector((state) => state.rootReducer);
-  const dispatch = useDispatch();
+  const { width } = useWindowsSize()
+  const { auth } = useSelector((state) => state.rootReducer)
+  const dispatch = useDispatch()
 
   const handleLogout = (e) => {
-    e.preventDefault();
+    e.preventDefault()
 
-    dispatch(startLogout());
-  };
+    dispatch(startLogout())
+  }
   return (
     <Navbar
       collapseOnSelect
@@ -242,5 +242,5 @@ export const Menu = () => {
         </div>
       </Container>
     </Navbar>
-  );
-};
+  )
+}

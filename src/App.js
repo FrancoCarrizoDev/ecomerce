@@ -1,8 +1,8 @@
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { AppRouter } from "routers/AppRouter";
-import store, { persistor } from "store/store";
-import "./styles/App.scss";
+import { Provider } from "react-redux"
+import { PersistGate } from "redux-persist/integration/react"
+import { AppRouter } from "src/routers/AppRouter"
+import store, { persistor } from "src/store/store"
+import "src/styles/App.scss"
 
 export const App = () => {
   return (
@@ -11,5 +11,5 @@ export const App = () => {
         <AppRouter />
       </PersistGate>
     </Provider>
-  );
-};
+  )
+}

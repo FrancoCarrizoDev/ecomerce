@@ -31,5 +31,5 @@ export const BannerOffer = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

@@ -1,7 +1,7 @@
-import { Card } from "react-bootstrap";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import star from "../images/carousel/star.png";
+import { Card } from "react-bootstrap"
+import Carousel from "react-multi-carousel"
+import "react-multi-carousel/lib/styles.css"
+import star from "../images/carousel/star.png"
 
 const responsive = {
   superLargeDesktop: {
@@ -21,9 +21,9 @@ const responsive = {
     breakpoint: { max: 464, min: 0 },
     items: 1,
   },
-};
+}
 
-const arrTest = [0, 1, 2, 3, 4];
+const arrTest = [0, 1, 2, 3, 4]
 
 export const TestimonialsCarousel = () => {
   return (
@@ -68,5 +68,5 @@ export const TestimonialsCarousel = () => {
         ))}
       </Carousel>
     </div>
-  );
-};
+  )
+}

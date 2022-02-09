@@ -1,4 +1,4 @@
-const baseUrl = process.env.REACT_APP_API_URL;
+const baseUrl = process.env.REACT_APP_API_URL
 
 export default function createUser(newUser) {
   return fetch(`${baseUrl}/users`, {
@@ -7,5 +7,5 @@ export default function createUser(newUser) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(newUser),
-  });
+  })
 }

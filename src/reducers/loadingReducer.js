@@ -1,8 +1,8 @@
-import { types } from "types/types";
+import { types } from "src/types/types"
 
 const initialState = {
   checking: false,
-};
+}
 
 export const loadingReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -10,13 +10,13 @@ export const loadingReducer = (state = initialState, action) => {
       return {
         ...state,
         checking: true,
-      };
+      }
     case types.stopLoading:
       return {
         ...state,
         checking: false,
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}

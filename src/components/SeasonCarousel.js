@@ -1,10 +1,10 @@
-import { ImageAndHoverImage } from "helpers/ImageAndHoverImage";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
-import foto1 from "../images/modelo/prueba1.jpeg";
-import foto2 from "../images/modelo/prueba2.jpeg";
-import foto3 from "../images/modelo/prueba3.jpeg";
-import foto4 from "../images/modelo/slider.jpeg";
+import { ImageAndHoverImage } from "src/helpers/ImageAndHoverImage"
+import Carousel from "react-multi-carousel"
+import "react-multi-carousel/lib/styles.css"
+import foto1 from "../images/modelo/prueba1.jpeg"
+import foto2 from "../images/modelo/prueba2.jpeg"
+import foto3 from "../images/modelo/prueba3.jpeg"
+import foto4 from "../images/modelo/slider.jpeg"
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -23,7 +23,7 @@ const responsive = {
     breakpoint: { max: 464, min: 0 },
     items: 1,
   },
-};
+}
 
 export const SeasonCarousel = () => {
   return (
@@ -85,5 +85,5 @@ export const SeasonCarousel = () => {
       </Carousel>
       ;
     </div>
-  );
-};
+  )
+}

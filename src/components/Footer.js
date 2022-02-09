@@ -1,6 +1,6 @@
-import logo from "../images/owl.png";
-import { Form, Button } from "react-bootstrap";
-const arrTest = [1, 2, 3];
+import logo from "../images/owl.png"
+import { Form, Button } from "react-bootstrap"
+const arrTest = [1, 2, 3]
 
 export const Footer = () => {
   return (
@@ -122,5 +122,5 @@ export const Footer = () => {
         </ul>
       </div>
     </div>
-  );
-};
+  )
+}

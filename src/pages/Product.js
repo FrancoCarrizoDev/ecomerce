@@ -1,12 +1,12 @@
-import { BootstrapCarousel } from "components/BootstrapCarousel";
-import { BreadCrum } from "components/BreadCrum";
-import { CardProduct } from "components/CardProduct";
-import { CategoriesFilter } from "components/CategoriesFilter";
-import { Row, Col } from "react-bootstrap";
-import useWindowsSize from "../hooks/useWindowsSize";
+import { BootstrapCarousel } from "src/components/BootstrapCarousel"
+import { BreadCrum } from "src/components/BreadCrum"
+import { CardProduct } from "src/components/CardProduct"
+import { CategoriesFilter } from "src/components/CategoriesFilter"
+import { Row, Col } from "react-bootstrap"
+import useWindowsSize from "../hooks/useWindowsSize"
 
 export const Product = () => {
-  const { width } = useWindowsSize();
+  const { width } = useWindowsSize()
   return (
     <div className="min-vh-100">
       <div className="container my-4">
@@ -22,5 +22,5 @@ export const Product = () => {
         </Row>
       </div>
     </div>
-  );
-};
+  )
+}

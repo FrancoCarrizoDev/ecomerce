@@ -1,9 +1,9 @@
-import testPhoto from "../images/modelo/prueba1.jpeg";
-import testPhoto2 from "../images/modelo/prueba2.jpeg";
-import { Card, Form } from "react-bootstrap";
-import { ImageAndHoverImage } from "helpers/ImageAndHoverImage";
+import testPhoto from "../images/modelo/prueba1.jpeg"
+import testPhoto2 from "../images/modelo/prueba2.jpeg"
+import { Card, Form } from "react-bootstrap"
+import { ImageAndHoverImage } from "src/helpers/ImageAndHoverImage"
 
-const arrayTest = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
+const arrayTest = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 
 export const CardProduct = ({ width }) => {
   return (
@@ -45,5 +45,5 @@ export const CardProduct = ({ width }) => {
         ))}
       </div>
     </div>
-  );
-};
+  )
+}

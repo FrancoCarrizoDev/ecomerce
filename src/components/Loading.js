@@ -1,4 +1,4 @@
-import Spinner from "../../node_modules/react-bootstrap/esm/Spinner";
+import Spinner from "../../node_modules/react-bootstrap/esm/Spinner"
 
 export const Loading = () => {
   return (
@@ -7,5 +7,5 @@ export const Loading = () => {
         <span className="visually-hidden">Loading...</span>
       </Spinner>
     </div>
-  );
-};
+  )
+}
