@@ -3,7 +3,7 @@ import { types } from "../types/types"
 const ACTIONS_REDUCERS = {
   [types.getProductCategories]: (state, action) => ({
     ...state,
-    ...action.payload,
+    categories: [...action.payload],
   }),
   [types.createProductCategories]: (state, action) => ({
     ...state,

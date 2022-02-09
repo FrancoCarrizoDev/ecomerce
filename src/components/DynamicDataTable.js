@@ -10,6 +10,7 @@ export const DynamicDataTable = ({ data, ...props }) => {
   const [dataRows, setDataRows] = useState([{}])
 
   useEffect(() => {
+    if (!data) return
     setDataRows(constructorDataRows(data))
     setDataColumns(constructorDataColumns(data[0]))
   }, [data])

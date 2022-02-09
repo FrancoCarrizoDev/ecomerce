@@ -27,7 +27,6 @@ export const constructorDataColumns = (dataColumn = {}) => {
 }
 
 export const constructorDataRows = (dataRows = []) => {
-  debugger
   if (dataRows.length === 0) return
   const newDataRows = dataRows.map(({ _id, ...rest }) => ({
     id: _id,
