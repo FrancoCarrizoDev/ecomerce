@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
 export const ImageAndHoverImage = ({ background, hoverBackground }) => {
   const Img = styled.img`
@@ -19,7 +19,7 @@ export const ImageAndHoverImage = ({ background, hoverBackground }) => {
         `url(${props.hoverBackground}) no-repeat  center`};
       background-size: cover;
     }
-  `;
+  `
 
   return (
     <Img
@@ -27,5 +27,5 @@ export const ImageAndHoverImage = ({ background, hoverBackground }) => {
       hoverBackground={hoverBackground}
       className="logoContent card-img-top"
     />
-  );
-};
+  )
+}

@@ -1,12 +1,12 @@
-import { ListGroup } from "react-bootstrap";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ListGroup } from "react-bootstrap"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import {
   faBoxOpen,
   faImages,
   faHome,
   faTshirt,
-} from "@fortawesome/free-solid-svg-icons";
-import { NavLink } from "react-router-dom";
+} from "@fortawesome/free-solid-svg-icons"
+import { NavLink } from "react-router-dom"
 export const LateralMenu = ({ url }) => {
   return (
     <div className="lateralMenuContainer">
@@ -36,5 +36,5 @@ export const LateralMenu = ({ url }) => {
         </ListGroup.Item>
       </ListGroup>
     </div>
-  );
-};
+  )
+}

@@ -1,5 +1,5 @@
-import { Modal, Button } from "react-bootstrap";
-import { CategoriesFilter } from "./CategoriesFilter";
+import { Modal, Button } from "react-bootstrap"
+import { CategoriesFilter } from "./CategoriesFilter"
 
 export const ReactModal = (props) => {
   return (
@@ -21,5 +21,5 @@ export const ReactModal = (props) => {
         </Modal.Footer>
       </Modal>
     </>
-  );
-};
+  )
+}

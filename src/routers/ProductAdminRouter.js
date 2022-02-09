@@ -4,15 +4,14 @@ import {
   Route,
   Redirect,
   NavLink,
-} from "react-router-dom";
-import { useRouteMatch } from "../../node_modules/react-router-dom/cjs/react-router-dom.min";
-import DataTable from "react-data-table-component";
-import Container from "../../node_modules/react-bootstrap/esm/Container";
-import { ListGroup } from "react-bootstrap";
-import { AdminPanelProductCategories } from "pages/AdminPanelProductCategories";
+} from "react-router-dom"
+import { useRouteMatch } from "../../node_modules/react-router-dom/cjs/react-router-dom.min"
+import Container from "../../node_modules/react-bootstrap/esm/Container"
+import { ListGroup } from "react-bootstrap"
+import { AdminPanelProductCategories } from "pages/AdminPanelProductCategories"
 
 export const ProductAdminRouter = () => {
-  let { path, url } = useRouteMatch();
+  const { path, url } = useRouteMatch()
 
   return (
     <Router>
@@ -54,5 +53,5 @@ export const ProductAdminRouter = () => {
         </div>
       </Container>
     </Router>
-  );
-};
+  )
+}

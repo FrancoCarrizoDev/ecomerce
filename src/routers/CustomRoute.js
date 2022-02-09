@@ -1,6 +1,6 @@
-import { Footer } from "components/Footer";
-import { Menu } from "components/Menu";
-import { Route } from "react-router-dom";
+import { Footer } from "components/Footer"
+import { Menu } from "components/Menu"
+import { Route } from "react-router-dom"
 
 export const CustomRoute = ({ component: Component, ...rest }) => {
   return (
@@ -14,5 +14,5 @@ export const CustomRoute = ({ component: Component, ...rest }) => {
         </>
       )}
     />
-  );
-};
+  )
+}

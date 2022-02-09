@@ -1,23 +1,23 @@
-import { startLogin } from "actions/auth";
-import { Button, Form } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { startLogin } from "actions/auth"
+import { Button, Form } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux"
+import { NavLink } from "react-router-dom"
 
-import { useField } from "../hooks/useField";
-import logo from "../images/owl.png";
+import { useField } from "../hooks/useField"
+import logo from "../images/owl.png"
 
 export const Login = () => {
-  const dispatch = useDispatch();
-  const { auth } = useSelector((state) => state.rootReducer);
-  console.log(auth);
+  const dispatch = useDispatch()
+  const { auth } = useSelector((state) => state.rootReducer)
+  console.log(auth)
 
-  const email = useField({ type: "text" });
-  const password = useField({ type: "password" });
+  const email = useField({ type: "text" })
+  const password = useField({ type: "password" })
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(startLogin(email.value, password.value));
-  };
+    e.preventDefault()
+    dispatch(startLogin(email.value, password.value))
+  }
 
   return (
     <div className="loginContainer">
@@ -77,5 +77,5 @@ export const Login = () => {
         </Form>
       </div>
     </div>
-  );
-};
+  )
+}

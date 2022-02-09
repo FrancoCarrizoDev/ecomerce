@@ -1,17 +1,17 @@
-import { Footer } from "components/Footer";
-import { Menu } from "components/Menu";
-import { Home } from "pages/Home";
-import { Product } from "pages/Product";
+import { Footer } from "components/Footer"
+import { Menu } from "components/Menu"
+import { Home } from "pages/Home"
+import { Product } from "pages/Product"
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
-} from "react-router-dom";
-import { useRouteMatch } from "../../node_modules/react-router-dom/cjs/react-router-dom.min";
+} from "react-router-dom"
+import { useRouteMatch } from "../../node_modules/react-router-dom/cjs/react-router-dom.min"
 
 export const GlobalRouter = () => {
-  let match = useRouteMatch();
+  let match = useRouteMatch()
   return (
     <Router>
       <div>
@@ -44,5 +44,5 @@ export const GlobalRouter = () => {
         <Footer />
       </div>
     </Router>
-  );
-};
+  )
+}

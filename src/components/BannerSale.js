@@ -7,5 +7,5 @@ export const BannerSale = () => {
         <a href="#id">SHOP NOW</a>
       </div>
     </div>
-  );
-};
+  )
+}

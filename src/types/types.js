@@ -5,4 +5,4 @@ export const types = {
   authLogout: "[auth] Logout",
   startLoading: "[loading] Start",
   stopLoading: "[loading] Stop",
-};
+}

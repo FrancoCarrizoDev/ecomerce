@@ -1,6 +1,6 @@
-import creditCard from "../images/banner/credit-cards.png";
-import truck from "../images/banner/truck.png";
-import security from "../images/banner/security.png";
+import creditCard from "../images/banner/credit-cards.png"
+import truck from "../images/banner/truck.png"
+import security from "../images/banner/security.png"
 
 export const BannerShopInfo = () => {
   return (
@@ -33,5 +33,5 @@ export const BannerShopInfo = () => {
         </div>
       </div>
     </div>
-  );
-};
+  )
+}

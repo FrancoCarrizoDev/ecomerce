@@ -1,9 +1,9 @@
-import { useState } from "react";
-import { Accordion, Form, Button } from "react-bootstrap";
-import { ReactModal } from "./ReactModal";
+import { useState } from "react"
+import { Accordion, Form, Button } from "react-bootstrap"
+import { ReactModal } from "./ReactModal"
 
 export const CategoriesFilter = ({ width }) => {
-  const [modalShow, setModalShow] = useState(false);
+  const [modalShow, setModalShow] = useState(false)
 
   return (
     <>
@@ -78,5 +78,5 @@ export const CategoriesFilter = ({ width }) => {
         </Accordion>
       )}
     </>
-  );
-};
+  )
+}

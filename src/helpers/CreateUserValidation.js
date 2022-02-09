@@ -1,4 +1,4 @@
-import * as yup from "yup";
+import * as yup from "yup"
 
 export const useSchema = (password) =>
   yup.object().shape({
@@ -6,4 +6,4 @@ export const useSchema = (password) =>
     email: yup.string().email().required(),
     password: yup.string().min(4).max(15),
     password2: yup.string().equals(password),
-  });
+  })

@@ -1,8 +1,8 @@
-import { Breadcrumb } from "react-bootstrap";
-import { useLocation } from "../../node_modules/react-router-dom/cjs/react-router-dom.min";
+import { Breadcrumb } from "react-bootstrap"
+import { useLocation } from "../../node_modules/react-router-dom/cjs/react-router-dom.min"
 export const BreadCrum = () => {
-  let location = useLocation();
-  let [, ...breadCumList] = location.pathname.split("/");
+  const location = useLocation()
+  const [, ...breadCumList] = location.pathname.split("/")
 
   return (
     <div>
@@ -20,5 +20,5 @@ export const BreadCrum = () => {
         <Breadcrumb.Item active>Data</Breadcrumb.Item> */}
       </Breadcrumb>
     </div>
-  );
-};
+  )
+}

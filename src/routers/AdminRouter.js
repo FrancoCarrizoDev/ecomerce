@@ -1,16 +1,16 @@
-import { LateralMenu } from "components/LateralMenu";
-import { AdminPanel } from "pages/AdminPanel";
+import { LateralMenu } from "components/LateralMenu"
+import { AdminPanel } from "pages/AdminPanel"
 import {
   BrowserRouter as Router,
   Switch,
   Route,
   Redirect,
-} from "react-router-dom";
-import { useRouteMatch } from "../../node_modules/react-router-dom/cjs/react-router-dom.min";
-import { ProductAdminRouter } from "./ProductAdminRouter";
+} from "react-router-dom"
+import { useRouteMatch } from "../../node_modules/react-router-dom/cjs/react-router-dom.min"
+import { ProductAdminRouter } from "./ProductAdminRouter"
 
 export const AdminRouter = () => {
-  let { path, url } = useRouteMatch();
+  const { path, url } = useRouteMatch()
 
   return (
     <Router>
@@ -27,5 +27,5 @@ export const AdminRouter = () => {
         </Switch>
       </div>
     </Router>
-  );
-};
+  )
+}
