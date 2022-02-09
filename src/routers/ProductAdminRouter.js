@@ -8,7 +8,7 @@ import {
 import { useRouteMatch } from "../../node_modules/react-router-dom/cjs/react-router-dom.min"
 import Container from "../../node_modules/react-bootstrap/esm/Container"
 import { ListGroup } from "react-bootstrap"
-import { AdminPanelProductCategories } from "pages/AdminPanelProductCategories"
+import { AdminPanelProductCategories } from "src/pages/AdminPanelProductCategories"
 
 export const ProductAdminRouter = () => {
   const { path, url } = useRouteMatch()

@@ -2,9 +2,9 @@ import { useEffect, useState } from "react"
 import {
   getProductsCategories,
   getProductValuesCategories,
-} from "services/productCategories"
-import { DynamicDataTable } from "components/DynamicDataTable"
-import { addStyleOnSelectedRow } from "helpers/addStyleOnSelectedRow"
+} from "src/services/productCategories"
+import { DynamicDataTable } from "src/components/DynamicDataTable"
+import { addStyleOnSelectedRow } from "src/helpers/addStyleOnSelectedRow"
 import { Button } from "react-bootstrap"
 
 export const AdminPanelProductCategories = () => {

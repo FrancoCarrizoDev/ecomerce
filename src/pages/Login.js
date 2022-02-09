@@ -1,4 +1,4 @@
-import { startLogin } from "actions/auth"
+import { startLogin } from "src/actions/auth"
 import { Button, Form } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"

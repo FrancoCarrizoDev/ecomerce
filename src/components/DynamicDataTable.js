@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import DataTable from "react-data-table-component"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faEdit, faTrashAlt, faEye } from "@fortawesome/free-solid-svg-icons"
-import { capitalizeFirstLetter } from "helpers/capitalizeFirstLetter"
+import { capitalizeFirstLetter } from "src/helpers/capitalizeFirstLetter"
 
 export const constructorDataColumns = (dataColumn = {}) => {
   if (Object.keys(dataColumn).length === 0) return

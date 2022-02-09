@@ -1,4 +1,4 @@
-import { types } from "types/types"
+import { types } from "src/types/types"
 
 const initialState = {
   checking: false,

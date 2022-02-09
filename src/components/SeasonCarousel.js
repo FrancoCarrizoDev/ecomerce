@@ -1,4 +1,4 @@
-import { ImageAndHoverImage } from "helpers/ImageAndHoverImage"
+import { ImageAndHoverImage } from "src/helpers/ImageAndHoverImage"
 import Carousel from "react-multi-carousel"
 import "react-multi-carousel/lib/styles.css"
 import foto1 from "../images/modelo/prueba1.jpeg"

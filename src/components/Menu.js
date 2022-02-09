@@ -6,7 +6,7 @@ import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap"
 import { faSearch } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { NavLink } from "react-router-dom"
-import { startLogout } from "actions/auth"
+import { startLogout } from "src/actions/auth"
 import { useDispatch, useSelector } from "react-redux"
 
 export const Menu = () => {

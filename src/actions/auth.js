@@ -1,7 +1,7 @@
-import { fetchWithToken } from "services/fetchWithToken"
-import login from "services/login"
+import { fetchWithToken } from "src/services/fetchWithToken"
+import login from "src/services/login"
 import Swal from "sweetalert2"
-import { types } from "types/types"
+import { types } from "src/types/types"
 
 const loginAction = (user) => ({
   type: types.authLogin,

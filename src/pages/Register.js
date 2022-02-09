@@ -1,5 +1,5 @@
 /* eslint-disable no-template-curly-in-string */
-import { startLogin } from "actions/auth"
+import { startLogin } from "src/actions/auth"
 import { useState } from "react"
 import { Button, Form } from "react-bootstrap"
 import { useDispatch } from "react-redux"
@@ -8,7 +8,7 @@ import { NavLink } from "react-router-dom"
 import { useField } from "../hooks/useField"
 import logo from "../images/owl.png"
 import * as yup from "yup"
-import createUser from "services/createUser"
+import createUser from "src/services/createUser"
 
 const userSchema = yup.object().shape({
   password2: yup

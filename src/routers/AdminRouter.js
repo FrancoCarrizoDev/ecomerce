@@ -1,5 +1,5 @@
-import { LateralMenu } from "components/LateralMenu"
-import { AdminPanel } from "pages/AdminPanel"
+import { LateralMenu } from "src/components/LateralMenu"
+import { AdminPanel } from "src/pages/AdminPanel"
 import {
   BrowserRouter as Router,
   Switch,
