@@ -6,10 +6,11 @@ import {
 import { DynamicDataTable } from "src/components/DynamicDataTable"
 import { addStyleOnSelectedRow } from "src/helpers/addStyleOnSelectedRow"
 import { Button } from "react-bootstrap"
+import Swal from "sweetalert2"
 
 export const AdminPanelProductCategories = () => {
   const [categories, setCategories] = useState([])
-  const [categorySelected, setCategorySelected] = useState("")
+  const [categorySelected, setCategorySelected] = useState({})
   const [valuesCategories, setValuesCategories] = useState([])
 
   useEffect(() => {
@@ -24,6 +25,40 @@ export const AdminPanelProductCategories = () => {
       })
     return () => (isSubscribed = false)
   }, [])
+
+  const handleClickAddProductValueCategories = () => {
+    Swal.fire({
+      title: `Agregar nuevo valor de la categoría "${categorySelected}"`,
+      input: "text",
+      inputAttributes: {
+        autocapitalize: "off",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar",
+      showLoaderOnConfirm: true,
+      preConfirm: (login) => {
+        return fetch(`//api.github.com/users/${login}`)
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(response.statusText)
+            }
+            return response.json()
+          })
+          .catch((error) => {
+            Swal.showValidationMessage(`Request failed: ${error}`)
+          })
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: `${result.value.login}'s avatar`,
+          imageUrl: result.value.avatar_url,
+        })
+      }
+    })
+  }
 
   return (
     <div className="container">
@@ -42,7 +77,7 @@ export const AdminPanelProductCategories = () => {
               getProductValuesCategories(row.id)
                 .then((data) => data.json())
                 .then((response) => {
-                  setCategorySelected(row.name.toLowerCase())
+                  setCategorySelected({ name: row.name, id: row.id })
                   setValuesCategories(response)
                 })
             }}
@@ -51,8 +86,15 @@ export const AdminPanelProductCategories = () => {
         {valuesCategories.length > 0 && (
           <div className="col-6">
             <div className="d-flex justify-content-between mb-1">
-              <h5 className="capitalize">{categorySelected}</h5>
-              <Button variant="primary" size="sm" className="rounded-sm px-3">
+              <h5 className="capitalize">
+                {categorySelected.name.toLowerCase()}
+              </h5>
+              <Button
+                variant="primary"
+                size="sm"
+                className="rounded-sm px-3"
+                onClick={handleClickAddProductValueCategories}
+              >
                 +
               </Button>
             </div>
