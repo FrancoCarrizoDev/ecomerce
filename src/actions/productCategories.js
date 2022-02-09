@@ -7,17 +7,13 @@ const getProductCategoriesAction = (categories) => ({
   payload: categories,
 })
 
-export const getProductCategoriesD = () => {
+export const getProductCategories = () => {
   return async (dispatch) => {
-    const fetchGetCategories = async () => {
-      try {
-        const initialCategories = await getProductsCategories()
-        dispatch(getProductCategoriesAction(initialCategories))
-        // setCategories(initialCategories)
-      } catch (error) {
-        console.log(error)
-      }
+    try {
+      const initialCategories = await getProductsCategories()
+      dispatch(getProductCategoriesAction(initialCategories))
+    } catch (error) {
+      console.log(error)
     }
-    fetchGetCategories()
   }
 }

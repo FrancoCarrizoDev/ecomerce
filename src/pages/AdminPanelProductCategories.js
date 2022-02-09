@@ -10,19 +10,18 @@ import Swal from "sweetalert2"
 import { openModalSuccess } from "src/helpers/sweetAlert"
 // import { getProductValuesCategoriesD } from "src/actions/productValuesCategories"
 import { useDispatch, useSelector } from "react-redux"
-import { getProductCategoriesD } from "src/actions/productCategories"
+import { getProductCategories } from "src/actions/productCategories"
 
 export const AdminPanelProductCategories = () => {
   const dispatch = useDispatch()
   const { categories } = useSelector(
     (state) => state.rootReducer.productCategories
   )
-  // const [categories, setCategories] = useState([])
   const [categorySelected, setCategorySelected] = useState({})
   const [valuesCategories, setValuesCategories] = useState([])
 
   useEffect(() => {
-    dispatch(getProductCategoriesD())
+    dispatch(getProductCategories())
     // Prueba para ver si funciona el reducer de productValuesCat
     // dispatch(getProductValuesCategoriesD())
   }, [])
