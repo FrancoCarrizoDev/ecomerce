@@ -1,7 +1,7 @@
 import { fetchWithToken } from "src/services/fetchWithToken"
 import login from "src/services/login"
-import Swal from "sweetalert2"
 import { types } from "src/types/types"
+import { openModalFailed, openModalSuccess } from "src/helpers/sweetAlert"
 
 const loginAction = (user) => ({
   type: types.authLogin,
@@ -40,18 +40,14 @@ export const startLogin = (email, password) => {
           )
         }
 
-        Swal.fire("Bienvenido!", "Nos alegra tenerte por aqui :)", "success")
+        openModalSuccess("Bienvenido!", "Nos alegra tenerte por aqui :)")
       } else {
-        Swal.fire("Error", body.msg, "error")
+        openModalFailed(body.msg)
         console.log(body.msg)
       }
       dispatch(loadingStop())
     } catch (error) {
-      Swal.fire(
-        "Error",
-        "Algo salió mal, por favor intente nuevamente más tarde",
-        "error"
-      )
+      openModalFailed("Algo salió mal, por favor intente nuevamente más tarde")
       dispatch(loadingStop())
     }
   }

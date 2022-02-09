@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import {
+  createProductsValueCategory,
   getProductsCategories,
   getProductValuesCategories,
 } from "src/services/productCategories"
@@ -7,28 +8,32 @@ import { DynamicDataTable } from "src/components/DynamicDataTable"
 import { addStyleOnSelectedRow } from "src/helpers/addStyleOnSelectedRow"
 import { Button } from "react-bootstrap"
 import Swal from "sweetalert2"
+import { openModalSuccess } from "src/helpers/sweetAlert"
+import { getProductValuesCategoriesD } from "src/actions/productValuesCategories"
+import { useDispatch } from "react-redux"
 
 export const AdminPanelProductCategories = () => {
+  const dispatch = useDispatch()
   const [categories, setCategories] = useState([])
   const [categorySelected, setCategorySelected] = useState({})
   const [valuesCategories, setValuesCategories] = useState([])
 
   useEffect(() => {
-    let isSubscribed = true
-    getProductsCategories()
-      .then((data) => data.json())
-      .then((response) =>
-        isSubscribed ? setCategories(response.categories) : null
-      )
-      .catch((err) => {
-        throw new Error(err)
-      })
-    return () => (isSubscribed = false)
+    const fetchGetCategories = async () => {
+      try {
+        const initialCategories = await getProductsCategories()
+        setCategories(initialCategories)
+      } catch (error) {
+        console.log(error)
+      }
+    }
+    fetchGetCategories()
+    dispatch(getProductValuesCategoriesD())
   }, [])
 
   const handleClickAddProductValueCategories = () => {
     Swal.fire({
-      title: `Agregar nuevo valor de la categoría "${categorySelected}"`,
+      title: `Agregar nuevo valor de la categoría "${categorySelected.name}"`,
       input: "text",
       inputAttributes: {
         autocapitalize: "off",
@@ -37,8 +42,8 @@ export const AdminPanelProductCategories = () => {
       confirmButtonText: "Aceptar",
       cancelButtonText: "Cancelar",
       showLoaderOnConfirm: true,
-      preConfirm: (login) => {
-        return fetch(`//api.github.com/users/${login}`)
+      preConfirm: (value) => {
+        return createProductsValueCategory(categorySelected.id, value)
           .then((response) => {
             if (!response.ok) {
               throw new Error(response.statusText)
@@ -46,16 +51,25 @@ export const AdminPanelProductCategories = () => {
             return response.json()
           })
           .catch((error) => {
-            Swal.showValidationMessage(`Request failed: ${error}`)
+            Swal.showValidationMessage(
+              `Ocurrió un error intente nuevamente más tarde`
+            )
+            console.log(error)
           })
       },
       allowOutsideClick: () => !Swal.isLoading(),
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: `${result.value.login}'s avatar`,
-          imageUrl: result.value.avatar_url,
-        })
+        openModalSuccess("Listo!", "Valor de categoría agregada!")
+        getProductValuesCategories(categorySelected.id)
+          .then((data) => data.json())
+          .then((response) => {
+            setCategorySelected({
+              name: categorySelected.name,
+              id: categorySelected.id,
+            })
+            setValuesCategories(response)
+          })
       }
     })
   }
