@@ -26,8 +26,14 @@ export const constructorDataColumns = (dataColumn = {}) => {
   return arr
 }
 
-export const constructorDataRows = (dataRows = []) => {
+export const constructorDataRows = (
+  dataRows = [],
+  actionDelete,
+  actionView,
+  actionEdit
+) => {
   if (dataRows.length === 0) return
+  debugger
   const newDataRows = dataRows.map(({ _id, ...rest }) => ({
     id: _id,
     ...rest,
@@ -36,17 +42,17 @@ export const constructorDataRows = (dataRows = []) => {
         <FontAwesomeIcon
           icon={faEye}
           className="pointer"
-          onClick={() => alert("click Ver " + _id)}
+          onClick={() => actionView(_id, rest)}
         />
         <FontAwesomeIcon
           icon={faEdit}
           className="pointer"
-          onClick={() => alert("click Editar")}
+          onClick={() => actionEdit(_id, rest)}
         />{" "}
         <FontAwesomeIcon
           icon={faTrashAlt}
           className="pointer"
-          onClick={() => alert("click Borrar")}
+          onClick={() => actionDelete(_id)}
         />
       </div>
     ),

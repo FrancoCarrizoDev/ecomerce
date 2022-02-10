@@ -5,13 +5,19 @@ import {
   constructorDataRows,
 } from "src/helpers/constructorsDataTable"
 
-export const DynamicDataTable = ({ data, ...props }) => {
+export const DynamicDataTable = ({
+  data,
+  actionDelete,
+  actionView,
+  actionEdit,
+  ...props
+}) => {
   const [dataColumns, setDataColumns] = useState([{}])
   const [dataRows, setDataRows] = useState([{}])
 
   useEffect(() => {
     if (!data) return
-    setDataRows(constructorDataRows(data))
+    setDataRows(constructorDataRows(data, actionDelete, actionView, actionEdit))
     setDataColumns(constructorDataColumns(data[0]))
   }, [data])
 

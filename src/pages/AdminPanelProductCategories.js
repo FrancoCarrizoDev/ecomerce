@@ -11,6 +11,47 @@ import { openModalSuccess } from "src/helpers/sweetAlert"
 import { useDispatch, useSelector } from "react-redux"
 import { getProductCategories } from "src/actions/productCategories"
 
+export const deleteProductValuesCategories = (id) => {
+  Swal.fire({
+    title: "Estas seguro de eliminar el product value " + id,
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+    preConfirm: () => alert("dio en ok"),
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire("Deleted!", "Your file has been deleted.", "success")
+    }
+  })
+}
+
+export const editProductValuesCategories = (id, productValue) => {
+  Swal.fire({
+    title: `Editar valor  de la categoría`,
+    input: "text",
+    inputValue: productValue.value,
+    inputAttributes: {
+      autocapitalize: "off",
+    },
+    showCancelButton: true,
+    confirmButtonText: "Aceptar",
+    cancelButtonText: "Cancelar",
+    showLoaderOnConfirm: true,
+    preConfirm: () => alert("dio en ok"),
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire("Deleted!", "Your file has been deleted.", "success")
+    }
+  })
+}
+
+export const viewProductValuesCategories = (_id, text) => {
+  Swal.fire("Valor de categoría", text.value, "info")
+}
+
 export const AdminPanelProductCategories = () => {
   const dispatch = useDispatch()
   const { categories } = useSelector(
@@ -90,7 +131,7 @@ export const AdminPanelProductCategories = () => {
           />
         </div>
         {valuesCategories.length > 0 && (
-          <div className="col-6">
+          <div className="col-6 fadeIn">
             <div className="d-flex justify-content-between mb-1">
               <h5 className="capitalize">
                 {categorySelected.name.toLowerCase()}
@@ -104,7 +145,12 @@ export const AdminPanelProductCategories = () => {
                 +
               </Button>
             </div>
-            <DynamicDataTable data={valuesCategories} className="fadeIn" />
+            <DynamicDataTable
+              data={valuesCategories}
+              actionDelete={deleteProductValuesCategories}
+              actionView={viewProductValuesCategories}
+              actionEdit={editProductValuesCategories}
+            />
           </div>
         )}
       </div>
