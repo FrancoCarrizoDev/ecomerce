@@ -3,6 +3,13 @@ export const types = {
   authAdminLogin: "[auth] Admin login",
   authChekingFinish: "[auth] Finish chechking login state",
   authLogout: "[auth] Logout",
+
   startLoading: "[loading] Start",
   stopLoading: "[loading] Stop",
+
+  getProductValueCategories: "[PVC] Get PVC",
+  createProductValueCategories: "[PVC] Create PVC",
+
+  getProductCategories: "[ProdCat] Get ProdCat",
+  createProductCategories: "[ProdCat] Create ProdCat",
 }
