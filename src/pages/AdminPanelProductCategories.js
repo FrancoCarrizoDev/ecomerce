@@ -8,7 +8,6 @@ import { addStyleOnSelectedRow } from "src/helpers/addStyleOnSelectedRow"
 import { Button } from "react-bootstrap"
 import Swal from "sweetalert2"
 import { openModalSuccess } from "src/helpers/sweetAlert"
-// import { getProductValuesCategoriesD } from "src/actions/productValuesCategories"
 import { useDispatch, useSelector } from "react-redux"
 import { getProductCategories } from "src/actions/productCategories"
 
@@ -22,8 +21,6 @@ export const AdminPanelProductCategories = () => {
 
   useEffect(() => {
     dispatch(getProductCategories())
-    // Prueba para ver si funciona el reducer de productValuesCat
-    // dispatch(getProductValuesCategoriesD())
   }, [])
 
   const handleClickAddProductValueCategories = () => {
