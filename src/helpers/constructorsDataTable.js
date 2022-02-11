@@ -33,7 +33,6 @@ export const constructorDataRows = (
   actionEdit
 ) => {
   if (dataRows.length === 0) return
-  debugger
   const newDataRows = dataRows.map(({ _id, ...rest }) => ({
     id: _id,
     ...rest,

@@ -20,8 +20,13 @@ export const getProductsCategories = (method = "GET") => {
     })
 }
 
-export const getProductValuesCategories = (id) => {
-  const url = `${baseUrl}/product-values-categories/${id}`
+export const getProductValuesCategories = (
+  categorySelected,
+  setCategorySelected,
+  setValuesCategories
+) => {
+  debugger
+  const url = `${baseUrl}/product-values-categories/${categorySelected.id}`
 
   const token = localStorage.getItem("token") || ""
 
@@ -30,6 +35,14 @@ export const getProductValuesCategories = (id) => {
       "x-token": token,
     },
   })
+    .then((data) => data.json())
+    .then((response) => {
+      setCategorySelected({
+        name: categorySelected.name,
+        id: categorySelected.id,
+      })
+      setValuesCategories(response)
+    })
 }
 
 export const createProductsValueCategory = (categoryId, value) => {
@@ -44,5 +57,35 @@ export const createProductsValueCategory = (categoryId, value) => {
       "x-token": token,
     },
     body: JSON.stringify({ value, product_category_id: categoryId }),
+  })
+}
+
+export const editProductValueCategory = (id, value) => {
+  const url = `${baseUrl}/product-values-categories`
+
+  const token = localStorage.getItem("token") || ""
+
+  return fetch(url, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      "x-token": token,
+    },
+    body: JSON.stringify({ id, value }),
+  })
+}
+
+export const disableProductValueCategories = (id) => {
+  const url = `${baseUrl}/product-values-categories`
+
+  const token = localStorage.getItem("token") || ""
+
+  return fetch(url, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      "x-token": token,
+    },
+    body: JSON.stringify({ id }),
   })
 }
