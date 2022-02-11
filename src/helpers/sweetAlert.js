@@ -28,9 +28,7 @@ export const handleClickAddProductValueCategories = (
           return response.json()
         })
         .catch((error) => {
-          Swal.showValidationMessage(
-            `Ocurrió un error intente nuevamente más tarde`
-          )
+          Swal.showValidationMessage(`Ocurrió un error intente nuevamente más tarde`)
           console.log(error)
         })
     },

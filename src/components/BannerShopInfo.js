@@ -15,11 +15,7 @@ export const BannerShopInfo = () => {
         </div>
         <div className="d-flex flex-column align-items-center  justify-content-center py-4">
           <span className="mb-2">
-            <img
-              src={creditCard}
-              alt="credit card"
-              style={{ width: 3 + "em" }}
-            />
+            <img src={creditCard} alt="credit card" style={{ width: 3 + "em" }} />
           </span>
           <h5>Hasta 6 cuotas sin interés</h5>
           <small>3 y 6 cuotas sin interés seleccionando Mobbex</small>

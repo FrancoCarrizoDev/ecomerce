@@ -11,18 +11,13 @@ import * as yup from "yup"
 import createUser from "src/services/createUser"
 
 const userSchema = yup.object().shape({
-  password2: yup
-    .string()
-    .oneOf([yup.ref("password"), null], "Las contraseñas deben coincidir"),
+  password2: yup.string().oneOf([yup.ref("password"), null], "Las contraseñas deben coincidir"),
   password: yup
     .string()
     .required("La contraseña es requerida")
     .min(4, "La contraseña es muy corta")
     .max(15, "La contraseña es muy larga"),
-  email: yup
-    .string()
-    .required("El campo email es requerido")
-    .email("El mail es inválido"),
+  email: yup.string().required("El campo email es requerido").email("El mail es inválido"),
   name: yup
     .string()
     .required("El campo nombre es requerido")
@@ -80,17 +75,9 @@ export const Register = () => {
       <div className="loginFormContainer border shadow-sm rounded-3 p-5">
         <div className="d-flex flex-column justify-content-center">
           <span className="d-flex justify-content-center">
-            <img
-              src={logo}
-              width="40"
-              height="40"
-              className="mb-2"
-              alt="React Bootstrap logo"
-            />
+            <img src={logo} width="40" height="40" className="mb-2" alt="React Bootstrap logo" />
           </span>
-          <h4 className="mb-3 text-center fw-bold">
-            ¡Hola! Ingresá tus datos.
-          </h4>
+          <h4 className="mb-3 text-center fw-bold">¡Hola! Ingresá tus datos.</h4>
         </div>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicPassword">
@@ -99,11 +86,7 @@ export const Register = () => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>
-            <Form.Control
-              placeholder="jhondoe@gmail.com"
-              size="sm"
-              {...email}
-            />
+            <Form.Control placeholder="jhondoe@gmail.com" size="sm" {...email} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">

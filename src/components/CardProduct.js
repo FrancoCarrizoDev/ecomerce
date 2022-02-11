@@ -29,10 +29,7 @@ export const CardProduct = ({ width }) => {
         {arrayTest.map((i) => (
           <div className="mb-3" key={`card-product-${i}`}>
             <Card className="border-0 shadow-sm">
-              <ImageAndHoverImage
-                background={testPhoto}
-                hoverBackground={testPhoto2}
-              />
+              <ImageAndHoverImage background={testPhoto} hoverBackground={testPhoto2} />
               <Card.Body>
                 <Card.Title>Blusa Reins</Card.Title>
                 <p className="card-text">

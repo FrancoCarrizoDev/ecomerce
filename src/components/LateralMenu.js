@@ -1,11 +1,6 @@
 import { ListGroup } from "react-bootstrap"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import {
-  faBoxOpen,
-  faImages,
-  faHome,
-  faTshirt,
-} from "@fortawesome/free-solid-svg-icons"
+import { faBoxOpen, faImages, faHome, faTshirt } from "@fortawesome/free-solid-svg-icons"
 import { NavLink } from "react-router-dom"
 export const LateralMenu = ({ url }) => {
   return (

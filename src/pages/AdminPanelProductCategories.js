@@ -13,11 +13,31 @@ import { openModalSuccess } from "src/helpers/sweetAlert"
 import { useDispatch, useSelector } from "react-redux"
 import { getProductCategories } from "src/actions/productCategories"
 
+const columnsProductCategories = [
+  {
+    name: "Nombres",
+    selector: (row) => row.name,
+  },
+  {
+    name: "Acción",
+    selector: (row) => row.action,
+  },
+]
+
+const columnsProductsValuesCategories = [
+  {
+    name: "Valor",
+    selector: (row) => row.value,
+  },
+  {
+    name: "Acción",
+    selector: (row) => row.action,
+  },
+]
+
 export const AdminPanelProductCategories = () => {
   const dispatch = useDispatch()
-  const { categories } = useSelector(
-    (state) => state.rootReducer.productCategories
-  )
+  const { categories } = useSelector((state) => state.rootReducer.productCategories)
   const [categorySelected, setCategorySelected] = useState({})
   const [valuesCategories, setValuesCategories] = useState([])
 
@@ -54,21 +74,13 @@ export const AdminPanelProductCategories = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         openModalSuccess("Listo!", "Valor de categoría agregada!")
-        getProductValuesCategories(
-          categorySelected,
-          setCategorySelected,
-          setValuesCategories
-        )
+        getProductValuesCategories(categorySelected, setCategorySelected, setValuesCategories)
       }
     })
   }
 
   const viewProductValuesCategories = (text) => {
-    Swal.fire(
-      `Valor de la categoría ${categorySelected.name}`,
-      text.value,
-      "info"
-    )
+    Swal.fire(`Valor de la categoría ${categorySelected.name}`, text.value, "info")
   }
 
   const editProductValuesCategories = (id, productValue) => {
@@ -100,17 +112,12 @@ export const AdminPanelProductCategories = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Listo!", "Tu valor ya ha sido actualizado.", "success")
-        getProductValuesCategories(
-          categorySelected,
-          setCategorySelected,
-          setValuesCategories
-        )
+        getProductValuesCategories(categorySelected, setCategorySelected, setValuesCategories)
       }
     })
   }
 
   const deleteProductValuesCategories = (id, productValue) => {
-    debugger
     Swal.fire({
       title: `Estas seguro de eliminar el valor "${productValue.value}" de la categoría ${categorySelected.name}`,
       text: "Este cambio es irreversible!",
@@ -137,11 +144,7 @@ export const AdminPanelProductCategories = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire("Deleted!", "Your file has been deleted.", "success")
-        getProductValuesCategories(
-          categorySelected,
-          setCategorySelected,
-          setValuesCategories
-        )
+        getProductValuesCategories(categorySelected, setCategorySelected, setValuesCategories)
       }
     })
   }
@@ -158,22 +161,17 @@ export const AdminPanelProductCategories = () => {
           </div>
           <DynamicDataTable
             data={categories}
+            columns={columnsProductCategories}
             onRowClicked={(row) => {
               addStyleOnSelectedRow(row.id)
-              getProductValuesCategories(
-                row,
-                setCategorySelected,
-                setValuesCategories
-              )
+              getProductValuesCategories(row, setCategorySelected, setValuesCategories)
             }}
           />
         </div>
         {categorySelected.name && (
           <div className="col-6 fadeIn">
             <div className="d-flex justify-content-between mb-1">
-              <h5 className="capitalize">
-                {categorySelected.name.toLowerCase()}
-              </h5>
+              <h5 className="capitalize">{categorySelected.name.toLowerCase()}</h5>
               <Button
                 variant="primary"
                 size="sm"
@@ -185,6 +183,7 @@ export const AdminPanelProductCategories = () => {
             </div>
             <DynamicDataTable
               data={valuesCategories}
+              columns={columnsProductsValuesCategories}
               actionDelete={deleteProductValuesCategories}
               actionView={viewProductValuesCategories}
               actionEdit={editProductValuesCategories}

@@ -25,7 +25,6 @@ export const getProductValuesCategories = (
   setCategorySelected,
   setValuesCategories
 ) => {
-  debugger
   const url = `${baseUrl}/product-values-categories/${categorySelected.id}`
 
   const token = localStorage.getItem("token") || ""

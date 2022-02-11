@@ -6,12 +6,7 @@ import { Product } from "src/pages/Product"
 import { Register } from "src/pages/Register"
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-} from "react-router-dom"
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom"
 import { CustomRoute } from "./CustomRoute"
 import { AdminRouter } from "./AdminRouter"
 // import { CustomRouteWithAuth } from "./CustomRouteWithAuth";
@@ -47,14 +42,8 @@ export const AppRouter = () => {
             path="/my-account"
             render={() => (uid ? <AdminRouter /> : <Redirect to="/login" />)}
           />
-          <Route
-            path="/login"
-            render={() => (uid ? <Redirect to="/" /> : <Login />)}
-          />
-          <Route
-            path="/register"
-            render={() => (uid ? <Redirect to="/" /> : <Register />)}
-          />
+          <Route path="/login" render={() => (uid ? <Redirect to="/" /> : <Login />)} />
+          <Route path="/register" render={() => (uid ? <Redirect to="/" /> : <Register />)} />
           <Redirect to="/" />
         </Switch>
       </div>

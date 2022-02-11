@@ -20,13 +20,7 @@ export const Menu = () => {
     dispatch(startLogout())
   }
   return (
-    <Navbar
-      collapseOnSelect
-      expand="lg"
-      bg="white"
-      variant="light"
-      sticky="top"
-    >
+    <Navbar collapseOnSelect expand="lg" bg="white" variant="light" sticky="top">
       <Container>
         <div className="d-flex align-items-center mb-auto pt-1">
           <Navbar.Brand href="#" className="d-flex me-2">
@@ -53,11 +47,7 @@ export const Menu = () => {
               aria-label="Buscar ..."
               aria-describedby="buscador"
             />
-            <button
-              className="btn btn-outline-secondary"
-              type="button"
-              id="buscador"
-            >
+            <button className="btn btn-outline-secondary" type="button" id="buscador">
               <FontAwesomeIcon icon={faSearch} fixedWidth />
             </button>
           </div>
@@ -92,18 +82,10 @@ export const Menu = () => {
             style={{ gap: "7px" }}
           >
             <span>
-              <img
-                src={notificationIcon}
-                alt="shopingcart"
-                className="smallIcon"
-              />
+              <img src={notificationIcon} alt="shopingcart" className="smallIcon" />
             </span>
             <span>
-              <img
-                src={shopingCartIcon}
-                alt="shopingcart"
-                className="smallIcon"
-              />
+              <img src={shopingCartIcon} alt="shopingcart" className="smallIcon" />
             </span>
             <span className="border border-dark rounded-circle px-2 d-flex align-items-center ">
               0
@@ -123,9 +105,7 @@ export const Menu = () => {
                 />
               </span> */}
             </NavLink>
-            <NavLink
-              to={`${auth.name ? "/my-acount/my-shopping" : "/register"}`}
-            >
+            <NavLink to={`${auth.name ? "/my-acount/my-shopping" : "/register"}`}>
               {auth.name ? "Mis Compras" : "Registrarse"}
             </NavLink>
             {auth.name ? (
@@ -188,25 +168,16 @@ export const Menu = () => {
               aria-label="Buscar ..."
               aria-describedby="buscador"
             />
-            <button
-              className="btn btn-outline-secondary"
-              type="button"
-              id="buscador"
-            >
+            <button className="btn btn-outline-secondary" type="button" id="buscador">
               <FontAwesomeIcon icon={faSearch} fixedWidth />
             </button>
           </div>
           <div className="d-flex align-items-center">
             <Nav className="me-auto flex-row" style={{ gap: "7px" }}>
-              <NavLink
-                to={`${auth.name ? "/my-acount" : "/login"}`}
-                className="fw-bold"
-              >
+              <NavLink to={`${auth.name ? "/my-acount" : "/login"}`} className="fw-bold">
                 {auth.name?.toUpperCase() || "Ingresar"}
               </NavLink>
-              <NavLink
-                to={`${auth.name ? "/my-acount/my-shopping" : "/register"}`}
-              >
+              <NavLink to={`${auth.name ? "/my-acount/my-shopping" : "/register"}`}>
                 {auth.name ? "Mis Compras" : "Registrarse"}
               </NavLink>
               {auth.name ? (
@@ -220,23 +191,12 @@ export const Menu = () => {
 
             <div className="d-flex align-items-center" style={{ gap: "7px" }}>
               <span>
-                <img
-                  src={notificationIcon}
-                  alt="shopingcart"
-                  f="#"
-                  className="smallIcon"
-                />
+                <img src={notificationIcon} alt="shopingcart" f="#" className="smallIcon" />
               </span>
               <span>
-                <img
-                  src={shopingCartIcon}
-                  alt="shopingcart"
-                  className="smallIcon"
-                />
+                <img src={shopingCartIcon} alt="shopingcart" className="smallIcon" />
               </span>
-              <span className="border rounded-circle px-2 d-flex align-items-center">
-                0
-              </span>
+              <span className="border rounded-circle px-2 d-flex align-items-center">0</span>
             </div>
           </div>
         </div>

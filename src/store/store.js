@@ -10,19 +10,14 @@ const storageConfig = {
 }
 
 const composeEnhancers =
-  (typeof window !== "undefined" &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
-  compose
+  (typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
 
 const reducers = combineReducers({
   rootReducer,
 })
 
 const myPersistReducer = persistReducer(storageConfig, reducers)
-const store = createStore(
-  myPersistReducer,
-  composeEnhancers(applyMiddleware(thunk))
-)
+const store = createStore(myPersistReducer, composeEnhancers(applyMiddleware(thunk)))
 
 export const persistor = persistStore(store)
 export default store

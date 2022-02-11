@@ -1,25 +1,28 @@
 import React, { useState, useEffect } from "react"
 import DataTable from "react-data-table-component"
-import {
-  constructorDataColumns,
-  constructorDataRows,
-} from "src/helpers/constructorsDataTable"
+import { constructorData } from "src/helpers/constructorsDataTable"
 
 export const DynamicDataTable = ({
   data,
   actionDelete,
   actionView,
   actionEdit,
+  columns,
   ...props
 }) => {
-  const [dataColumns, setDataColumns] = useState([{}])
   const [dataRows, setDataRows] = useState([{}])
 
   useEffect(() => {
     if (!data) return
-    setDataRows(constructorDataRows(data, actionDelete, actionView, actionEdit))
-    setDataColumns(constructorDataColumns(data[0]))
+    setDataRows(constructorData(data, actionDelete, actionView, actionEdit))
   }, [data])
 
-  return <DataTable columns={dataColumns} data={dataRows} {...props} />
+  return (
+    <DataTable
+      columns={columns}
+      data={dataRows}
+      {...props}
+      noDataComponent={"No hay registros disponibles"}
+    />
+  )
 }

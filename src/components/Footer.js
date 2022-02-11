@@ -49,21 +49,13 @@ export const Footer = () => {
         </div>
         <div className="d-flex flex-column">
           <div className="d-flex flex-column mb-2">
-            <small style={{ fontWeight: "600" }}>
-              Suscribite a nuestro Newsletter
-            </small>
+            <small style={{ fontWeight: "600" }}>Suscribite a nuestro Newsletter</small>
             <small>y enterate de nuestras promociones</small>
           </div>
           <Form>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Control
-                size="sm"
-                type="email"
-                placeholder="Ingresá tu mail"
-              />
-              <Form.Text className="text-muted">
-                Puedes desuscribirte cuando quieras.
-              </Form.Text>
+              <Form.Control size="sm" type="email" placeholder="Ingresá tu mail" />
+              <Form.Text className="text-muted">Puedes desuscribirte cuando quieras.</Form.Text>
             </Form.Group>
 
             <Form.Group
@@ -80,12 +72,7 @@ export const Footer = () => {
                 <Form.Check type="checkbox" label="Teen & Kids" />
               </small>
             </Form.Group>
-            <Button
-              variant="primary"
-              type="submit"
-              size="sm"
-              className="rounded-sm w-100"
-            >
+            <Button variant="primary" type="submit" size="sm" className="rounded-sm w-100">
               Enviar
             </Button>
           </Form>

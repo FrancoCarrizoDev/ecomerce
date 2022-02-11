@@ -1,10 +1,4 @@
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-  NavLink,
-} from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Redirect, NavLink } from "react-router-dom"
 import { useRouteMatch } from "../../node_modules/react-router-dom/cjs/react-router-dom.min"
 import Container from "../../node_modules/react-bootstrap/esm/Container"
 import { ListGroup } from "react-bootstrap"

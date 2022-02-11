@@ -24,26 +24,14 @@ export const Login = () => {
       <div className="loginFormContainer border shadow-sm rounded-3 p-5">
         <div className="d-flex flex-column justify-content-center">
           <span className="d-flex justify-content-center">
-            <img
-              src={logo}
-              width="40"
-              height="40"
-              className="mb-2"
-              alt="React Bootstrap logo"
-            />
+            <img src={logo} width="40" height="40" className="mb-2" alt="React Bootstrap logo" />
           </span>
-          <h4 className="mb-3 text-center fw-bold">
-            ¡Hola! Ingresá tus datos.
-          </h4>
+          <h4 className="mb-3 text-center fw-bold">¡Hola! Ingresá tus datos.</h4>
         </div>
         <Form onSubmit={handleSubmit}>
           <Form.Group className="mb-3" controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>
-            <Form.Control
-              placeholder="jhondoe@gmail.com"
-              size="sm"
-              {...email}
-            />
+            <Form.Control placeholder="jhondoe@gmail.com" size="sm" {...email} />
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">

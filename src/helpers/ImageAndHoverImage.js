@@ -15,8 +15,7 @@ export const ImageAndHoverImage = ({ background, hoverBackground }) => {
       -ms-animation: fadein 0.5s; /* Internet Explorer */
       -o-animation: fadein 0.5s; /* Opera < 12.1 */
       animation: fadein 0.5s;
-      background: ${(props) =>
-        `url(${props.hoverBackground}) no-repeat  center`};
+      background: ${(props) => `url(${props.hoverBackground}) no-repeat  center`};
       background-size: cover;
     }
   `

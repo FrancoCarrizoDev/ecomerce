@@ -9,18 +9,10 @@ export const CategoriesFilter = ({ width }) => {
     <>
       {width < 768 ? (
         <div className="d-flex justify-content-evenly mb-3">
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={() => setModalShow(true)}
-          >
+          <Button variant="primary" size="sm" onClick={() => setModalShow(true)}>
             FILTROS
           </Button>
-          <Button
-            variant="primary"
-            size="sm"
-            onClick={() => setModalShow(true)}
-          >
+          <Button variant="primary" size="sm" onClick={() => setModalShow(true)}>
             ORDENAR
           </Button>
           <ReactModal show={modalShow} onHide={() => setModalShow(false)} />

@@ -2,11 +2,7 @@ import { Footer } from "components/Footer"
 import { Menu } from "components/Menu"
 import { Redirect, Route } from "react-router-dom"
 
-export const CustomRouteWithAuth = ({
-  uid = null,
-  component: Component,
-  ...rest
-}) => {
+export const CustomRouteWithAuth = ({ uid = null, component: Component, ...rest }) => {
   return (
     <Route
       {...rest}

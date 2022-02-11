@@ -1,11 +1,6 @@
 import { LateralMenu } from "src/components/LateralMenu"
 import { AdminPanel } from "src/pages/AdminPanel"
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  Redirect,
-} from "react-router-dom"
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import { useRouteMatch } from "../../node_modules/react-router-dom/cjs/react-router-dom.min"
 import { ProductAdminRouter } from "./ProductAdminRouter"
 

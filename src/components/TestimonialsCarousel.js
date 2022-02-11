@@ -32,11 +32,7 @@ export const TestimonialsCarousel = () => {
       <hr />
       <Carousel responsive={responsive}>
         {arrTest.map((i) => (
-          <Card
-            style={{ width: "18rem" }}
-            key={`testimonial-${i}`}
-            className="mx-auto"
-          >
+          <Card style={{ width: "18rem" }} key={`testimonial-${i}`} className="mx-auto">
             <Card.Body>
               <div className="d-flex pb-3">
                 <img src={star} alt="#" style={{ width: "1rem" }} />
@@ -47,8 +43,8 @@ export const TestimonialsCarousel = () => {
               </div>
               <h6>Gran Servicio</h6>
               <Card.Text>
-                La calidad de la ropa es increible, la atención muy buena y el
-                envío llego a tiempo. Súper recomendable
+                La calidad de la ropa es increible, la atención muy buena y el envío llego a tiempo.
+                Súper recomendable
               </Card.Text>
               <div className="d-flex" style={{ gap: "1rem" }}>
                 <div style={{ width: "50px", height: "50px" }}>
