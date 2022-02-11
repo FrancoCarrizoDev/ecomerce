@@ -11,7 +11,6 @@ export const DynamicDataTable = ({
   ...props
 }) => {
   const [dataRows, setDataRows] = useState([{}])
-
   useEffect(() => {
     if (!data) return
     setDataRows(constructorData(data, actionDelete, actionView, actionEdit))
@@ -23,6 +22,8 @@ export const DynamicDataTable = ({
       data={dataRows}
       {...props}
       noDataComponent={"No hay registros disponibles"}
+      pagination
+      paginationComponentOptions={{ rowsPerPageText: "Filas por página:" }}
     />
   )
 }
