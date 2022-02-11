@@ -63,13 +63,17 @@ export const AdminPanelProductCategories = () => {
     })
   }
 
-  const viewProductValuesCategories = (_id, text) => {
-    Swal.fire("Valor de categoría", text.value, "info")
+  const viewProductValuesCategories = (text) => {
+    Swal.fire(
+      `Valor de la categoría ${categorySelected.name}`,
+      text.value,
+      "info"
+    )
   }
 
   const editProductValuesCategories = (id, productValue) => {
     Swal.fire({
-      title: `Editar valor  de la categoría`,
+      title: `Editar valor "${productValue.value}" de la categoría ${categorySelected.name}`,
       input: "text",
       inputValue: productValue.value,
       inputAttributes: {
@@ -105,15 +109,17 @@ export const AdminPanelProductCategories = () => {
     })
   }
 
-  const deleteProductValuesCategories = (id) => {
+  const deleteProductValuesCategories = (id, productValue) => {
+    debugger
     Swal.fire({
-      title: "Estas seguro de eliminar el product value " + id,
-      text: "You won't be able to revert this!",
+      title: `Estas seguro de eliminar el valor "${productValue.value}" de la categoría ${categorySelected.name}`,
+      text: "Este cambio es irreversible!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar",
       preConfirm: () => {
         return disableProductValueCategories(id)
           .then(async (response) => {

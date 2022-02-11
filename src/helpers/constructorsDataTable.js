@@ -41,7 +41,7 @@ export const constructorDataRows = (
         <FontAwesomeIcon
           icon={faEye}
           className="pointer"
-          onClick={() => actionView(_id, rest)}
+          onClick={() => actionView(rest)}
         />
         <FontAwesomeIcon
           icon={faEdit}
@@ -51,7 +51,7 @@ export const constructorDataRows = (
         <FontAwesomeIcon
           icon={faTrashAlt}
           className="pointer"
-          onClick={() => actionDelete(_id)}
+          onClick={() => actionDelete(_id, rest)}
         />
       </div>
     ),
