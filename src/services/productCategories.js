@@ -2,13 +2,13 @@ const baseUrl = process.env.REACT_APP_API_URL
 
 // TODO para los gets no hace falta enviar el token
 
-export const getProductsCategories = (method = "GET") => {
+export const getProductsCategories = () => {
   const url = `${baseUrl}/categories`
 
   const token = localStorage.getItem("token") || ""
 
   return fetch(url, {
-    method,
+    method: "GET",
     headers: {
       "x-token": token,
     },
@@ -18,6 +18,20 @@ export const getProductsCategories = (method = "GET") => {
     .catch((err) => {
       throw new Error(err)
     })
+}
+
+export const createProductCategory = (name) => {
+  const url = `${baseUrl}/categories`
+
+  const token = localStorage.getItem("token") || ""
+  return fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "x-token": token,
+    },
+    body: JSON.stringify({ name }),
+  })
 }
 
 export const getProductValuesCategories = (

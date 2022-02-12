@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import {
+  createProductCategory,
   createProductsValueCategory,
   disableProductValueCategories,
   editProductValueCategory,
@@ -44,6 +45,40 @@ export const AdminPanelProductCategories = () => {
   useEffect(() => {
     dispatch(getProductCategories())
   }, [])
+
+  const handleClickAddProductCategories = () => {
+    Swal.fire({
+      title: `Agregar una nueva categoría`,
+      input: "text",
+      inputAttributes: {
+        autocapitalize: "off",
+      },
+      showCancelButton: true,
+      confirmButtonText: "Aceptar",
+      cancelButtonText: "Cancelar",
+      showLoaderOnConfirm: true,
+      preConfirm: (value) => {
+        return createProductCategory(value)
+          .then(async (response) => {
+            if (!response.ok) {
+              const resp = await response.json()
+              throw new Error(resp.msg)
+            }
+            return response.json()
+          })
+          .catch((error) => {
+            Swal.showValidationMessage(error.message)
+            console.log(error.message)
+          })
+      },
+      allowOutsideClick: () => !Swal.isLoading(),
+    }).then((result) => {
+      if (result.isConfirmed) {
+        openModalSuccess("Listo!", "Catego agregada!")
+        dispatch(getProductCategories())
+      }
+    })
+  }
 
   const handleClickAddProductValueCategories = () => {
     Swal.fire({
@@ -155,7 +190,12 @@ export const AdminPanelProductCategories = () => {
         <div className="col-6">
           <div className="d-flex justify-content-between mb-1">
             <h5>Categorías</h5>{" "}
-            <Button variant="primary" size="sm" className="rounded-sm px-3">
+            <Button
+              variant="primary"
+              size="sm"
+              className="rounded-sm px-3"
+              onClick={handleClickAddProductCategories}
+            >
               +
             </Button>
           </div>
