@@ -146,7 +146,7 @@ export const AdminPanelProductCategories = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Eliminado!", "La categoría fue eliminada", "success")
+        Swal.fire("Eliminado!", `La categoría ${productValue.name} fue eliminada`, "success")
         dispatch(getProductCategories())
       }
     })
@@ -250,7 +250,11 @@ export const AdminPanelProductCategories = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Deleted!", "Your file has been deleted.", "success")
+        Swal.fire(
+          "Completado!",
+          `El valor ${productValue.value} de la categoría ${categorySelected.name} ha sido borrado exitosamente`,
+          "success"
+        )
         getProductValuesCategories(categorySelected, setCategorySelected, setValuesCategories)
       }
     })
