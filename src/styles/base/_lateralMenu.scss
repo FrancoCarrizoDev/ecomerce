@@ -1,26 +1,48 @@
 .lateralMenuContainer {
-  width: 250px;
+  grid-area: adminLateralMenu;
   height: 100vh;
-  background-color: whitesmoke;
-  color: #333;
-  border-right: 0.5px solid #a79e9e91;
+  padding: 0.5rem 1.25rem;
+  color: white;
+  background: #0f2027; /* fallback for old browsers */
+  background: -webkit-linear-gradient(
+    to right,
+    #2d3336,
+    #0a3443,
+    #173643
+  ); /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(
+    to right,
+    #2d3336,
+    #0a3443,
+    #173643
+  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+  ul {
+    align-items: center;
+  }
   .list-group-item:first-child {
-    border-top: 0.5px solid #a79e9e91;
+    border-top: none;
   }
   .list-group-item {
+    width: 100%;
+    padding: 0.5rem 1rem;
     background-color: transparent;
-    color: #333;
     border-bottom: 0.5px solid #a79e9e91;
     border-radius: 0;
+    color: white;
+    border: none;
     cursor: pointer;
     transition: all 300ms;
     a {
-      color: #333;
-      padding-left: 0.5rem;
+      color: white;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding-left: 0;
     }
   }
   .list-group-item:hover {
-    background-color: darken(#fff, 30%);
+    background-color: darken(#fff, 75%);
     transition: all 300ms;
   }
 }

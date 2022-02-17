@@ -261,7 +261,7 @@ export const AdminPanelProductCategories = () => {
   }
 
   return (
-    <div className="container">
+    <div className="container pt-4">
       <div className="row">
         <div className="col-6">
           <div className="d-flex justify-content-between mb-1">
