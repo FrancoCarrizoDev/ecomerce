@@ -1,0 +1,11 @@
+.categoriesMenuContainer {
+  grid-area: appContainer;
+}
+
+.categoriesMenu {
+  ul {
+    li {
+      padding: 0.5rem;
+    }
+  }
+}

@@ -1,16 +1,18 @@
-import { LateralMenu } from "src/components/LateralMenu"
+import { AdminLateralMenu } from "src/components/AdminLateralMenu"
 import { AdminPanel } from "src/pages/AdminPanel"
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 import { useRouteMatch } from "../../node_modules/react-router-dom/cjs/react-router-dom.min"
 import { ProductAdminRouter } from "./ProductAdminRouter"
+import { AdminTopMenu } from "src/components/AdminTopMenu"
 
 export const AdminRouter = () => {
   const { path, url } = useRouteMatch()
 
   return (
     <Router>
-      <div className="d-flex">
-        <LateralMenu url={url} />
+      <div className="adminRouterContainer">
+        <AdminLateralMenu url={url} />
+        <AdminTopMenu />
         <Switch>
           <Route exact path={`${path}/`}>
             <AdminPanel />
