@@ -10,31 +10,34 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { NavLink } from "react-router-dom"
 import { useState } from "react"
+import logo from "../images/owl.png"
+
 export const AdminLateralMenu = ({ url }) => {
   const [isMenuExpanded, setIsMenuExpanded] = useState(true)
-  const [test, setTest] = useState(false)
 
   return (
     <div className="lateralMenuContainer">
       <div className="p-3 d-flex justify-content-center align-items-center gap-sm ">
-        {isMenuExpanded && <h5 className="mb-0">Admin</h5>}
+        {isMenuExpanded && (
+          <img
+            src={logo}
+            width="25"
+            height="25"
+            className="d-inline-block align-top"
+            alt="React Bootstrap logo"
+          />
+        )}
+        {isMenuExpanded && <h5 className="mb-0">OwlShip</h5>}
 
         <button
-          className="btn btn-default btn-circle border"
-          onClick={() => {
-            setIsMenuExpanded(!isMenuExpanded)
-            setTest(true)
-          }}
+          className="btn btn-default btn-circle btn-circle-border"
+          onClick={() => setIsMenuExpanded(!isMenuExpanded)}
         >
-          <FontAwesomeIcon
-            icon={isMenuExpanded ? faChevronLeft : faBars}
-            size="sm"
-            style={{ color: "white " }}
-          />
+          <FontAwesomeIcon icon={isMenuExpanded ? faChevronLeft : faBars} size="sm" />
         </button>
       </div>
 
-      <ListGroup as="ul" className={`${test ? "fadeIn" : null}`}>
+      <ListGroup as="ul" className={!isMenuExpanded ? "adminLateralMenuChildCenter" : ""}>
         <ListGroup.Item as="li">
           <NavLink to={`${url}/`}>
             <FontAwesomeIcon icon={faHome} />

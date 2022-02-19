@@ -1,3 +1,4 @@
+import { addStyleOnSelectedRow } from "src/helpers/addStyleOnSelectedRow"
 import { useEffect, useState } from "react"
 import {
   createProductCategory,
@@ -8,13 +9,14 @@ import {
   updateProductCategory,
   updateProductValueCategory,
 } from "src/services/productCategories"
-import { DynamicDataTable } from "src/components/DynamicDataTable"
-import { addStyleOnSelectedRow } from "src/helpers/addStyleOnSelectedRow"
 import { Button } from "react-bootstrap"
 import Swal from "sweetalert2"
-import { openModalSuccess } from "src/helpers/sweetAlert"
 import { useDispatch, useSelector } from "react-redux"
+import { DynamicDataTable } from "src/components/DynamicDataTable"
+import { openModalSuccess } from "src/helpers/sweetAlert"
 import { getProductCategories } from "src/actions/productCategories"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import { faPlus } from "@fortawesome/free-solid-svg-icons"
 
 const columnsProductCategories = [
   {
@@ -261,44 +263,46 @@ export const AdminPanelProductCategories = () => {
   }
 
   return (
-    <div className="container pt-4">
+    <div className="container-fluid pt-4">
       <div className="row">
-        <div className="col-6">
-          <div className="d-flex justify-content-between mb-1">
-            <h5>Categorías</h5>{" "}
-            <Button
-              variant="primary"
-              size="sm"
-              className="rounded-sm px-3"
-              onClick={handleClickAddProductCategories}
-            >
-              +
-            </Button>
+        <div className="col-6 ">
+          <div className=" bg-white p-3 sweetBorderRadius shadow-sm">
+            <div className="d-flex justify-content-between mb-1">
+              <h5>Categorías</h5>{" "}
+              <Button
+                variant="primary"
+                className="btn-circle"
+                onClick={handleClickAddProductCategories}
+              >
+                <FontAwesomeIcon icon={faPlus} size="sm" />
+              </Button>
+            </div>
+            <DynamicDataTable
+              data={categories}
+              columns={columnsProductCategories}
+              onRowClicked={(row) => {
+                addStyleOnSelectedRow(row.id)
+                getProductValuesCategories(row, setCategorySelected, setValuesCategories)
+              }}
+              actionDelete={deleteProductCategories}
+              actionView={viewProductCategories}
+              actionEdit={editProductCategories}
+            />
           </div>
-          <DynamicDataTable
-            data={categories}
-            columns={columnsProductCategories}
-            onRowClicked={(row) => {
-              addStyleOnSelectedRow(row.id)
-              getProductValuesCategories(row, setCategorySelected, setValuesCategories)
-            }}
-            actionDelete={deleteProductCategories}
-            actionView={viewProductCategories}
-            actionEdit={editProductCategories}
-          />
         </div>
         {categorySelected.name && (
           <div className="col-6 fadeIn">
-            <div className="d-flex justify-content-between mb-1">
-              <h5 className="capitalize">{categorySelected.name.toLowerCase()}</h5>
-              <Button
-                variant="primary"
-                size="sm"
-                className="rounded-sm px-3"
-                onClick={handleClickAddProductValueCategories}
-              >
-                +
-              </Button>
+            <div className="bg-white p-3 sweetBorderRadius shadow-sm">
+              <div className="d-flex justify-content-between mb-1">
+                <h5 className="capitalize">{categorySelected.name.toLowerCase()}</h5>
+                <Button
+                  variant="primary"
+                  className="btn-circle"
+                  onClick={handleClickAddProductValueCategories}
+                >
+                  <FontAwesomeIcon icon={faPlus} size="sm" />
+                </Button>
+              </div>
             </div>
             <DynamicDataTable
               data={valuesCategories}
