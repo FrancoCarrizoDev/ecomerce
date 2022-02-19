@@ -6,7 +6,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 import { useRouteMatch } from "../../node_modules/react-router-dom/cjs/react-router-dom.min"
 
 export const GlobalRouter = () => {
-  let match = useRouteMatch()
+  const match = useRouteMatch()
   return (
     <Router>
       <div>

@@ -1,4 +1,10 @@
 .adminTopMenuContainer {
+  .dropdown-menu[data-bs-popper] {
+    left: -450%;
+  }
   background-color: #2979ff;
   grid-area: adminTopMenu;
+  .dropdown-toggle::after {
+    display: none;
+  }
 }

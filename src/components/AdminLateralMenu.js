@@ -17,7 +17,7 @@ export const AdminLateralMenu = ({ url }) => {
 
   return (
     <div className="lateralMenuContainer">
-      <div className="p-3 d-flex justify-content-center align-items-center gap-sm ">
+      <div className="paddingLateralMenuContainer d-flex justify-content-center align-items-center gap-sm ">
         {isMenuExpanded && (
           <img
             src={logo}
@@ -39,28 +39,48 @@ export const AdminLateralMenu = ({ url }) => {
 
       <ListGroup as="ul" className={!isMenuExpanded ? "adminLateralMenuChildCenter" : ""}>
         <ListGroup.Item as="li">
-          <NavLink to={`${url}/`}>
-            <FontAwesomeIcon icon={faHome} />
-            {isMenuExpanded && <span>Inicio</span>}
+          <NavLink
+            to={`${url}/home`}
+            className={(isActive) => (!isActive ? " unselected" : "routeSelected")}
+          >
+            <div className="containerIcons">
+              <FontAwesomeIcon icon={faHome} />
+              {isMenuExpanded && <span>Inicio</span>}
+            </div>
           </NavLink>
         </ListGroup.Item>
         <ListGroup.Item as="li" to="/">
-          <NavLink to={`${url}/products`}>
-            <FontAwesomeIcon icon={faTshirt} />
-            {isMenuExpanded && <span>Productos</span>}
+          <NavLink
+            to={`${url}/products`}
+            className={(isActive) => (!isActive ? " unselected" : "routeSelected")}
+          >
+            <div className="containerIcons">
+              <FontAwesomeIcon icon={faTshirt} />
+              {isMenuExpanded && <span>Productos</span>}
+            </div>
           </NavLink>
         </ListGroup.Item>
         <ListGroup.Item as="li">
-          <NavLink to={`${url}/products`}>
-            <FontAwesomeIcon icon={faBoxOpen} />
-            {isMenuExpanded && <span>Pedidos</span>}
+          <NavLink
+            to={`${url}/pedidos`}
+            className={(isActive) => (!isActive ? " unselected" : "routeSelected")}
+          >
+            <div className="containerIcons">
+              <FontAwesomeIcon icon={faBoxOpen} />
+              {isMenuExpanded && <span>Pedidos</span>}
+            </div>
           </NavLink>
         </ListGroup.Item>
 
         <ListGroup.Item as="li">
-          <NavLink to={`${url}/products`}>
-            <FontAwesomeIcon icon={faImages} />
-            {isMenuExpanded && <span>Banners</span>}
+          <NavLink
+            to={`${url}/banners`}
+            className={(isActive) => (!isActive ? " unselected" : "routeSelected")}
+          >
+            <div className="containerIcons">
+              <FontAwesomeIcon icon={faImages} />
+              {isMenuExpanded && <span>Banners</span>}
+            </div>
           </NavLink>
         </ListGroup.Item>
       </ListGroup>

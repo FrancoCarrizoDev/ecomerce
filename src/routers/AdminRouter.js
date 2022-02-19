@@ -14,13 +14,13 @@ export const AdminRouter = () => {
         <AdminLateralMenu url={url} />
         <AdminTopMenu />
         <Switch>
-          <Route exact path={`${path}/`}>
+          <Route path={`${path}/home`}>
             <AdminPanel />
           </Route>
-          <Route path={`${path}/products`}>
+          <Route exact path={`${path}/products`}>
             <ProductAdminRouter />
           </Route>
-          <Redirect to={`${path}/`} />
+          <Redirect to={`${path}/home`} />
         </Switch>
       </div>
     </Router>

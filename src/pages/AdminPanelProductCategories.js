@@ -263,7 +263,7 @@ export const AdminPanelProductCategories = () => {
   }
 
   return (
-    <div className="container-fluid pt-4">
+    <div className="container-fluid">
       <div className="row">
         <div className="col-6 ">
           <div className=" bg-white p-3 sweetBorderRadius shadow-sm">
