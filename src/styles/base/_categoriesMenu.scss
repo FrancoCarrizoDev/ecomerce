@@ -3,9 +3,18 @@
 }
 
 .categoriesMenu {
+  box-shadow: 2px 1px 3px 0px #ccc;
+  background: white;
   ul {
     li {
       padding: 0.5rem;
+      .nav-link {
+        padding: 0px !important;
+        color: lighten(#0d6efd, 15%);
+      }
+      .nav-link:hover {
+        color: #0d6efd;
+      }
     }
   }
 }

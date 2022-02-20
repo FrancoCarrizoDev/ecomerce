@@ -17,7 +17,7 @@ export const AdminRouter = () => {
           <Route path={`${path}/home`}>
             <AdminPanel />
           </Route>
-          <Route exact path={`${path}/products`}>
+          <Route path={`${path}/products`}>
             <ProductAdminRouter />
           </Route>
           <Redirect to={`${path}/home`} />

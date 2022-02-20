@@ -1,4 +1,5 @@
 import { combineReducers } from "redux"
+import { appSelectedReducer } from "./appSelectedReducer"
 import { authReducer } from "./authReducer"
 import { loadingReducer } from "./loadingReducer"
 import { productCategoriesReducer } from "./productCategoriesReducer"
@@ -9,4 +10,5 @@ export const rootReducer = combineReducers({
   loading: loadingReducer,
   productCategories: productCategoriesReducer,
   productValuesCategories: productValuesCategoriesReducer,
+  appSelected: appSelectedReducer,
 })

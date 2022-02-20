@@ -7,13 +7,9 @@ export const constructorData = (dataRows = [], actionDelete, actionView, actionE
     id: _id,
     ...rest,
     action: (
-      <div className="d-flex gap-sm">
+      <div className="dataTableIconsContainer">
         <FontAwesomeIcon icon={faEye} className="pointer" onClick={() => actionView(rest)} />
-        <FontAwesomeIcon
-          icon={faEdit}
-          className="pointer"
-          onClick={() => actionEdit(_id, rest)}
-        />{" "}
+        <FontAwesomeIcon icon={faEdit} className="pointer" onClick={() => actionEdit(_id, rest)} />
         <FontAwesomeIcon
           icon={faTrashAlt}
           className="pointer"
