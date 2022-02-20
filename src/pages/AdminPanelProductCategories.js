@@ -268,7 +268,7 @@ export const AdminPanelProductCategories = () => {
         <div className="col-6 ">
           <div className=" bg-white pt-3 px-3 pb-0 sweetBorderRadius shadow-sm">
             <div className="d-flex justify-content-between mb-1">
-              <h5>Categorías</h5>{" "}
+              <h5>Categorías Globales</h5>{" "}
               <Button
                 variant="primary"
                 className="btn-circle"
