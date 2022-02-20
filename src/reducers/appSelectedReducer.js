@@ -1,9 +1,9 @@
-import { types } from "../types/types"
+import { types } from '../types/types'
 
 const ACTIONS_REDUCERS = {
   [types.appSelected]: (state, action) => ({
     ...state,
-    name: action.payload || "",
+    name: action.payload || '',
   }),
 }
 

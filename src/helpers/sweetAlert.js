@@ -1,8 +1,8 @@
 import {
   createProductsValueCategory,
   getProductValuesCategories,
-} from "src/services/productCategories"
-import Swal from "sweetalert2"
+} from 'src/services/productCategories'
+import Swal from 'sweetalert2'
 
 export const handleClickAddProductValueCategories = (
   categorySelected,
@@ -11,13 +11,13 @@ export const handleClickAddProductValueCategories = (
 ) => {
   Swal.fire({
     title: `Agregar nuevo valor de la categoría "${categorySelected.name}"`,
-    input: "text",
+    input: 'text',
     inputAttributes: {
-      autocapitalize: "off",
+      autocapitalize: 'off',
     },
     showCancelButton: true,
-    confirmButtonText: "Aceptar",
-    cancelButtonText: "Cancelar",
+    confirmButtonText: 'Aceptar',
+    cancelButtonText: 'Cancelar',
     showLoaderOnConfirm: true,
     preConfirm: (value) => {
       return createProductsValueCategory(categorySelected.id, value)
@@ -35,7 +35,7 @@ export const handleClickAddProductValueCategories = (
     allowOutsideClick: () => !Swal.isLoading(),
   }).then((result) => {
     if (result.isConfirmed) {
-      openModalSuccess("Listo!", "Valor de categoría agregada!")
+      openModalSuccess('Listo!', 'Valor de categoría agregada!')
       getProductValuesCategories(categorySelected.id)
         .then((data) => data.json())
         .then((response) => {
@@ -50,9 +50,9 @@ export const handleClickAddProductValueCategories = (
 }
 
 export const openModalSuccess = (title, message) => {
-  Swal.fire(title, message, "success")
+  Swal.fire(title, message, 'success')
 }
 
 export const openModalFailed = (text) => {
-  Swal.fire("Error", text, "error")
+  Swal.fire('Error', text, 'error')
 }

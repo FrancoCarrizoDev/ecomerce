@@ -1,15 +1,15 @@
-import { Breadcrumb } from "react-bootstrap"
-import { useLocation } from "../../node_modules/react-router-dom/cjs/react-router-dom.min"
+import { Breadcrumb } from 'react-bootstrap'
+import { useLocation } from '../../node_modules/react-router-dom/cjs/react-router-dom.min'
 export const BreadCrum = () => {
   const location = useLocation()
-  const [, ...breadCumList] = location.pathname.split("/")
+  const [, ...breadCumList] = location.pathname.split('/')
 
   return (
     <div>
       <Breadcrumb>
-        <Breadcrumb.Item href="#">INICIO</Breadcrumb.Item>
+        <Breadcrumb.Item href='#'>INICIO</Breadcrumb.Item>
         {breadCumList.map((breadCrum) => (
-          <Breadcrumb.Item href="#" key={`breadCrumList-${breadCrum}`}>
+          <Breadcrumb.Item href='#' key={`breadCrumList-${breadCrum}`}>
             {breadCrum.toUpperCase()}
           </Breadcrumb.Item>
         ))}

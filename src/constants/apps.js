@@ -1,10 +1,10 @@
 export const APPS = {
   PRODUCTOS: {
-    name: "Productos",
+    name: 'Productos',
     id: 1,
   },
   HOME: {
-    name: "Inicio",
+    name: 'Inicio',
     id: 2,
   },
 }

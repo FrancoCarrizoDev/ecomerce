@@ -1,14 +1,14 @@
-import { startCheking } from "src/actions/auth"
-import { Loading } from "src/components/Loading"
-import { Home } from "src/pages/Home"
-import { Login } from "src/pages/Login"
-import { Product } from "src/pages/Product"
-import { Register } from "src/pages/Register"
-import { useEffect } from "react"
-import { useDispatch, useSelector } from "react-redux"
-import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom"
-import { CustomRoute } from "./CustomRoute"
-import { AdminRouter } from "./AdminRouter"
+import { startCheking } from 'src/actions/auth'
+import { Loading } from 'src/components/Loading'
+import { Home } from 'src/pages/Home'
+import { Login } from 'src/pages/Login'
+import { Product } from 'src/pages/Product'
+import { Register } from 'src/pages/Register'
+import { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
+import { CustomRoute } from './CustomRoute'
+import { AdminRouter } from './AdminRouter'
 // import { CustomRouteWithAuth } from "./CustomRouteWithAuth";
 
 export const AppRouter = () => {
@@ -18,8 +18,8 @@ export const AppRouter = () => {
 
   useEffect(() => {
     if (
-      window.localStorage.getItem("token") &&
-      window.localStorage.getItem("token") !== "undefined"
+      window.localStorage.getItem('token') &&
+      window.localStorage.getItem('token') !== 'undefined'
     )
       return dispatch(startCheking())
   }, [dispatch])
@@ -29,9 +29,9 @@ export const AppRouter = () => {
       <div>
         {checking && <Loading />}
         <Switch>
-          <CustomRoute exact path="/" component={Home} />
+          <CustomRoute exact path='/' component={Home} />
           <CustomRoute path={`/hombre`} component={Product} />
-          <CustomRoute exact path="hombre/:id" component={Product} />
+          <CustomRoute exact path='hombre/:id' component={Product} />
           {/* <CustomRouteWithAuth
             path="/my-account/:id"
             component={UserPanel}
@@ -39,12 +39,12 @@ export const AppRouter = () => {
           /> */}
           {/* Falta validar que sea el admin */}
           <Route
-            path="/my-account"
-            render={() => (uid ? <AdminRouter /> : <Redirect to="/login" />)}
+            path='/my-account'
+            render={() => (uid ? <AdminRouter /> : <Redirect to='/login' />)}
           />
-          <Route path="/login" render={() => (uid ? <Redirect to="/" /> : <Login />)} />
-          <Route path="/register" render={() => (uid ? <Redirect to="/" /> : <Register />)} />
-          <Redirect to="/" />
+          <Route path='/login' render={() => (uid ? <Redirect to='/' /> : <Login />)} />
+          <Route path='/register' render={() => (uid ? <Redirect to='/' /> : <Register />)} />
+          <Redirect to='/' />
         </Switch>
       </div>
     </Router>

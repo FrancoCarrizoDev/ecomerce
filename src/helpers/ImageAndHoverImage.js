@@ -1,4 +1,4 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
 export const ImageAndHoverImage = ({ background, hoverBackground }) => {
   const Img = styled.img`
@@ -24,7 +24,7 @@ export const ImageAndHoverImage = ({ background, hoverBackground }) => {
     <Img
       background={background}
       hoverBackground={hoverBackground}
-      className="logoContent card-img-top"
+      className='logoContent card-img-top'
     />
   )
 }

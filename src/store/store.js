@@ -1,16 +1,16 @@
-import { rootReducer } from "../reducers/rootReducer"
-import { createStore, combineReducers, applyMiddleware, compose } from "redux"
-import { persistStore, persistReducer } from "redux-persist"
-import storage from "redux-persist/lib/storage"
-import thunk from "redux-thunk"
+import { rootReducer } from '../reducers/rootReducer'
+import { createStore, combineReducers, applyMiddleware, compose } from 'redux'
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'
+import thunk from 'redux-thunk'
 
 const storageConfig = {
-  key: "root", // debe tener
+  key: 'root', // debe tener
   storage, // Mecanismo de caché
 }
 
 const composeEnhancers =
-  (typeof window !== "undefined" && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
+  (typeof window !== 'undefined' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) || compose
 
 const reducers = combineReducers({
   rootReducer,
