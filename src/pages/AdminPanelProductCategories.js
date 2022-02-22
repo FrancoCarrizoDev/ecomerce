@@ -1,5 +1,5 @@
-import { addStyleOnSelectedRow } from "src/helpers/addStyleOnSelectedRow"
-import { useEffect, useState } from "react"
+import { addStyleOnSelectedRow } from 'src/helpers/addStyleOnSelectedRow'
+import { useEffect, useState } from 'react'
 import {
   createProductCategory,
   createProductsValueCategory,
@@ -8,31 +8,31 @@ import {
   getProductValuesCategories,
   updateProductCategory,
   updateProductValueCategory,
-} from "src/services/productCategories"
-import Swal from "sweetalert2"
-import { useDispatch, useSelector } from "react-redux"
-import { DynamicDataTable } from "src/components/DynamicDataTable"
-import { openModalSuccess } from "src/helpers/sweetAlert"
-import { getProductCategories } from "src/actions/productCategories"
+} from 'src/services/productCategories'
+import Swal from 'sweetalert2'
+import { useDispatch, useSelector } from 'react-redux'
+import { DynamicDataTable } from 'src/components/DynamicDataTable'
+import { openModalSuccess } from 'src/helpers/sweetAlert'
+import { getProductCategories } from 'src/actions/productCategories'
 
 const columnsProductCategories = [
   {
-    name: "Nombres",
+    name: 'Nombres',
     selector: (row) => row.name,
   },
   {
-    name: "Acción",
+    name: 'Acción',
     selector: (row) => row.action,
   },
 ]
 
 const columnsProductsValuesCategories = [
   {
-    name: "Valor",
+    name: 'Valor',
     selector: (row) => row.value,
   },
   {
-    name: "Acción",
+    name: 'Acción',
     selector: (row) => row.action,
   },
 ]
@@ -50,13 +50,13 @@ export const AdminPanelProductCategories = () => {
   const handleClickAddProductCategories = () => {
     Swal.fire({
       title: `Agregar una nueva categoría`,
-      input: "text",
+      input: 'text',
       inputAttributes: {
-        autocapitalize: "off",
+        autocapitalize: 'off',
       },
       showCancelButton: true,
-      confirmButtonText: "Aceptar",
-      cancelButtonText: "Cancelar",
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
       showLoaderOnConfirm: true,
       preConfirm: (value) => {
         return createProductCategory(value)
@@ -75,27 +75,27 @@ export const AdminPanelProductCategories = () => {
       allowOutsideClick: () => !Swal.isLoading(),
     }).then((result) => {
       if (result.isConfirmed) {
-        openModalSuccess("Listo!", "Catego agregada!")
+        openModalSuccess('Listo!', 'Catego agregada!')
         dispatch(getProductCategories())
       }
     })
   }
 
   const viewProductCategories = (text) => {
-    Swal.fire(`Valor de la categoría `, text.name, "info")
+    Swal.fire(`Valor de la categoría `, text.name, 'info')
   }
 
   const editProductCategories = (id, productValue) => {
     Swal.fire({
       title: `Editar valor de la categoría ${productValue.name}`,
-      input: "text",
+      input: 'text',
       inputValue: productValue.name,
       inputAttributes: {
-        autocapitalize: "off",
+        autocapitalize: 'off',
       },
       showCancelButton: true,
-      confirmButtonText: "Aceptar",
-      cancelButtonText: "Cancelar",
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
       showLoaderOnConfirm: true,
       preConfirm: (value) => {
         return updateProductCategory(id, value)
@@ -113,7 +113,7 @@ export const AdminPanelProductCategories = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Listo!", "Tu valor ya ha sido actualizado.", "success")
+        Swal.fire('Listo!', 'Tu valor ya ha sido actualizado.', 'success')
         dispatch(getProductCategories())
       }
     })
@@ -122,13 +122,13 @@ export const AdminPanelProductCategories = () => {
   const deleteProductCategories = (id, productValue) => {
     Swal.fire({
       title: `Estas seguro de eliminar la categoría ${productValue.name}`,
-      text: "Este cambio es irreversible!",
-      icon: "warning",
+      text: 'Este cambio es irreversible!',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Aceptar",
-      cancelButtonText: "Cancelar",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
       preConfirm: () => {
         return disableProductCategories(id)
           .then(async (response) => {
@@ -145,7 +145,7 @@ export const AdminPanelProductCategories = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Eliminado!", `La categoría ${productValue.name} fue eliminada`, "success")
+        Swal.fire('Eliminado!', `La categoría ${productValue.name} fue eliminada`, 'success')
         dispatch(getProductCategories())
       }
     })
@@ -154,13 +154,13 @@ export const AdminPanelProductCategories = () => {
   const handleClickAddProductValueCategories = () => {
     Swal.fire({
       title: `Agregar nuevo valor de la categoría "${categorySelected.name}"`,
-      input: "text",
+      input: 'text',
       inputAttributes: {
-        autocapitalize: "off",
+        autocapitalize: 'off',
       },
       showCancelButton: true,
-      confirmButtonText: "Aceptar",
-      cancelButtonText: "Cancelar",
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
       showLoaderOnConfirm: true,
       preConfirm: (value) => {
         return createProductsValueCategory(categorySelected.id, value)
@@ -179,27 +179,27 @@ export const AdminPanelProductCategories = () => {
       allowOutsideClick: () => !Swal.isLoading(),
     }).then((result) => {
       if (result.isConfirmed) {
-        openModalSuccess("Listo!", "Valor de categoría agregada!")
+        openModalSuccess('Listo!', 'Valor de categoría agregada!')
         getProductValuesCategories(categorySelected, setCategorySelected, setValuesCategories)
       }
     })
   }
 
   const viewProductValuesCategories = (text) => {
-    Swal.fire(`Valor de la categoría ${categorySelected.name}`, text.value, "info")
+    Swal.fire(`Valor de la categoría ${categorySelected.name}`, text.value, 'info')
   }
 
   const editProductValuesCategories = (id, productValue) => {
     Swal.fire({
       title: `Editar valor "${productValue.value}" de la categoría ${categorySelected.name}`,
-      input: "text",
+      input: 'text',
       inputValue: productValue.value,
       inputAttributes: {
-        autocapitalize: "off",
+        autocapitalize: 'off',
       },
       showCancelButton: true,
-      confirmButtonText: "Aceptar",
-      cancelButtonText: "Cancelar",
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
       showLoaderOnConfirm: true,
       preConfirm: (value) => {
         return updateProductValueCategory(id, value)
@@ -217,7 +217,7 @@ export const AdminPanelProductCategories = () => {
       },
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire("Listo!", "Tu valor ya ha sido actualizado.", "success")
+        Swal.fire('Listo!', 'Tu valor ya ha sido actualizado.', 'success')
         getProductValuesCategories(categorySelected, setCategorySelected, setValuesCategories)
       }
     })
@@ -226,13 +226,13 @@ export const AdminPanelProductCategories = () => {
   const deleteProductValuesCategories = (id, productValue) => {
     Swal.fire({
       title: `Estas seguro de eliminar el valor "${productValue.value}" de la categoría ${categorySelected.name}`,
-      text: "Este cambio es irreversible!",
-      icon: "warning",
+      text: 'Este cambio es irreversible!',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Aceptar",
-      cancelButtonText: "Cancelar",
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Cancelar',
       preConfirm: () => {
         return disableProductValueCategories(id)
           .then(async (response) => {
@@ -250,9 +250,9 @@ export const AdminPanelProductCategories = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire(
-          "Completado!",
+          'Completado!',
           `El valor ${productValue.value} de la categoría ${categorySelected.name} ha sido borrado exitosamente`,
-          "success"
+          'success'
         )
         getProductValuesCategories(categorySelected, setCategorySelected, setValuesCategories)
       }
@@ -261,11 +261,11 @@ export const AdminPanelProductCategories = () => {
 
   // TODO modularizar la tabla con su título
   return (
-    <div className="container-fluid pt-3">
-      <div className="row">
-        <div className="col-12 col-md-6">
+    <div className='container-fluid pt-3'>
+      <div className='row'>
+        <div className='col-12 col-md-6'>
           <DynamicDataTable
-            title={"Categorías"}
+            title={'Categorías'}
             handleClickAdd={handleClickAddProductCategories}
             data={categories}
             columns={columnsProductCategories}
@@ -279,7 +279,7 @@ export const AdminPanelProductCategories = () => {
           />
         </div>
         {categorySelected.name && (
-          <div className="col-12 col-md-6 fadeIn">
+          <div className='col-12 col-md-6 fadeIn'>
             <DynamicDataTable
               title={categorySelected.name}
               handleClickAdd={handleClickAddProductValueCategories}

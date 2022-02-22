@@ -1,7 +1,7 @@
-import { fetchWithToken } from "src/services/fetchWithToken"
-import login from "src/services/login"
-import { types } from "src/types/types"
-import { openModalFailed, openModalSuccess } from "src/helpers/sweetAlert"
+import { fetchWithToken } from 'src/services/fetchWithToken'
+import login from 'src/services/login'
+import { types } from 'src/types/types'
+import { openModalFailed, openModalSuccess } from 'src/helpers/sweetAlert'
 
 const loginAction = (user) => ({
   type: types.authLogin,
@@ -21,8 +21,8 @@ export const startLogin = (email, password) => {
       const body = await response.json()
 
       if (response.ok) {
-        localStorage.setItem("token", body.token)
-        localStorage.setItem("token-init-date", new Date().getTime())
+        localStorage.setItem('token', body.token)
+        localStorage.setItem('token-init-date', new Date().getTime())
         if (body.user.role) {
           dispatch(
             adminLoginAction({
@@ -40,14 +40,14 @@ export const startLogin = (email, password) => {
           )
         }
 
-        openModalSuccess("Bienvenido!", "Nos alegra tenerte por aqui :)")
+        openModalSuccess('Bienvenido!', 'Nos alegra tenerte por aqui :)')
       } else {
         openModalFailed(body.msg)
         console.log(body.msg)
       }
       dispatch(loadingStop())
     } catch (error) {
-      openModalFailed("Algo salió mal, por favor intente nuevamente más tarde")
+      openModalFailed('Algo salió mal, por favor intente nuevamente más tarde')
       dispatch(loadingStop())
     }
   }
@@ -70,11 +70,11 @@ export const startCheking = () => {
   return async (dispatch) => {
     try {
       dispatch(loadingStart())
-      const response = await fetchWithToken("auth/renew")
+      const response = await fetchWithToken('auth/renew')
       const body = await response.json()
 
-      localStorage.setItem("token", body.token)
-      localStorage.setItem("token-init-date", new Date().getTime())
+      localStorage.setItem('token', body.token)
+      localStorage.setItem('token-init-date', new Date().getTime())
       dispatch(
         loginAction({
           uid: body.user.uid,

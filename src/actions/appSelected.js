@@ -1,6 +1,6 @@
-const { types } = require("src/types/types")
+const { types } = require('src/types/types')
 
-const selectAppAction = (appSelected = "") => ({
+const selectAppAction = (appSelected = '') => ({
   type: types.appSelected,
   payload: appSelected,
 })
