@@ -18,7 +18,7 @@ export const ProductAdminRouter = () => {
     <Router>
       <div className="w-100 d-flex flex-column categoriesMenuContainer">
         <div className="categoriesMenu">
-          <ul className="d-flex flex-row navbar-nav p-1">
+          <ul className="d-flex flex-row navbar-nav">
             <li className="nav-item">
               <NavLink
                 to={`${url}/create`}
@@ -62,22 +62,22 @@ export const ProductAdminRouter = () => {
             </li>
             <li className="nav-item">
               <NavLink
-                to={`${url}/categories`}
+                to={`${url}/product-categories`}
                 className={(isActive) =>
                   !isActive ? " unselected nav-link" : "activeNav nav-link"
                 }
               >
-                Categorías
+                Categorías Por Producto
               </NavLink>
             </li>
             <li className="nav-item">
               <NavLink
-                to={`${url}/list`}
+                to={`${url}/product-type-categories`}
                 className={(isActive) =>
                   !isActive ? " unselected nav-link" : "activeNav nav-link"
                 }
               >
-                Color
+                Categorías Por Tipo de producto
               </NavLink>
             </li>
           </ul>
@@ -89,7 +89,10 @@ export const ProductAdminRouter = () => {
           <Route path={`${path}/list`}>
             <h4>Listado de productos</h4>
           </Route>
-          <Route path={`${path}/categories`}>
+          <Route path={`${path}/product-categories`}>
+            <AdminPanelProductCategories />
+          </Route>
+          <Route path={`${path}/product-type-categories`}>
             <AdminPanelProductCategories />
           </Route>
           <Redirect to={`${path}/create`} />

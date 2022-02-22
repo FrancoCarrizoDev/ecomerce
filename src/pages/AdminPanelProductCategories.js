@@ -9,14 +9,11 @@ import {
   updateProductCategory,
   updateProductValueCategory,
 } from "src/services/productCategories"
-import { Button } from "react-bootstrap"
 import Swal from "sweetalert2"
 import { useDispatch, useSelector } from "react-redux"
 import { DynamicDataTable } from "src/components/DynamicDataTable"
 import { openModalSuccess } from "src/helpers/sweetAlert"
 import { getProductCategories } from "src/actions/productCategories"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { faPlus } from "@fortawesome/free-solid-svg-icons"
 
 const columnsProductCategories = [
   {
@@ -262,49 +259,30 @@ export const AdminPanelProductCategories = () => {
     })
   }
 
+  // TODO modularizar la tabla con su título
   return (
     <div className="container-fluid pt-3">
       <div className="row">
-        <div className="col-6 ">
-          <div className=" bg-white pt-3 px-3 pb-0 sweetBorderRadius shadow-sm">
-            <div className="d-flex justify-content-between mb-1">
-              <h5>Categorías</h5>{" "}
-              <Button
-                variant="primary"
-                className="btn-circle"
-                onClick={handleClickAddProductCategories}
-              >
-                <FontAwesomeIcon icon={faPlus} size="sm" />
-              </Button>
-            </div>
-            <DynamicDataTable
-              data={categories}
-              columns={columnsProductCategories}
-              onRowClicked={(row) => {
-                addStyleOnSelectedRow(row.id)
-                getProductValuesCategories(row, setCategorySelected, setValuesCategories)
-              }}
-              actionDelete={deleteProductCategories}
-              actionView={viewProductCategories}
-              actionEdit={editProductCategories}
-            />
-          </div>
+        <div className="col-12 col-md-6">
+          <DynamicDataTable
+            title={"Categorías"}
+            handleClickAdd={handleClickAddProductCategories}
+            data={categories}
+            columns={columnsProductCategories}
+            onRowClicked={(row) => {
+              addStyleOnSelectedRow(row.id)
+              getProductValuesCategories(row, setCategorySelected, setValuesCategories)
+            }}
+            actionDelete={deleteProductCategories}
+            actionView={viewProductCategories}
+            actionEdit={editProductCategories}
+          />
         </div>
         {categorySelected.name && (
-          <div className="col-6 fadeIn">
-            <div className="bg-white p-3 sweetBorderRadius shadow-sm">
-              <div className="d-flex justify-content-between mb-1">
-                <h5 className="capitalize">{categorySelected.name.toLowerCase()}</h5>
-                <Button
-                  variant="primary"
-                  className="btn-circle"
-                  onClick={handleClickAddProductValueCategories}
-                >
-                  <FontAwesomeIcon icon={faPlus} size="sm" />
-                </Button>
-              </div>
-            </div>
+          <div className="col-12 col-md-6 fadeIn">
             <DynamicDataTable
+              title={categorySelected.name}
+              handleClickAdd={handleClickAddProductValueCategories}
               data={valuesCategories}
               columns={columnsProductsValuesCategories}
               actionDelete={deleteProductValuesCategories}
