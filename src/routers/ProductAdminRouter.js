@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux'
 import { selectApp } from 'src/actions/appSelected'
 import { APPS } from 'src/constants/apps'
 import { useEffect } from 'react'
+import { AdminPanelProductTypeCategories } from 'src/pages/AdminPanelProductTypeCategories'
 
 export const ProductAdminRouter = () => {
   const { path, url } = useRouteMatch()
@@ -93,7 +94,7 @@ export const ProductAdminRouter = () => {
             <AdminPanelProductCategories />
           </Route>
           <Route path={`${path}/product-type-categories`}>
-            <AdminPanelProductCategories />
+            <AdminPanelProductTypeCategories />
           </Route>
           <Redirect to={`${path}/create`} />
         </Switch>
