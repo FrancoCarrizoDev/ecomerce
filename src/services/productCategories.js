@@ -34,7 +34,7 @@ export const createProductCategory = (name) => {
   })
 }
 
-export const updateProductCategory = (id, name) => {
+export const updateProductCategory = (name, id) => {
   const url = `${baseUrl}/categories/${id}`
 
   const token = localStorage.getItem('token') || ''

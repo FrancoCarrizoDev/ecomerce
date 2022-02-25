@@ -63,22 +63,22 @@ export const ProductAdminRouter = () => {
             </li>
             <li className='nav-item'>
               <NavLink
-                to={`${url}/product-categories`}
-                className={(isActive) =>
-                  !isActive ? ' unselected nav-link' : 'activeNav nav-link'
-                }
-              >
-                Categorías Por Producto
-              </NavLink>
-            </li>
-            <li className='nav-item'>
-              <NavLink
                 to={`${url}/product-type-categories`}
                 className={(isActive) =>
                   !isActive ? ' unselected nav-link' : 'activeNav nav-link'
                 }
               >
                 Categorías Por Tipo de producto
+              </NavLink>
+            </li>
+            <li className='nav-item'>
+              <NavLink
+                to={`${url}/product-categories`}
+                className={(isActive) =>
+                  !isActive ? ' unselected nav-link' : 'activeNav nav-link'
+                }
+              >
+                Categorías Por Producto
               </NavLink>
             </li>
           </ul>
@@ -90,11 +90,11 @@ export const ProductAdminRouter = () => {
           <Route path={`${path}/list`}>
             <h4>Listado de productos</h4>
           </Route>
-          <Route path={`${path}/product-categories`}>
-            <AdminPanelProductCategories />
-          </Route>
           <Route path={`${path}/product-type-categories`}>
             <AdminPanelProductTypeCategories />
+          </Route>
+          <Route path={`${path}/product-categories`}>
+            <AdminPanelProductCategories />
           </Route>
           <Redirect to={`${path}/create`} />
         </Switch>

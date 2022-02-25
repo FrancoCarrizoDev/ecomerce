@@ -266,7 +266,7 @@ export const AdminPanelProductTypeCategories = () => {
       <div className='row'>
         <div className='col-12 col-md-6'>
           <DynamicDataTable
-            title={'Categorías'}
+            title={'Categorías Por Tipo'}
             handleClickAdd={handleClickAddProductCategories}
             data={typeCategories}
             columns={columnsProductCategories}

@@ -12,8 +12,9 @@ import {
 import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from 'react-redux'
 import { DynamicDataTable } from 'src/components/DynamicDataTable'
-import { openModalSuccess } from 'src/helpers/sweetAlert'
+import { createModal, openModalSuccess } from 'src/helpers/sweetAlert'
 import { getProductCategories } from 'src/actions/productCategories'
+import { MODAL_TYPES } from 'src/types/modalTypes'
 
 const columnsProductCategories = [
   {
@@ -48,36 +49,11 @@ export const AdminPanelProductCategories = () => {
   }, [])
 
   const handleClickAddProductTypeCategories = () => {
-    Swal.fire({
-      title: `Agregar una nueva categoría`,
-      input: 'text',
-      inputAttributes: {
-        autocapitalize: 'off',
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Aceptar',
-      cancelButtonText: 'Cancelar',
-      showLoaderOnConfirm: true,
-      preConfirm: (value) => {
-        return createProductCategory(value)
-          .then(async (response) => {
-            if (!response.ok) {
-              const resp = await response.json()
-              throw new Error(resp.msg)
-            }
-            return response.json()
-          })
-          .catch((error) => {
-            Swal.showValidationMessage(error.message)
-            console.log(error.message)
-          })
-      },
-      allowOutsideClick: () => !Swal.isLoading(),
-    }).then((result) => {
-      if (result.isConfirmed) {
-        openModalSuccess('Listo!', 'Catego agregada!')
-        dispatch(getProductCategories())
-      }
+    return createModal(MODAL_TYPES.modalWithInput, {
+      title: 'Agregar una nueva categoría',
+      successMessage: 'Catego agregada!',
+      service: createProductCategory,
+      successDispatch: () => dispatch(getProductCategories()),
     })
   }
 
