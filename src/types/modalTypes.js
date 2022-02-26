@@ -1,3 +1,10 @@
 export const MODAL_TYPES = {
-  modalWithInput: 'modalWithInput',
+  customizableModal: 'customizableModal',
+  simpleModal: 'simpleModal',
+}
+
+export const MODAL_STATUS = {
+  success: 'success',
+  info: 'info',
+  warning: 'warning',
 }

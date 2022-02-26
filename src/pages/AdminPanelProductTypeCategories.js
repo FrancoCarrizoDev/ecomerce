@@ -47,7 +47,7 @@ export const AdminPanelProductTypeCategories = () => {
     dispatch(getProductTypeCategories())
   }, [])
 
-  const handleClickAddProductCategories = () => {
+  const handleClickAddProductTypeCategories = () => {
     Swal.fire({
       title: `Agregar una nueva categoría`,
       input: 'text',
@@ -81,11 +81,11 @@ export const AdminPanelProductTypeCategories = () => {
     })
   }
 
-  const viewProductCategories = (text) => {
+  const viewProductTypeCategories = (text) => {
     Swal.fire(`Valor de la categoría `, text.name, 'info')
   }
 
-  const editProductCategories = (id, productValue) => {
+  const editProductTypeCategories = (id, productValue) => {
     Swal.fire({
       title: `Editar valor de la categoría ${productValue.name}`,
       input: 'text',
@@ -119,7 +119,7 @@ export const AdminPanelProductTypeCategories = () => {
     })
   }
 
-  const deleteProductCategories = (id, productValue) => {
+  const deleteProductTypeCategories = (id, productValue) => {
     Swal.fire({
       title: `Estas seguro de eliminar la categoría ${productValue.name}`,
       text: 'Este cambio es irreversible!',
@@ -152,7 +152,7 @@ export const AdminPanelProductTypeCategories = () => {
     })
   }
 
-  const handleClickAddProductValueCategories = () => {
+  const handleClickAddProductTypeValueCategories = () => {
     Swal.fire({
       title: `Agregar nuevo valor de la categoría "${categorySelected.name}"`,
       input: 'text',
@@ -186,11 +186,11 @@ export const AdminPanelProductTypeCategories = () => {
     })
   }
 
-  const viewProductValuesCategories = (text) => {
+  const viewProductTypeValuesCategories = (text) => {
     Swal.fire(`Valor de la categoría ${categorySelected.name}`, text.value, 'info')
   }
 
-  const editProductValuesCategories = (id, productValue) => {
+  const editProductTypeValuesCategories = (id, productValue) => {
     Swal.fire({
       title: `Editar valor "${productValue.value}" de la categoría ${categorySelected.name}`,
       input: 'text',
@@ -224,7 +224,7 @@ export const AdminPanelProductTypeCategories = () => {
     })
   }
 
-  const deleteProductValuesCategories = (id, productValue) => {
+  const deleteProductTypeValuesCategories = (id, productValue) => {
     Swal.fire({
       title: `Estas seguro de eliminar el valor "${productValue.value}" de la categoría ${categorySelected.name}`,
       text: 'Este cambio es irreversible!',
@@ -267,28 +267,28 @@ export const AdminPanelProductTypeCategories = () => {
         <div className='col-12 col-md-6'>
           <DynamicDataTable
             title={'Categorías Por Tipo'}
-            handleClickAdd={handleClickAddProductCategories}
+            handleClickAdd={handleClickAddProductTypeCategories}
             data={typeCategories}
             columns={columnsProductCategories}
             onRowClicked={(row) => {
               addStyleOnSelectedRow(row.id)
               getProductTypeValuesCategories(row, setCategorySelected, setValuesCategories)
             }}
-            actionDelete={deleteProductCategories}
-            actionView={viewProductCategories}
-            actionEdit={editProductCategories}
+            actionDelete={deleteProductTypeCategories}
+            actionView={viewProductTypeCategories}
+            actionEdit={editProductTypeCategories}
           />
         </div>
         {categorySelected.name && (
           <div className='col-12 col-md-6 fadeIn'>
             <DynamicDataTable
               title={categorySelected.name}
-              handleClickAdd={handleClickAddProductValueCategories}
+              handleClickAdd={handleClickAddProductTypeValueCategories}
               data={valuesCategories}
               columns={columnsProductsValuesCategories}
-              actionDelete={deleteProductValuesCategories}
-              actionView={viewProductValuesCategories}
-              actionEdit={editProductValuesCategories}
+              actionDelete={deleteProductTypeValuesCategories}
+              actionView={viewProductTypeValuesCategories}
+              actionEdit={editProductTypeValuesCategories}
             />
           </div>
         )}
