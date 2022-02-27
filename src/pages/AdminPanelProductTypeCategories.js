@@ -9,11 +9,11 @@ import {
   updateProductTypeCategory,
   updateProductTypeValueCategory,
 } from 'src/services/productTypeCategories'
-import Swal from 'sweetalert2'
 import { useDispatch, useSelector } from 'react-redux'
 import { DynamicDataTable } from 'src/components/DynamicDataTable'
-import { openModalSuccess } from 'src/helpers/sweetAlert'
+import { createModal } from 'src/helpers/sweetAlert'
 import { getProductTypeCategories } from 'src/actions/productTypeCategories'
+import { MODAL_STATUS, MODAL_TYPES } from 'src/types/modalTypes'
 
 const columnsProductCategories = [
   {
@@ -47,218 +47,85 @@ export const AdminPanelProductTypeCategories = () => {
     dispatch(getProductTypeCategories())
   }, [])
 
-  const handleClickAddProductTypeCategories = () => {
-    Swal.fire({
-      title: `Agregar una nueva categoría`,
+  const handleClickAddProductTypeCategories = () =>
+    createModal(MODAL_TYPES.customizableModal, {
+      title: `Agregar una nueva categoría por tipo`,
+      successMessage: 'Categoría agregada!',
+      service: createProductTypeCategory,
       input: 'text',
-      inputAttributes: {
-        autocapitalize: 'off',
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Aceptar',
-      cancelButtonText: 'Cancelar',
-      showLoaderOnConfirm: true,
-      preConfirm: (value) => {
-        return createProductTypeCategory(value)
-          .then(async (response) => {
-            if (!response.ok) {
-              const resp = await response.json()
-              throw new Error(resp.msg)
-            }
-            return response.json()
-          })
-          .catch((error) => {
-            Swal.showValidationMessage(error.message)
-            console.log(error.message)
-          })
-      },
-      allowOutsideClick: () => !Swal.isLoading(),
-    }).then((result) => {
-      if (result.isConfirmed) {
-        openModalSuccess('Listo!', 'Catego agregada!')
-        dispatch(getProductTypeCategories())
-      }
+      successDispatch: () => dispatch(getProductTypeCategories()),
     })
-  }
 
-  const viewProductTypeCategories = (text) => {
-    Swal.fire(`Valor de la categoría `, text.name, 'info')
-  }
+  const viewProductTypeCategories = (text) =>
+    createModal(MODAL_TYPES.simpleModal, {
+      title: 'Valor de la categoría por tipo',
+      message: text.name || '',
+      status: MODAL_STATUS.info,
+    })
 
-  const editProductTypeCategories = (id, productValue) => {
-    Swal.fire({
+  const editProductTypeCategories = (id, productValue) =>
+    createModal(MODAL_TYPES.customizableModal, {
       title: `Editar valor de la categoría ${productValue.name}`,
+      successMessage: 'Tu valor ya ha sido actualizado.',
+      service: updateProductTypeCategory,
       input: 'text',
-      inputValue: productValue.name,
-      inputAttributes: {
-        autocapitalize: 'off',
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Aceptar',
-      cancelButtonText: 'Cancelar',
-      showLoaderOnConfirm: true,
-      preConfirm: (value) => {
-        return updateProductTypeCategory(id, value)
-          .then(async (response) => {
-            if (!response.ok) {
-              const resp = await response.json()
-              throw new Error(resp.msg)
-            }
-            return response.json()
-          })
-          .catch((error) => {
-            Swal.showValidationMessage(error.message)
-            console.log(error.message)
-          })
-      },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire('Listo!', 'Tu valor ya ha sido actualizado.', 'success')
-        dispatch(getProductTypeCategories())
-      }
+      successDispatch: () => dispatch(getProductTypeCategories()),
+      id,
     })
-  }
 
-  const deleteProductTypeCategories = (id, productValue) => {
-    Swal.fire({
-      title: `Estas seguro de eliminar la categoría ${productValue.name}`,
-      text: 'Este cambio es irreversible!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Aceptar',
-      cancelButtonText: 'Cancelar',
-      preConfirm: () => {
-        return disableProductTypeCategories(id)
-          .then(async (response) => {
-            if (!response.ok) {
-              const resp = await response.json()
-              throw new Error(resp.msg)
-            }
-            return response.json()
-          })
-          .catch((error) => {
-            Swal.showValidationMessage(error.message)
-            console.log(error.message)
-          })
-      },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire('Eliminado!', `La categoría ${productValue.name} fue eliminada`, 'success')
-        dispatch(getProductTypeCategories())
-        setCategorySelected({})
-      }
+  const deleteProductTypeCategories = (id, productValue) =>
+    createModal(MODAL_TYPES.customizableModal, {
+      title: `Estas seguro de eliminar la categoría por tipo ${productValue.name}`,
+      message: 'Este cambio es irreversible!',
+      icon: MODAL_STATUS.warning,
+      successMessage: `La categoría ${productValue.name} fue eliminada`,
+      service: disableProductTypeCategories,
+      successDispatch: () => dispatch(getProductTypeCategories()),
+      next: () => setCategorySelected({}),
+      id,
     })
-  }
 
-  const handleClickAddProductTypeValueCategories = () => {
-    Swal.fire({
+  const handleClickAddProductTypeValueCategories = () =>
+    createModal(MODAL_TYPES.customizableModal, {
       title: `Agregar nuevo valor de la categoría "${categorySelected.name}"`,
+      successMessage: 'Valor de categoría agregada!',
+      service: createProductsTypeValueCategory,
+      id: categorySelected.id,
       input: 'text',
-      inputAttributes: {
-        autocapitalize: 'off',
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Aceptar',
-      cancelButtonText: 'Cancelar',
-      showLoaderOnConfirm: true,
-      preConfirm: (value) => {
-        return createProductsTypeValueCategory(categorySelected.id, value)
-          .then(async (response) => {
-            if (!response.ok) {
-              const resp = await response.json()
-              throw new Error(resp.msg)
-            }
-            return response.json()
-          })
-          .catch((error) => {
-            Swal.showValidationMessage(error.message)
-            console.log(error.message)
-          })
-      },
-      allowOutsideClick: () => !Swal.isLoading(),
-    }).then((result) => {
-      if (result.isConfirmed) {
-        openModalSuccess('Listo!', 'Valor de categoría agregada!')
-        getProductTypeValuesCategories(categorySelected, setCategorySelected, setValuesCategories)
-      }
+      next: () =>
+        getProductTypeValuesCategories(categorySelected, setCategorySelected, setValuesCategories),
     })
-  }
 
-  const viewProductTypeValuesCategories = (text) => {
-    Swal.fire(`Valor de la categoría ${categorySelected.name}`, text.value, 'info')
-  }
+  const viewProductTypeValuesCategories = (text) =>
+    createModal(MODAL_TYPES.simpleModal, {
+      title: `Valor de la categoría ${categorySelected.name}`,
+      message: text.value || '',
+      status: MODAL_STATUS.info,
+    })
 
-  const editProductTypeValuesCategories = (id, productValue) => {
-    Swal.fire({
+  const editProductTypeValuesCategories = (id, productValue) =>
+    createModal(MODAL_TYPES.customizableModal, {
       title: `Editar valor "${productValue.value}" de la categoría ${categorySelected.name}`,
+      successMessage: 'Tu valor ya ha sido actualizado.',
+      service: updateProductTypeValueCategory,
       input: 'text',
       inputValue: productValue.value,
-      inputAttributes: {
-        autocapitalize: 'off',
-      },
-      showCancelButton: true,
-      confirmButtonText: 'Aceptar',
-      cancelButtonText: 'Cancelar',
-      showLoaderOnConfirm: true,
-      preConfirm: (value) => {
-        return updateProductTypeValueCategory(id, value)
-          .then(async (response) => {
-            if (!response.ok) {
-              const resp = await response.json()
-              throw new Error(resp.msg)
-            }
-            return response.json()
-          })
-          .catch((error) => {
-            Swal.showValidationMessage(error.message)
-            console.log(error.message)
-          })
-      },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire('Listo!', 'Tu valor ya ha sido actualizado.', 'success')
-        getProductTypeValuesCategories(categorySelected, setCategorySelected, setValuesCategories)
-      }
+      next: () =>
+        getProductTypeValuesCategories(categorySelected, setCategorySelected, setValuesCategories),
+      id,
     })
-  }
 
-  const deleteProductTypeValuesCategories = (id, productValue) => {
-    Swal.fire({
+  const deleteProductTypeValuesCategories = (id, productValue) =>
+    createModal(MODAL_TYPES.customizableModal, {
       title: `Estas seguro de eliminar el valor "${productValue.value}" de la categoría ${categorySelected.name}`,
-      text: 'Este cambio es irreversible!',
-      icon: 'warning',
-      showCancelButton: true,
-      confirmButtonColor: '#3085d6',
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Aceptar',
-      cancelButtonText: 'Cancelar',
-      preConfirm: () => {
-        return disableProductTypeValueCategories(id)
-          .then(async (response) => {
-            if (!response.ok) {
-              const resp = await response.json()
-              throw new Error(resp.msg)
-            }
-            return response.json()
-          })
-          .catch((error) => {
-            Swal.showValidationMessage(error.message)
-            console.log(error.message)
-          })
-      },
-    }).then((result) => {
-      if (result.isConfirmed) {
-        Swal.fire(
-          'Completado!',
-          `El valor ${productValue.value} de la categoría ${categorySelected.name} ha sido borrado exitosamente`,
-          'success'
-        )
-        getProductTypeValuesCategories(categorySelected, setCategorySelected, setValuesCategories)
-      }
+      message: 'Este cambio es irreversible!',
+      icon: MODAL_STATUS.warning,
+      successMessage: `El valor ${productValue.value} de la categoría ${categorySelected.name} ha sido borrado exitosamente`,
+      service: disableProductTypeValueCategories,
+      next: () =>
+        getProductTypeValuesCategories(categorySelected, setCategorySelected, setValuesCategories),
+      id,
     })
-  }
 
   // TODO modularizar la tabla con su título
   return (

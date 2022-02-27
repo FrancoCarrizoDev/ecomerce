@@ -40,6 +40,7 @@ const MODALS_OPTIONS = {
       showLoaderOnConfirm: true,
       confirmButtonColor: '#3085d6',
       cancelButtonColor: '#d33',
+      // ** TODO ver como mandar los parametros del service como obj
       preConfirm: (value) => {
         return service(value, rest.id ? rest.id : '')
           .then(async (response) => {

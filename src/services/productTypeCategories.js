@@ -34,7 +34,7 @@ export const createProductTypeCategory = (name) => {
   })
 }
 
-export const updateProductTypeCategory = (id, name) => {
+export const updateProductTypeCategory = (name, id) => {
   const url = `${baseUrl}/product-type-categories/${id}`
 
   const token = localStorage.getItem('token') || ''
@@ -49,7 +49,7 @@ export const updateProductTypeCategory = (id, name) => {
   })
 }
 
-export const disableProductTypeCategories = (id) => {
+export const disableProductTypeCategories = (_, id) => {
   const url = `${baseUrl}/product-type-categories/${id}`
 
   const token = localStorage.getItem('token') || ''
@@ -87,7 +87,7 @@ export const getProductTypeValuesCategories = (
     })
 }
 
-export const createProductsTypeValueCategory = (categoryId, value) => {
+export const createProductsTypeValueCategory = (value, categoryId) => {
   const url = `${baseUrl}/product-type-value-categories`
 
   const token = localStorage.getItem('token') || ''
@@ -102,7 +102,7 @@ export const createProductsTypeValueCategory = (categoryId, value) => {
   })
 }
 
-export const updateProductTypeValueCategory = (id, value) => {
+export const updateProductTypeValueCategory = (value, id) => {
   const url = `${baseUrl}/product-type-value-categories/${id}`
 
   const token = localStorage.getItem('token') || ''
@@ -117,7 +117,7 @@ export const updateProductTypeValueCategory = (id, value) => {
   })
 }
 
-export const disableProductTypeValueCategories = (id) => {
+export const disableProductTypeValueCategories = (_, id) => {
   const url = `${baseUrl}/product-type-value-categories/${id}`
 
   const token = localStorage.getItem('token') || ''

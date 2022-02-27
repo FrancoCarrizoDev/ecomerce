@@ -14,28 +14,7 @@ import { DynamicDataTable } from 'src/components/DynamicDataTable'
 import { createModal } from 'src/helpers/sweetAlert'
 import { getProductCategories } from 'src/actions/productCategories'
 import { MODAL_STATUS, MODAL_TYPES } from 'src/types/modalTypes'
-
-const columnsProductCategories = [
-  {
-    name: 'Nombres',
-    selector: (row) => row.name,
-  },
-  {
-    name: 'Acción',
-    selector: (row) => row.action,
-  },
-]
-
-const columnsProductsValuesCategories = [
-  {
-    name: 'Valor',
-    selector: (row) => row.value,
-  },
-  {
-    name: 'Acción',
-    selector: (row) => row.action,
-  },
-]
+import { columnsProductCategories, columnsProductsValuesCategories } from 'src/constants/columns'
 
 export const AdminPanelProductCategories = () => {
   const dispatch = useDispatch()
@@ -81,7 +60,7 @@ export const AdminPanelProductCategories = () => {
       successMessage: `La categoría ${productValue.name} fue eliminada`,
       service: disableProductCategories,
       successDispatch: () => dispatch(getProductCategories()),
-      next: setCategorySelected({}),
+      next: () => setCategorySelected({}),
       id,
     })
 
