@@ -14,28 +14,10 @@ import { DynamicDataTable } from 'src/components/DynamicDataTable'
 import { createModal } from 'src/helpers/sweetAlert'
 import { getProductTypeCategories } from 'src/actions/productTypeCategories'
 import { MODAL_STATUS, MODAL_TYPES } from 'src/types/modalTypes'
-
-const columnsProductCategories = [
-  {
-    name: 'Nombres',
-    selector: (row) => row.name,
-  },
-  {
-    name: 'Acción',
-    selector: (row) => row.action,
-  },
-]
-
-const columnsProductsValuesCategories = [
-  {
-    name: 'Valor',
-    selector: (row) => row.value,
-  },
-  {
-    name: 'Acción',
-    selector: (row) => row.action,
-  },
-]
+import {
+  columnsProductsTypeValuesCategories,
+  columnsProductTypeCategories,
+} from 'src/constants/columns'
 
 export const AdminPanelProductTypeCategories = () => {
   const dispatch = useDispatch()
@@ -136,7 +118,7 @@ export const AdminPanelProductTypeCategories = () => {
             title={'Categorías Por Tipo'}
             handleClickAdd={handleClickAddProductTypeCategories}
             data={typeCategories}
-            columns={columnsProductCategories}
+            columns={columnsProductTypeCategories}
             onRowClicked={(row) => {
               addStyleOnSelectedRow(row.id)
               getProductTypeValuesCategories(row, setCategorySelected, setValuesCategories)
@@ -152,7 +134,7 @@ export const AdminPanelProductTypeCategories = () => {
               title={categorySelected.name}
               handleClickAdd={handleClickAddProductTypeValueCategories}
               data={valuesCategories}
-              columns={columnsProductsValuesCategories}
+              columns={columnsProductsTypeValuesCategories}
               actionDelete={deleteProductTypeValuesCategories}
               actionView={viewProductTypeValuesCategories}
               actionEdit={editProductTypeValuesCategories}

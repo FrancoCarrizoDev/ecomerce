@@ -19,3 +19,25 @@ export const columnsProductsValuesCategories = [
     selector: (row) => row.action,
   },
 ]
+
+export const columnsProductTypeCategories = [
+  {
+    name: 'Nombres',
+    selector: (row) => row.name,
+  },
+  {
+    name: 'Acción',
+    selector: (row) => row.action,
+  },
+]
+
+export const columnsProductsTypeValuesCategories = [
+  {
+    name: 'Valor',
+    selector: (row) => row.value,
+  },
+  {
+    name: 'Acción',
+    selector: (row) => row.action,
+  },
+]
