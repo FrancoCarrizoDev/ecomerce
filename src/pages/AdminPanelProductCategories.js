@@ -16,6 +16,8 @@ import { getProductCategories } from 'src/actions/productCategories'
 import { MODAL_STATUS, MODAL_TYPES } from 'src/types/modalTypes'
 import { columnsProductCategories, columnsProductsValuesCategories } from 'src/constants/columns'
 
+// TODO que la llamada a los servicios se haga por un dispatch
+
 export const AdminPanelProductCategories = () => {
   const dispatch = useDispatch()
   const { categories } = useSelector((state) => state.rootReducer.productCategories)

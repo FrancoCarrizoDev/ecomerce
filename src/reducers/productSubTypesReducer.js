@@ -5,9 +5,12 @@ const ACTIONS_REDUCERS = {
     ...state,
     categories: [...action.payload],
   }),
+  [types.createProductCategories]: (state) => ({
+    ...state,
+  }),
 }
 
-export const productCategoriesReducer = (state = {}, action) => {
+export const productSubTypes = (state = {}, action) => {
   const actionReducer = ACTIONS_REDUCERS[action.type]
   return actionReducer ? actionReducer(state, action) : state
 }

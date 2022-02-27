@@ -5,10 +5,6 @@ const ACTIONS_REDUCERS = {
     ...state,
     typeCategories: [...action.payload],
   }),
-  [types.createProductTypeCategories]: (state, action) => ({
-    ...state,
-    ...action.payload,
-  }),
 }
 
 export const productTypeCategoriesReducer = (state = {}, action) => {

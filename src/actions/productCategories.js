@@ -17,3 +17,19 @@ export const getProductCategories = () => {
     }
   }
 }
+
+
+const createProductCategoriesAction = () => ({
+  type: types.getProductCategories,
+})
+
+export const createProductCategories = () => {
+  return async (dispatch) => {
+    try {
+      const initialCategories = await getProductsCategories()
+      dispatch(createProductCategoriesAction(initialCategories))
+    } catch (error) {
+      console.log(error)
+    }
+  }
+}

@@ -6,6 +6,7 @@ import { selectApp } from 'src/actions/appSelected'
 import { APPS } from 'src/constants/apps'
 import { useEffect } from 'react'
 import { AdminPanelProductTypeCategories } from 'src/pages/AdminPanelProductTypeCategories'
+import { AdminPanelProductSubTypes } from 'src/pages/AdminPanelProductSubType'
 
 export const ProductAdminRouter = () => {
   const { path, url } = useRouteMatch()
@@ -53,7 +54,7 @@ export const ProductAdminRouter = () => {
             </li>
             <li className='nav-item'>
               <NavLink
-                to={`${url}/list`}
+                to={`${url}/product-sub-type`}
                 className={(isActive) =>
                   !isActive ? ' unselected nav-link' : 'activeNav nav-link'
                 }
@@ -89,6 +90,9 @@ export const ProductAdminRouter = () => {
           </Route>
           <Route path={`${path}/list`}>
             <h4>Listado de productos</h4>
+          </Route>
+          <Route path={`${path}/product-sub-type`}>
+            <AdminPanelProductSubTypes />
           </Route>
           <Route path={`${path}/product-type-categories`}>
             <AdminPanelProductTypeCategories />
