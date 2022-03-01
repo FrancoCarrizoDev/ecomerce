@@ -1,16 +1,16 @@
 import { types } from '../types/types'
 
 const ACTIONS_REDUCERS = {
-  [types.getProductCategories]: (state, action) => ({
+  [types.getProductSubType]: (state, action) => ({
     ...state,
-    categories: [...action.payload],
+    productSubTypes: [...action.payload],
   }),
   [types.createProductCategories]: (state) => ({
     ...state,
   }),
 }
 
-export const productSubTypes = (state = {}, action) => {
+export const productSubTypesReducer = (state = {}, action) => {
   const actionReducer = ACTIONS_REDUCERS[action.type]
   return actionReducer ? actionReducer(state, action) : state
 }

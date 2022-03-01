@@ -1,34 +1,33 @@
 import { addStyleOnSelectedRow } from 'src/helpers/addStyleOnSelectedRow'
 import { useEffect } from 'react'
-import {
-  createProductCategory,
-  disableProductCategories,
-  updateProductCategory,
-} from 'src/services/productCategories'
+import { disableProductCategories, updateProductCategory } from 'src/services/productCategories'
 import { useDispatch, useSelector } from 'react-redux'
 import { DynamicDataTable } from 'src/components/DynamicDataTable'
 import { createModal } from 'src/helpers/sweetAlert'
 import { getProductCategories } from 'src/actions/productCategories'
 import { MODAL_STATUS, MODAL_TYPES } from 'src/types/modalTypes'
 import { columnsProductCategories } from 'src/constants/columns'
+import { getProductSubType } from 'src/actions/productSubTypes'
+import { createProductSubType } from 'src/services/productSubTypes'
 
 // TODO que la llamada a los servicios se haga por un dispatch
 
+// TODO acá el productType y Sub Type deben estar juntos
+
 export const AdminPanelProductSubTypes = () => {
   const dispatch = useDispatch()
-  const { categories } = useSelector((state) => state.rootReducer.productCategories)
-
+  const { productSubTypes } = useSelector((state) => state.rootReducer.productSubTypes)
   useEffect(() => {
-    dispatch(getProductCategories())
+    dispatch(getProductSubType())
   }, [])
 
   const handleClickAddProductCategories = () =>
     createModal(MODAL_TYPES.customizableModal, {
       title: 'Agregar un sub tipo de categoría',
       successMessage: 'Sub tipo agregado!',
-      service: createProductCategory,
+      service: createProductSubType,
       input: 'text',
-      successDispatch: () => dispatch(getProductCategories()),
+      successDispatch: () => dispatch(getProductSubType()),
     })
 
   const viewProductCategories = (text) =>
@@ -67,7 +66,7 @@ export const AdminPanelProductSubTypes = () => {
           <DynamicDataTable
             title={'Sub Tipos De Productos'}
             handleClickAdd={handleClickAddProductCategories}
-            data={categories}
+            data={productSubTypes}
             columns={columnsProductCategories}
             onRowClicked={(row) => {
               addStyleOnSelectedRow(row.id)

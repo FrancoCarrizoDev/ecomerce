@@ -16,5 +16,7 @@ export const types = {
   getProductTypeCategories: '[ProdCat] Get ProdTypeCat',
   createProductTypeCategories: '[ProdCat] Create ProdTypeCat',
 
+  getProductSubType: '[ProdSubCat] Get Product Sub Types',
+
   appSelected: '[App] Selected App',
 }

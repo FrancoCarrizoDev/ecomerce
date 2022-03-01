@@ -15,8 +15,8 @@ export const getProductsSubTypes = () => {
     })
 }
 
-export const createProductCategory = (name) => {
-  const url = `${baseUrl}/categories`
+export const createProductSubType = (name) => {
+  const url = `${baseUrl}/product-sub-types`
 
   const token = localStorage.getItem('token') || ''
   return fetch(url, {
