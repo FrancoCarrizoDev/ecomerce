@@ -7,6 +7,7 @@ import { APPS } from 'src/constants/apps'
 import { useEffect } from 'react'
 import { AdminPanelProductTypeCategories } from 'src/pages/AdminPanelProductTypeCategories'
 import { AdminPanelProductSubTypes } from 'src/pages/AdminPanelProductSubType'
+import { AdminPanelType } from 'src/pages/AdminPanelProductType'
 
 export const ProductAdminRouter = () => {
   const { path, url } = useRouteMatch()
@@ -73,7 +74,7 @@ export const ProductAdminRouter = () => {
             <h4>Listado de productos</h4>
           </Route>
           <Route path={`${path}/product-type`}>
-            <AdminPanelProductSubTypes />
+            <AdminPanelType />
           </Route>
           <Route path={`${path}/product-sub-type`}>
             <AdminPanelProductSubTypes />

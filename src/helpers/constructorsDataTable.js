@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faTrashAlt, faEye } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
 
 export const constructorData = (dataRows = [], actionDelete, actionView, actionEdit) => {
   if (dataRows.length === 0) return
@@ -8,7 +8,6 @@ export const constructorData = (dataRows = [], actionDelete, actionView, actionE
     ...rest,
     action: (
       <div className='dataTableIconsContainer'>
-        <FontAwesomeIcon icon={faEye} className='pointer' onClick={() => actionView(rest)} />
         <FontAwesomeIcon icon={faEdit} className='pointer' onClick={() => actionEdit(_id, rest)} />
         <FontAwesomeIcon
           icon={faTrashAlt}

@@ -5,6 +5,7 @@ import { loadingReducer } from './loadingReducer'
 import { productCategoriesReducer } from './productCategoriesReducer'
 import { productSubTypesReducer } from './productSubTypesReducer'
 import { productTypeCategoriesReducer } from './productTypeCategoriesReducer'
+import { productTypeReducer } from './productTypeReducer'
 
 export const rootReducer = combineReducers({
   auth: authReducer,
@@ -13,4 +14,5 @@ export const rootReducer = combineReducers({
   appSelected: appSelectedReducer,
   productTypeCategories: productTypeCategoriesReducer,
   productSubTypes: productSubTypesReducer,
+  productType: productTypeReducer,
 })

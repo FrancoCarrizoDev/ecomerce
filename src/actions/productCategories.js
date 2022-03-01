@@ -18,7 +18,6 @@ export const getProductCategories = () => {
   }
 }
 
-
 const createProductCategoriesAction = () => ({
   type: types.getProductCategories,
 })

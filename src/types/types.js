@@ -18,5 +18,7 @@ export const types = {
 
   getProductSubType: '[ProdSubCat] Get Product Sub Types',
 
+  getProductType: '[ProdType] Get Product Types',
+
   appSelected: '[App] Selected App',
 }
