@@ -15,6 +15,21 @@ export const getProductsSubTypes = () => {
     })
 }
 
+export const getProductsSubTypesByProductId = (id) => {
+  const url = `${baseUrl}/product-sub-types/${id}`
+
+  return fetch(url, {
+    method: 'GET',
+  })
+    .then((data) => data.json())
+    .then((response) => {
+      return response
+    })
+    .catch((err) => {
+      throw new Error(err)
+    })
+}
+
 export const createProductSubType = (name) => {
   const url = `${baseUrl}/product-sub-types`
 
@@ -30,7 +45,6 @@ export const createProductSubType = (name) => {
 }
 
 export const updateProductCategory = (name, id) => {
-  debugger
   const url = `${baseUrl}/categories/${id}`
 
   const token = localStorage.getItem('token') || ''

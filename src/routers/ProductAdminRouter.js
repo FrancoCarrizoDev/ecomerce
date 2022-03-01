@@ -40,7 +40,7 @@ export const ProductAdminRouter = () => {
                 }
               >
                 {' '}
-                Productos
+                Listado
               </NavLink>
             </li>
             <li className='nav-item'>
@@ -61,7 +61,7 @@ export const ProductAdminRouter = () => {
                   !isActive ? ' unselected nav-link' : 'activeNav nav-link'
                 }
               >
-                Categorías Por Producto
+                Categorías Globales
               </NavLink>
             </li>
           </ul>

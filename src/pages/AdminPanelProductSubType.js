@@ -16,10 +16,12 @@ import { createProductSubType } from 'src/services/productSubTypes'
 
 export const AdminPanelProductSubTypes = () => {
   const dispatch = useDispatch()
-  const { productSubTypes } = useSelector((state) => state.rootReducer.productSubTypes)
+  const { productSubTypes, isCheking } = useSelector((state) => state.rootReducer.productSubTypes)
+  const { selectedType } = useSelector((state) => state.rootReducer.productType)
+
   useEffect(() => {
-    dispatch(getProductSubType())
-  }, [])
+    dispatch(getProductSubType(selectedType.id))
+  }, [selectedType])
 
   const handleClickAddProductCategories = () =>
     createModal(MODAL_TYPES.customizableModal, {
@@ -68,6 +70,7 @@ export const AdminPanelProductSubTypes = () => {
             handleClickAdd={handleClickAddProductCategories}
             data={productSubTypes}
             columns={columnsProductCategories}
+            progressPending={isCheking}
             onRowClicked={(row) => {
               addStyleOnSelectedRow(row.id)
             }}

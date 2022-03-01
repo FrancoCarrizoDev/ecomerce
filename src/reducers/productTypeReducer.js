@@ -5,6 +5,14 @@ const ACTIONS_REDUCERS = {
     ...state,
     productType: [...action.payload],
   }),
+  [types.selectProductType]: (state, action) => ({
+    ...state,
+    selectedType: action.payload || {},
+  }),
+  [types.cleanSelectedType]: (state) => ({
+    ...state,
+    selectedType: {},
+  }),
 }
 
 export const productTypeReducer = (state = {}, action) => {

@@ -7,20 +7,28 @@ import { DynamicDataTable } from 'src/components/DynamicDataTable'
 import { createModal } from 'src/helpers/sweetAlert'
 import { MODAL_STATUS, MODAL_TYPES } from 'src/types/modalTypes'
 import { columnsProductCategories } from 'src/constants/columns'
-import { getProductType } from 'src/actions/productType'
+import {
+  cleanSelectedProductType,
+  getProductType,
+  selectProductType,
+} from 'src/actions/productType'
 import { createProductType, disableProductType, updateProductType } from 'src/services/productType'
+import { AdminPanelProductSubTypes } from './AdminPanelProductSubType'
+import { isChekingGetProductSubTypes } from 'src/actions/productSubTypes'
 
 // TODO que la llamada a los servicios se haga por un dispatch
 
 export const AdminPanelType = () => {
   const dispatch = useDispatch()
-  const { productType } = useSelector((state) => state.rootReducer.productType)
-  // const [typeSelected, setTypeSelected] = useState({})
+  const { productType, selectedType } = useSelector((state) => state.rootReducer.productType)
+
   // const [subTypes, setSubTypes] = useState([])
   // const [typeCategories, setTypeCategories] = useState([])
 
   useEffect(() => {
     dispatch(getProductType())
+    dispatch(cleanSelectedProductType())
+    // dispatch(cleanProductSubTypes())
   }, [])
 
   const handleClickAddProductTypes = () =>
@@ -54,7 +62,6 @@ export const AdminPanelType = () => {
       id,
     })
 
-  // TODO modularizar la tabla con su título
   return (
     <div className='container-fluid pt-3'>
       <div className='row'>
@@ -66,25 +73,15 @@ export const AdminPanelType = () => {
             columns={columnsProductCategories}
             onRowClicked={(row) => {
               addStyleOnSelectedRow(row.id)
-              // getProductValuesCategories(row, setCategorySelected, setValuesCategories)
+              dispatch(isChekingGetProductSubTypes())
+              dispatch(selectProductType(row))
             }}
             actionDelete={deleteProductCategories}
             actionEdit={editProductTypes}
           />
         </div>
-        {/* {categorySelected.name && (
-          <div className='col-12 col-md-6 fadeIn'>
-            <DynamicDataTable
-              title={categorySelected.name}
-              handleClickAdd={handleClickAddProductValueCategories}
-              data={valuesCategories}
-              columns={columnsProductsValuesCategories}
-              actionDelete={deleteProductValuesCategories}
-              actionView={viewProductValuesCategories}
-              actionEdit={editProductValuesCategories}
-            />
-          </div>
-        )} */}
+        {selectedType && Object.keys(selectedType).length > 0 && <AdminPanelProductSubTypes />}
+        {/* {typeSelected.name && <AdminPanelProductTypeCategories typeSelected={typeSelected} />} */}
       </div>
     </div>
   )

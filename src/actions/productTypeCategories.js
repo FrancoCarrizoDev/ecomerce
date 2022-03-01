@@ -1,4 +1,4 @@
-import { getProductsSubTypes } from 'src/services/productSubTypes'
+import { getProductsTypeCategories } from 'src/services/productTypeCategories'
 
 const { types } = require('src/types/types')
 
@@ -10,8 +10,7 @@ const getProductTypeCategoriesAction = (productTypeCategories) => ({
 export const getProductTypeCategories = () => {
   return async (dispatch) => {
     try {
-      debugger
-      const initialCategories = await getProductsSubTypes()
+      const initialCategories = await getProductsTypeCategories()
       dispatch(getProductTypeCategoriesAction(initialCategories))
     } catch (error) {
       console.log(error)

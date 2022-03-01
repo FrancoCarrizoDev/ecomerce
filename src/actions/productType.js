@@ -19,3 +19,24 @@ export const getProductType = () => {
     }
   }
 }
+
+const selectProductTypeAction = (selectedProductType) => ({
+  type: types.selectProductType,
+  payload: selectedProductType || {},
+})
+
+export const selectProductType = (selectedProductType) => {
+  return async (dispatch) => {
+    dispatch(selectProductTypeAction(selectedProductType))
+  }
+}
+
+const cleanSelectProductTypeAction = () => ({
+  type: types.cleanSelectedType,
+})
+
+export const cleanSelectedProductType = () => {
+  return async (dispatch) => {
+    dispatch(cleanSelectProductTypeAction())
+  }
+}

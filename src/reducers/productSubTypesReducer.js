@@ -5,8 +5,13 @@ const ACTIONS_REDUCERS = {
     ...state,
     productSubTypes: [...action.payload],
   }),
-  [types.createProductCategories]: (state) => ({
+  [types.cleanProductsSubTypes]: (state) => ({
     ...state,
+    productSubTypes: [],
+  }),
+  [types.getProductSubTypeCheking]: (state, action) => ({
+    ...state,
+    isCheking: action.payload || false,
   }),
 }
 
