@@ -21,7 +21,7 @@ export const AppRouter = () => {
       window.localStorage.getItem('token') &&
       window.localStorage.getItem('token') !== 'undefined'
     )
-      return dispatch(startCheking())
+      dispatch(startCheking())
   }, [dispatch])
 
   return (

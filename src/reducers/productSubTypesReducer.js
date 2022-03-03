@@ -9,9 +9,14 @@ const ACTIONS_REDUCERS = {
     ...state,
     productSubTypes: [],
   }),
-  [types.getProductSubTypeCheking]: (state, action) => ({
+  [types.productSubTypeStartChecking]: (state) => ({
     ...state,
-    isCheking: action.payload || false,
+    checking: true,
+  }),
+
+  [types.productSubTypeStopChecking]: (state) => ({
+    ...state,
+    checking: false,
   }),
 }
 

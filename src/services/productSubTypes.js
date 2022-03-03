@@ -30,7 +30,7 @@ export const getProductsSubTypesByProductId = (id) => {
     })
 }
 
-export const createProductSubType = (name) => {
+export const createProductSubType = (name, id) => {
   const url = `${baseUrl}/product-sub-types`
 
   const token = localStorage.getItem('token') || ''
@@ -40,12 +40,12 @@ export const createProductSubType = (name) => {
       'Content-Type': 'application/json',
       'x-token': token,
     },
-    body: JSON.stringify({ name }),
+    body: JSON.stringify({ name, product_type_fk: id }),
   })
 }
 
-export const updateProductCategory = (name, id) => {
-  const url = `${baseUrl}/categories/${id}`
+export const updateProductSubType = (name, id) => {
+  const url = `${baseUrl}/product-sub-types/${id}`
 
   const token = localStorage.getItem('token') || ''
 
@@ -59,8 +59,8 @@ export const updateProductCategory = (name, id) => {
   })
 }
 
-export const disableProductCategories = (_, id) => {
-  const url = `${baseUrl}/categories/${id}`
+export const disableProductSubType = (_, id) => {
+  const url = `${baseUrl}/product-sub-types/${id}`
 
   const token = localStorage.getItem('token') || ''
 

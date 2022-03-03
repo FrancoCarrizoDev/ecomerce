@@ -2,6 +2,14 @@ import { getProductsSubTypesByProductId } from 'src/services/productSubTypes'
 
 const { types } = require('src/types/types')
 
+const productSubTypeStartCheckingAction = () => ({
+  type: types.productSubTypeStartChecking,
+})
+
+const productSubTypeStopCheckingAction = () => ({
+  type: types.productSubTypeStopChecking,
+})
+
 const getProductSubTypeAction = (productSubTypes) => ({
   type: types.getProductSubType,
   payload: productSubTypes,
@@ -10,34 +18,13 @@ const getProductSubTypeAction = (productSubTypes) => ({
 export const getProductSubType = (typeId) => {
   return async (dispatch) => {
     try {
-      dispatch(isChekingGetProductSubTypes(true))
+      dispatch(productSubTypeStartCheckingAction())
       const initialCategories = await getProductsSubTypesByProductId(typeId)
       dispatch(getProductSubTypeAction(initialCategories))
     } catch (error) {
       dispatch(getProductSubTypeAction([]))
     } finally {
-      dispatch(isChekingGetProductSubTypes(false))
+      dispatch(productSubTypeStopCheckingAction())
     }
-  }
-}
-
-const cleanSelectProductSubTypeAction = () => ({
-  type: types.cleanProductsSubTypes,
-})
-
-export const cleanProductSubTypes = () => {
-  return async (dispatch) => {
-    dispatch(cleanSelectProductSubTypeAction())
-  }
-}
-
-const chekingGetProductSubTypeAction = (isCheking) => ({
-  type: types.getProductSubTypeCheking,
-  payload: isCheking,
-})
-
-export const isChekingGetProductSubTypes = (isCheking) => {
-  return async (dispatch) => {
-    dispatch(chekingGetProductSubTypeAction(isCheking))
   }
 }

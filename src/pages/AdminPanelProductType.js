@@ -14,13 +14,15 @@ import {
 } from 'src/actions/productType'
 import { createProductType, disableProductType, updateProductType } from 'src/services/productType'
 import { AdminPanelProductSubTypes } from './AdminPanelProductSubType'
-import { isChekingGetProductSubTypes } from 'src/actions/productSubTypes'
+import { AdminPanelProductTypeCategories } from './AdminPanelProductTypeCategories'
 
 // TODO que la llamada a los servicios se haga por un dispatch
 
 export const AdminPanelType = () => {
   const dispatch = useDispatch()
-  const { productType, selectedType } = useSelector((state) => state.rootReducer.productType)
+  const { productType, selectedType, checking } = useSelector(
+    (state) => state.rootReducer.productType
+  )
 
   // const [subTypes, setSubTypes] = useState([])
   // const [typeCategories, setTypeCategories] = useState([])
@@ -48,6 +50,7 @@ export const AdminPanelType = () => {
       input: 'text',
       successDispatch: () => dispatch(getProductType()),
       id,
+      inputValue: productValue.name,
     })
 
   const deleteProductCategories = (id, productValue) =>
@@ -65,7 +68,7 @@ export const AdminPanelType = () => {
   return (
     <div className='container-fluid pt-3'>
       <div className='row'>
-        <div className='container col-12'>
+        <div className='container col-12 col-md-6 fadeIn'>
           <DynamicDataTable
             title={'Tipos de producto'}
             handleClickAdd={handleClickAddProductTypes}
@@ -73,15 +76,21 @@ export const AdminPanelType = () => {
             columns={columnsProductCategories}
             onRowClicked={(row) => {
               addStyleOnSelectedRow(row.id)
-              dispatch(isChekingGetProductSubTypes())
               dispatch(selectProductType(row))
             }}
             actionDelete={deleteProductCategories}
             actionEdit={editProductTypes}
+            progressPending={checking}
           />
         </div>
-        {selectedType && Object.keys(selectedType).length > 0 && <AdminPanelProductSubTypes />}
-        {/* {typeSelected.name && <AdminPanelProductTypeCategories typeSelected={typeSelected} />} */}
+        <div className='col-12 col-md-6 container fadeIn'>
+          {selectedType && Object.keys(selectedType).length > 0 && <AdminPanelProductSubTypes />}
+        </div>
+        <div className='container-fluid col-12 pt-3'>
+          {selectedType && Object.keys(selectedType).length > 0 && (
+            <AdminPanelProductTypeCategories />
+          )}
+        </div>
       </div>
     </div>
   )

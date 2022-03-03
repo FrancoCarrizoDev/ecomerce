@@ -3,7 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState, useEffect } from 'react'
 import { Button } from 'react-bootstrap'
 import DataTable from 'react-data-table-component'
+
 import { constructorData } from 'src/helpers/constructorsDataTable'
+import { SpinnerDataTable } from './SpinnerDataTable'
 
 export const DynamicDataTable = ({
   data,
@@ -34,6 +36,7 @@ export const DynamicDataTable = ({
         data={dataRows}
         {...props}
         noDataComponent={'No hay registros disponibles'}
+        progressComponent={<SpinnerDataTable />}
         pagination
         paginationComponentOptions={{ rowsPerPageText: 'Filas por página:' }}
       />

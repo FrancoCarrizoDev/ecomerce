@@ -13,6 +13,15 @@ const ACTIONS_REDUCERS = {
     ...state,
     selectedType: {},
   }),
+  [types.productTypeStartChecking]: (state) => ({
+    ...state,
+    checking: true,
+  }),
+
+  [types.productTypeStopChecking]: (state) => ({
+    ...state,
+    checking: false,
+  }),
 }
 
 export const productTypeReducer = (state = {}, action) => {

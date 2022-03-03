@@ -58,12 +58,20 @@ const checkingFinish = () => ({
 })
 
 // TODO van en otro lado
-const loadingStart = () => ({
+export const loadingStart = () => ({
   type: types.startLoading,
 })
 
-const loadingStop = () => ({
+export const loadingStop = () => ({
   type: types.stopLoading,
+})
+
+export const internalLoadingStart = () => ({
+  type: types.startInternalLoading,
+})
+
+export const internalLoadingStop = () => ({
+  type: types.stopInternalLoading,
 })
 
 export const startCheking = () => {

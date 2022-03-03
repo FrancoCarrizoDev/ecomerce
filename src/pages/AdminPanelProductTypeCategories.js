@@ -23,21 +23,28 @@ import {
 
 export const AdminPanelProductTypeCategories = () => {
   const dispatch = useDispatch()
-  const { typeCategories } = useSelector((state) => state.rootReducer.productTypeCategories)
+  const { typeCategories, checking } = useSelector(
+    (state) => state.rootReducer.productTypeCategories
+  )
+
+  const { selectedType } = useSelector((state) => state.rootReducer.productType)
   const [categorySelected, setCategorySelected] = useState({})
   const [valuesCategories, setValuesCategories] = useState([])
 
   useEffect(() => {
-    dispatch(getProductTypeCategories())
-  }, [])
+    dispatch(getProductTypeCategories(selectedType.id))
+    setCategorySelected({})
+    setValuesCategories([])
+  }, [selectedType])
 
   const handleClickAddProductTypeCategories = () =>
     createModal(MODAL_TYPES.customizableModal, {
       title: `Agregar una nueva categoría por tipo`,
       successMessage: 'Categoría agregada!',
       service: createProductTypeCategory,
+      id: selectedType.id,
       input: 'text',
-      successDispatch: () => dispatch(getProductTypeCategories()),
+      successDispatch: () => dispatch(getProductTypeCategories(selectedType.id)),
     })
 
   const viewProductTypeCategories = (text) =>
@@ -53,8 +60,9 @@ export const AdminPanelProductTypeCategories = () => {
       successMessage: 'Tu valor ya ha sido actualizado.',
       service: updateProductTypeCategory,
       input: 'text',
-      successDispatch: () => dispatch(getProductTypeCategories()),
+      successDispatch: () => dispatch(getProductTypeCategories(selectedType.id)),
       id,
+      inputValue: productValue.name,
     })
 
   const deleteProductTypeCategories = (id, productValue) =>
@@ -64,7 +72,7 @@ export const AdminPanelProductTypeCategories = () => {
       icon: MODAL_STATUS.warning,
       successMessage: `La categoría ${productValue.name} fue eliminada`,
       service: disableProductTypeCategories,
-      successDispatch: () => dispatch(getProductTypeCategories()),
+      successDispatch: () => dispatch(getProductTypeCategories(selectedType.id)),
       next: () => setCategorySelected({}),
       id,
     })
@@ -113,37 +121,36 @@ export const AdminPanelProductTypeCategories = () => {
 
   // TODO modularizar la tabla con su título
   return (
-    <div className='container-fluid pt-3'>
-      <div className='row'>
-        <div className='col-12 col-md-6'>
+    <div className='row'>
+      <div className='col-12 col-md-6 fadeIn'>
+        <DynamicDataTable
+          title={'Categorías Por Tipo'}
+          handleClickAdd={handleClickAddProductTypeCategories}
+          data={typeCategories}
+          columns={columnsProductTypeCategories}
+          onRowClicked={(row) => {
+            addStyleOnSelectedRow(row.id)
+            getProductTypeValuesCategories(row, setCategorySelected, setValuesCategories)
+          }}
+          actionDelete={deleteProductTypeCategories}
+          actionView={viewProductTypeCategories}
+          actionEdit={editProductTypeCategories}
+          progressPending={checking}
+        />
+      </div>
+      {categorySelected.name && (
+        <div className='col-12 col-md-6 fadeIn'>
           <DynamicDataTable
-            title={'Categorías Por Tipo'}
-            handleClickAdd={handleClickAddProductTypeCategories}
-            data={typeCategories}
-            columns={columnsProductTypeCategories}
-            onRowClicked={(row) => {
-              addStyleOnSelectedRow(row.id)
-              getProductTypeValuesCategories(row, setCategorySelected, setValuesCategories)
-            }}
-            actionDelete={deleteProductTypeCategories}
-            actionView={viewProductTypeCategories}
-            actionEdit={editProductTypeCategories}
+            title={categorySelected.name}
+            handleClickAdd={handleClickAddProductTypeValueCategories}
+            data={valuesCategories}
+            columns={columnsProductsTypeValuesCategories}
+            actionDelete={deleteProductTypeValuesCategories}
+            actionView={viewProductTypeValuesCategories}
+            actionEdit={editProductTypeValuesCategories}
           />
         </div>
-        {categorySelected.name && (
-          <div className='col-12 col-md-6 fadeIn'>
-            <DynamicDataTable
-              title={categorySelected.name}
-              handleClickAdd={handleClickAddProductTypeValueCategories}
-              data={valuesCategories}
-              columns={columnsProductsTypeValuesCategories}
-              actionDelete={deleteProductTypeValuesCategories}
-              actionView={viewProductTypeValuesCategories}
-              actionEdit={editProductTypeValuesCategories}
-            />
-          </div>
-        )}
-      </div>
+      )}
     </div>
   )
 }

@@ -4,6 +4,14 @@ import { getProductsType } from 'src/services/productType'
 
 const { types } = require('src/types/types')
 
+const productTypeStartChecking = () => ({
+  type: types.productTypeStartChecking,
+})
+
+const productTypeStopChecking = () => ({
+  type: types.productTypeStopChecking,
+})
+
 const getProductTypeAction = (productTypes) => ({
   type: types.getProductType,
   payload: productTypes,
@@ -12,10 +20,13 @@ const getProductTypeAction = (productTypes) => ({
 export const getProductType = () => {
   return async (dispatch) => {
     try {
+      dispatch(productTypeStartChecking())
       const initialCategories = await getProductsType()
       dispatch(getProductTypeAction(initialCategories))
     } catch (error) {
       console.log(error)
+    } finally {
+      dispatch(productTypeStopChecking())
     }
   }
 }

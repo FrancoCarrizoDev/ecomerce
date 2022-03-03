@@ -31,6 +31,17 @@ export const columnsProductTypeCategories = [
   },
 ]
 
+export const columnsProductSubTypeCategories = [
+  {
+    name: 'Nombres',
+    selector: (row) => row.name,
+  },
+  {
+    name: 'Acción',
+    selector: (row) => row.action,
+  },
+]
+
 export const columnsProductsTypeValuesCategories = [
   {
     name: 'Valor',

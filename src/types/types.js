@@ -15,15 +15,20 @@ export const types = {
   getProductCategories: '[ProdCat] Get ProdCat',
   createProductCategories: '[ProdCat] Create ProdCat',
 
-  getProductTypeCategories: '[ProdCat] Get ProdTypeCat',
-  createProductTypeCategories: '[ProdCat] Create ProdTypeCat',
+  getProductTypeCategories: '[ProdTyCat] Get ProdTypeCat',
+  createProductTypeCategories: '[ProdTyCat] Create ProdTypeCat',
+  productTypeCategoriesStartChecking: '[ProdTyCat] Cheking start',
+  productTypeCategoriesStopChecking: '[ProdTyCAt] Cheking stop',
 
   getProductSubType: '[ProdSubCat] Get Product Sub Types',
   getProductSubTypeCheking: '[ProdSubCat] Cheking Get Product Sub Types',
-  cleanProductsSubTypes: '[ProdType] Clean Product Sub Tpye',
+  productSubTypeStartChecking: '[ProdSubType] Cheking start',
+  productSubTypeStopChecking: '[ProdSubType] Cheking stop',
 
   getProductType: '[ProdType] Get Product Types',
   selectProductType: '[ProdType] Select Product Types',
+  productTypeStartChecking: '[ProdType] Cheking start',
+  productTypeStopChecking: '[ProdType] Cheking stop',
   cleanSelectedType: '[ProdType] Clean Selected Product Tpye',
 
   appSelected: '[App] Selected App',

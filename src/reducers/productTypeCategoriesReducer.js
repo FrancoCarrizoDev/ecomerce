@@ -5,6 +5,15 @@ const ACTIONS_REDUCERS = {
     ...state,
     typeCategories: [...action.payload],
   }),
+  [types.productTypeCategoriesStartChecking]: (state) => ({
+    ...state,
+    checking: true,
+  }),
+
+  [types.productTypeCategoriesStopChecking]: (state) => ({
+    ...state,
+    checking: false,
+  }),
 }
 
 export const productTypeCategoriesReducer = (state = {}, action) => {
