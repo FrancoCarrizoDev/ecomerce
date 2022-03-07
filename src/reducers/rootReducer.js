@@ -2,6 +2,7 @@ import { combineReducers } from 'redux'
 import { appSelectedReducer } from './appSelectedReducer'
 import { authReducer } from './authReducer'
 import { loadingReducer } from './loadingReducer'
+import { newProductReducer } from './newProductReducer'
 import { productCategoriesReducer } from './productCategoriesReducer'
 import { productSubTypesReducer } from './productSubTypesReducer'
 import { productTypeCategoriesReducer } from './productTypeCategoriesReducer'
@@ -15,4 +16,5 @@ export const rootReducer = combineReducers({
   productTypeCategories: productTypeCategoriesReducer,
   productSubTypes: productSubTypesReducer,
   productType: productTypeReducer,
+  newProduct: newProductReducer,
 })

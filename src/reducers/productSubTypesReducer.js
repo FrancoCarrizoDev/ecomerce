@@ -20,7 +20,7 @@ const ACTIONS_REDUCERS = {
   }),
 }
 
-export const productSubTypesReducer = (state = {}, action) => {
+export const productSubTypesReducer = (state = { productSubTypes: [] }, action) => {
   const actionReducer = ACTIONS_REDUCERS[action.type]
   return actionReducer ? actionReducer(state, action) : state
 }

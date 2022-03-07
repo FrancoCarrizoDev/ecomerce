@@ -21,7 +21,7 @@ export const types = {
   productTypeCategoriesStopChecking: '[ProdTyCAt] Cheking stop',
 
   getProductSubType: '[ProdSubCat] Get Product Sub Types',
-  getProductSubTypeCheking: '[ProdSubCat] Cheking Get Product Sub Types',
+  getProductSubTypeCheking: '[ProdSubType] Cheking Get Product Sub Types',
   productSubTypeStartChecking: '[ProdSubType] Cheking start',
   productSubTypeStopChecking: '[ProdSubType] Cheking stop',
 
@@ -30,6 +30,14 @@ export const types = {
   productTypeStartChecking: '[ProdType] Cheking start',
   productTypeStopChecking: '[ProdType] Cheking stop',
   cleanSelectedType: '[ProdType] Clean Selected Product Tpye',
+
+  newProductChangeName: '[CreatingNewProduct]  Change Name',
+  newProductChangePrice: '[CreatingNewProduct] Change Price',
+  newProductChangeQuantity: '[CreatingNewProduct] Change Quantity',
+  newProductChangeImg: '[CreatingNewProduct] Change Img',
+  newProductChangeType: '[CreatingNewProduct] Change select type',
+  newProductChangeSubType: '[CreatingNewProduct] Change select subtype',
+  cleanNewProductState: '[CreatingNewProduct] Clean ',
 
   appSelected: '[App] Selected App',
 }
