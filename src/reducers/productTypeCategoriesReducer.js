@@ -1,6 +1,10 @@
 import { types } from '../types/types'
 
 const ACTIONS_REDUCERS = {
+  [types.clearProductTypeCategories]: (state) => ({
+    ...state,
+    typeCategories: [],
+  }),
   [types.getProductTypeCategories]: (state, action) => ({
     ...state,
     typeCategories: [...action.payload],

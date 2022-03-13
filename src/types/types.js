@@ -17,6 +17,7 @@ export const types = {
 
   getProductTypeCategories: '[ProdTyCat] Get ProdTypeCat',
   createProductTypeCategories: '[ProdTyCat] Create ProdTypeCat',
+  clearProductTypeCategories: '[ProdTyCat] Clear ProdTypeCat',
   productTypeCategoriesStartChecking: '[ProdTyCat] Cheking start',
   productTypeCategoriesStopChecking: '[ProdTyCAt] Cheking stop',
 
@@ -37,6 +38,8 @@ export const types = {
   newProductChangeImg: '[CreatingNewProduct] Change Img',
   newProductChangeType: '[CreatingNewProduct] Change select type',
   newProductChangeSubType: '[CreatingNewProduct] Change select subtype',
+  newProductChangeTypeAndValueCategory: '[CreatingNewProduct] Change select Type And Value Cat',
+  newProductChangeCategoriesAndValueCategory: '[CreatingNewProduct] Change select Cat and Val cat',
   cleanNewProductState: '[CreatingNewProduct] Clean ',
 
   appSelected: '[App] Selected App',

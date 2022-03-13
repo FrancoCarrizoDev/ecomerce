@@ -10,6 +10,10 @@ const productTypeCategorieStopChecking = () => ({
   type: types.productTypeCategoriesStopChecking,
 })
 
+export const clearProductTypeCategories = () => ({
+  type: types.clearProductTypeCategories,
+})
+
 const getProductTypeCategoriesAction = (productTypeCategories) => ({
   type: types.getProductTypeCategories,
   payload: productTypeCategories,
