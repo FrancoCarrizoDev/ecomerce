@@ -13,7 +13,6 @@ const ACTIONS_REDUCERS = {
     ...state,
     checking: true,
   }),
-
   [types.productTypeCategoriesStopChecking]: (state) => ({
     ...state,
     checking: false,

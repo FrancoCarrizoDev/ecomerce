@@ -80,10 +80,11 @@ export const getProductValuesCategories = (
   })
     .then((data) => data.json())
     .then((response) => {
-      setCategorySelected({
-        name: categorySelected.name,
-        id: categorySelected.id,
-      })
+      setCategorySelected &&
+        setCategorySelected({
+          name: categorySelected.name,
+          id: categorySelected.id,
+        })
       setValuesCategories(response)
     })
 }

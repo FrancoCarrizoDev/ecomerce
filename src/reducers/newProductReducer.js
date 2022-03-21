@@ -17,6 +17,15 @@ const ACTIONS_REDUCERS = {
     ...state,
     img: action.payload,
   }),
+  [types.newProductChangeDescription]: (state, action) => ({
+    ...state,
+    description: action.payload,
+  }),
+
+  [types.newProductChangeCode]: (state, action) => ({
+    ...state,
+    code: action.payload,
+  }),
   [types.newProductChangeType]: (state, action) => ({
     ...state,
     type: action.payload,
@@ -24,6 +33,22 @@ const ACTIONS_REDUCERS = {
   [types.newProductChangeSubType]: (state, action) => ({
     ...state,
     subType: action.payload,
+  }),
+  [types.newProductChangeTypeAndValueCategory]: (state, action) => ({
+    ...state,
+    tycValTycs: action.payload,
+  }),
+  [types.newProductChangeCategoriesAndValueCategory]: (state, action) => ({
+    ...state,
+    catValCats: action.payload,
+  }),
+  [types.newProductStartChecking]: (state) => ({
+    ...state,
+    checking: true,
+  }),
+  [types.newProductStopChecking]: (state) => ({
+    ...state,
+    checking: false,
   }),
   [types.cleanNewProductState]: () => ({
     undefined,
