@@ -63,16 +63,17 @@ export const disableProductTypeCategories = (_, id) => {
   })
 }
 
-export const getProductTypeValuesCategories = (
+export const getProductTypeValuesCategories = async (
   categorySelected,
   setCategorySelected,
-  setValuesCategories
+  setValuesCategories,
+  checking
 ) => {
   const url = `${baseUrl}/product-type-value-categories/${categorySelected.id}`
 
   const token = localStorage.getItem('token') || ''
-
-  return fetch(url, {
+  checking && checking(true)
+  return await fetch(url, {
     headers: {
       'x-token': token,
     },
@@ -85,6 +86,7 @@ export const getProductTypeValuesCategories = (
           id: categorySelected.id,
         })
       setValuesCategories(response)
+      checking && checking(false)
     })
 }
 

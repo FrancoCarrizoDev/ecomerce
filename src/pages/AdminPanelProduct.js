@@ -24,11 +24,18 @@ import {
   clearProductTypeCategories,
   getProductTypeCategories,
 } from 'src/actions/productTypeCategories'
-import { createHtmlModal } from 'src/helpers/sweeAlertWithHtml'
+import { createModal } from 'src/helpers/sweetAlert'
 import { useField } from 'src/hooks/useField'
 import { useForm } from 'src/hooks/useForm'
 import { getProductValuesCategories } from 'src/services/productCategories'
-import { getProductTypeValuesCategories } from 'src/services/productTypeCategories'
+import { createProductSubType } from 'src/services/productSubTypes'
+import { createProductType } from 'src/services/productType'
+import {
+  createProductsTypeValueCategory,
+  createProductTypeCategory,
+  getProductTypeValuesCategories,
+} from 'src/services/productTypeCategories'
+import { MODAL_TYPES } from 'src/types/modalTypes'
 import * as yup from 'yup'
 
 const userSchema = yup.object().shape({
@@ -169,11 +176,25 @@ const TypeSelect = memo(() => {
     dispatch(newProductChangeType(typeProduct))
   }, [typeProduct.value])
 
+  const handleClickAdd = () =>
+    createModal(MODAL_TYPES.customizableModal, {
+      title: 'Agregar un nuevo tipo',
+      successMessage: 'Tipo agregado!',
+      service: createProductType,
+      input: 'text',
+      successDispatch: () => dispatch(getProductType()),
+    })
+
   return (
     <Form.Group className='mb-3'>
-      <Form.Label>
-        <small>Tipo de producto</small>
-      </Form.Label>
+      <div className='d-flex justify-content-between'>
+        <Form.Label>
+          <small>Tipo de producto</small>
+        </Form.Label>
+        <Button variant='primary' className='btn-circle-small' onClick={handleClickAdd}>
+          <FontAwesomeIcon icon={faPlus} size='sm' />
+        </Button>
+      </div>
       <Form.Select size='sm' {...typeProduct} name='productSelect'>
         {checking ? (
           <option>Cargando...</option>
@@ -212,11 +233,26 @@ const SubTypeSelect = memo(() => {
     }
   }, [type])
 
+  const handleClickAdd = () =>
+    createModal(MODAL_TYPES.customizableModal, {
+      title: 'Agregar un sub tipo de categoría',
+      successMessage: 'Sub tipo agregado!',
+      service: createProductSubType,
+      id: type.value,
+      input: 'text',
+      successDispatch: () => dispatch(getProductSubType(type.value)),
+    })
+
   return (
     <Form.Group className='mb-3'>
-      <Form.Label>
-        <small>Sub tipo de producto</small>
-      </Form.Label>
+      <div className='d-flex justify-content-between'>
+        <Form.Label>
+          <small>Tipo de producto</small>
+        </Form.Label>
+        <Button variant='primary' className='btn-circle-small' onClick={handleClickAdd}>
+          <FontAwesomeIcon icon={faPlus} size='sm' />
+        </Button>
+      </div>
       <Form.Select size='sm' {...subTypeProduct}>
         {checking ? (
           <option>Cargando...</option>
@@ -258,7 +294,10 @@ CategoriesForm.displayName = 'CategoriesForm'
 const TypeCategoriesForm = memo(() => {
   const dispatch = useDispatch()
   const [values, handleInputChange, reset] = useForm({})
+  const [checkingProductTypeValuesCategories, setCheckingProductTypeValuesCategories] =
+    useState(false)
   const [typeCategoriesById, setTypesCategoriesById] = useState([])
+  const [categorySelected, setCategorySelected] = useState(false)
   const [typeCatVal, setTypeCatVal] = useState([])
   const { type } = useSelector((state) => state.rootReducer.newProduct)
   const { typeCategories, checking } = useSelector(
@@ -267,11 +306,21 @@ const TypeCategoriesForm = memo(() => {
 
   useEffect(() => {
     dispatch(getProductTypeCategories(type.value))
+    setCategorySelected(false)
   }, [type])
 
   useEffect(() => {
     if (values?.typeCategory) {
-      getProductTypeValuesCategories(values.typeCategory, null, setTypesCategoriesById)
+      setCategorySelected(true)
+
+      const fetchGetProductTypeValuesCategories = async () =>
+        await getProductTypeValuesCategories(
+          values.typeCategory,
+          null,
+          setTypesCategoriesById,
+          setCheckingProductTypeValuesCategories
+        )
+      fetchGetProductTypeValuesCategories()
     }
   }, [values.typeCategory])
 
@@ -281,6 +330,7 @@ const TypeCategoriesForm = memo(() => {
         ...prev,
         { typeCat: values.typeCategory, subTypeValCat: values.subTypeCategory },
       ])
+      setCategorySelected(false)
     }
     reset()
     dispatch(clearProductTypeCategories())
@@ -309,13 +359,39 @@ const TypeCategoriesForm = memo(() => {
     setTypeCatVal([...typeCatValArr])
   }
 
+  const handleClickAdd = () => {
+    createModal(MODAL_TYPES.customizableModal, {
+      title: `Agregar una nueva categoría por tipo`,
+      successMessage: 'Categoría agregada!',
+      service: createProductTypeCategory,
+      id: type.value,
+      input: 'text',
+      successDispatch: () => dispatch(getProductTypeCategories(type.value)),
+    })
+  }
+
+  const handleClickAddProductTypeValueCategories = () =>
+    createModal(MODAL_TYPES.customizableModal, {
+      title: `Agregar nuevo valor de la categoría`,
+      successMessage: 'Valor de categoría agregada!',
+      service: createProductsTypeValueCategory,
+      id: values.typeCategory.id,
+      input: 'text',
+      next: () =>
+        getProductTypeValuesCategories(
+          values.typeCategory,
+          null,
+          setTypesCategoriesById,
+          setCheckingProductTypeValuesCategories
+        ),
+    })
   return (
     <Col xxl={6}>
       <div className='d-flex align-items-center mb-1'>
         <h6 className='mb-0 pe-1'>
           Categorias por <span className='text-danger'>Tipo</span>
         </h6>
-        <Button variant='primary' className='btn-circle-small' onClick={createHtmlModal}>
+        <Button variant='primary' className='btn-circle-small' onClick={handleClickAdd}>
           <FontAwesomeIcon icon={faPlus} size='sm' />
         </Button>
       </div>
@@ -347,14 +423,16 @@ const TypeCategoriesForm = memo(() => {
                 })}
               </>
             ) : (
-              <option>No se encuentran</option>
+              <option>No se encuentran categorías</option>
             )}
           </Form.Select>
         </Form.Group>
-        {typeCategoriesById && typeCategoriesById.length > 0 && (
-          <Form.Group className='mb-3'>
+        {categorySelected && (
+          <Form.Group className='mb-1'>
             <Form.Select size='sm' name='subTypeCategory' onChange={handleInputChange}>
-              {typeCategories && typeCategories.length > 0 ? (
+              {checkingProductTypeValuesCategories ? (
+                <option>Cargando...</option>
+              ) : typeCategoriesById && typeCategoriesById.length > 0 ? (
                 <>
                   <option value='-1'>Seleccione una opción ({typeCategoriesById.length})</option>
                   {typeCategoriesById.map((typeCategoriesById) => (
@@ -370,9 +448,19 @@ const TypeCategoriesForm = memo(() => {
                   ))}
                 </>
               ) : (
-                <option>No se encuentran sub tipos</option>
+                <option>No se encuentran valores</option>
               )}
             </Form.Select>
+            <div className='d-flex justify-content-end align-items-center pe-1 pt-1'>
+              <small className='text-success me-1'>Agregar valor</small>
+              <Button
+                variant='primary'
+                className='btn-circle-small'
+                onClick={handleClickAddProductTypeValueCategories}
+              >
+                <FontAwesomeIcon icon={faPlus} size='sm' />
+              </Button>
+            </div>
           </Form.Group>
         )}
       </div>
