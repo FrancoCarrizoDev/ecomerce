@@ -27,7 +27,10 @@ import {
 import { createModal } from 'src/helpers/sweetAlert'
 import { useField } from 'src/hooks/useField'
 import { useForm } from 'src/hooks/useForm'
-import { getProductValuesCategories } from 'src/services/productCategories'
+import {
+  createProductsValueCategory,
+  getProductValuesCategories,
+} from 'src/services/productCategories'
 import { createProductSubType } from 'src/services/productSubTypes'
 import { createProductType } from 'src/services/productType'
 import {
@@ -359,7 +362,7 @@ const TypeCategoriesForm = memo(() => {
     setTypeCatVal([...typeCatValArr])
   }
 
-  const handleClickAdd = () => {
+  const handleClickAddProductTypeCategories = () => {
     createModal(MODAL_TYPES.customizableModal, {
       title: `Agregar una nueva categoría por tipo`,
       successMessage: 'Categoría agregada!',
@@ -391,7 +394,11 @@ const TypeCategoriesForm = memo(() => {
         <h6 className='mb-0 pe-1'>
           Categorias por <span className='text-danger'>Tipo</span>
         </h6>
-        <Button variant='primary' className='btn-circle-small' onClick={handleClickAdd}>
+        <Button
+          variant='primary'
+          className='btn-circle-small'
+          onClick={handleClickAddProductTypeCategories}
+        >
           <FontAwesomeIcon icon={faPlus} size='sm' />
         </Button>
       </div>
@@ -434,7 +441,9 @@ const TypeCategoriesForm = memo(() => {
                 <option>Cargando...</option>
               ) : typeCategoriesById && typeCategoriesById.length > 0 ? (
                 <>
-                  <option value='-1'>Seleccione una opción ({typeCategoriesById.length})</option>
+                  <option value='-1'>
+                    Seleccione una opción ({typeCategoriesById.length - 1})
+                  </option>
                   {typeCategoriesById.map((typeCategoriesById) => (
                     <option
                       value={JSON.stringify({
@@ -508,20 +517,34 @@ const GlobalCategoriesForm = memo(() => {
   const [categoryById, setCategoryById] = useState([])
   const [catVal, setCatVal] = useState([])
   const { categories, checking } = useSelector((state) => state.rootReducer.productCategories)
+  const [checkingProductValuesCategories, setCheckingProductValuesCategories] = useState(false)
+  const [categorySelected, setCategorySelected] = useState(false)
 
   useEffect(() => {
     dispatch(getProductCategories())
+    setCategorySelected(false)
   }, [])
 
   useEffect(() => {
     if (values?.category) {
-      getProductValuesCategories(values.category, null, setCategoryById)
+      setCategorySelected(true)
+
+      const fetchGetProductTypeValuesCategories = async () => {
+        await getProductValuesCategories(
+          values.category,
+          null,
+          setCategoryById,
+          setCheckingProductValuesCategories
+        )
+      }
+      fetchGetProductTypeValuesCategories()
     }
   }, [values.category])
 
   useEffect(() => {
     if (values.category && values.valCategory) {
       setCatVal((prev) => [...prev, { cat: values.category, valCat: values.valCategory }])
+      setCategorySelected(false)
     }
     reset()
     dispatch(clearProductCategories())
@@ -549,6 +572,18 @@ const GlobalCategoriesForm = memo(() => {
     setCatVal([...catValArr])
   }
 
+  const handleClickAddProductValueCategories = () =>
+    createModal(MODAL_TYPES.customizableModal, {
+      title: `Agregar nuevo valor de la categoría"`,
+      successMessage: 'Valor de categoría agregada!',
+      service: createProductsValueCategory,
+      id: values.category.id,
+      input: 'text',
+      next: () => getProductValuesCategories(values.category, null, setCategoryById),
+    })
+
+  console.log(catVal)
+
   return (
     <Col xxl={6}>
       <div className='d-flex align-items-center mb-1'>
@@ -566,7 +601,9 @@ const GlobalCategoriesForm = memo(() => {
               <option>Cargando...</option>
             ) : categories && categories.length > 0 ? (
               <>
-                <option value='-1'>Seleccione una opción ({categories.length})</option>
+                <option value='-1'>
+                  Seleccione una opción ({categories.length - catVal.length})
+                </option>
                 {categories.map((productCat) => {
                   const hasCategoryBeenSeleted = catVal.some(
                     (typeCatVal) => typeCatVal.cat.id === productCat._id
@@ -589,10 +626,12 @@ const GlobalCategoriesForm = memo(() => {
             )}
           </Form.Select>
         </Form.Group>
-        {categoryById && categoryById.length > 0 && (
+        {categorySelected && (
           <Form.Group className='mb-3'>
             <Form.Select size='sm' name='valCategory' onChange={handleInputChange}>
-              {categoryById && categoryById.length > 0 ? (
+              {checkingProductValuesCategories ? (
+                <option>Cargando...</option>
+              ) : categoryById && categoryById.length > 0 ? (
                 <>
                   <option value='-1'>Seleccione una opción ({categoryById.length})</option>
                   {categoryById.map((categoriesById) => (
@@ -611,6 +650,16 @@ const GlobalCategoriesForm = memo(() => {
                 <option>No se encuentran</option>
               )}
             </Form.Select>
+            <div className='d-flex justify-content-end align-items-center pe-1 pt-1'>
+              <small className='text-success me-1'>Agregar valor</small>
+              <Button
+                variant='primary'
+                className='btn-circle-small'
+                onClick={handleClickAddProductValueCategories}
+              >
+                <FontAwesomeIcon icon={faPlus} size='sm' />
+              </Button>
+            </div>
           </Form.Group>
         )}
       </div>
@@ -688,7 +737,6 @@ const FormContainer = () => {
     },
     [newProduct]
   )
-  console.log(errors)
 
   if (newProduct.checking) return <p>Cargando...</p>
 
