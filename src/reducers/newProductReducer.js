@@ -15,7 +15,17 @@ const ACTIONS_REDUCERS = {
   }),
   [types.newProductChangeImg]: (state, action) => ({
     ...state,
-    img: action.payload,
+    img: [...action.payload],
+  }),
+
+  [types.newProductStartUploadImg]: (state) => ({
+    ...state,
+    uploadingImg: true,
+  }),
+
+  [types.newProductFinishUploadImg]: (state) => ({
+    ...state,
+    uploadingImg: false,
   }),
   [types.newProductChangeDescription]: (state, action) => ({
     ...state,

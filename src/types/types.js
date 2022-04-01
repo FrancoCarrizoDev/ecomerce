@@ -39,6 +39,8 @@ export const types = {
   newProductChangePrice: '[CreatingNewProduct] Change Price',
   newProductChangeQuantity: '[CreatingNewProduct] Change Quantity',
   newProductChangeImg: '[CreatingNewProduct] Change Img',
+  newProductStartUploadImg: '[CreatingNewProduct] Start Upload Img',
+  newProductFinishUploadImg: '[CreatingNewProduct] Finish Upload Img',
   newProductChangeDescription: '[CreatingNewProduct] Change Description',
   newProductChangeCode: '[CreatingNewProduct] Change Code',
   newProductChangeType: '[CreatingNewProduct] Change select type',

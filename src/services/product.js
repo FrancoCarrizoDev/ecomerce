@@ -79,7 +79,6 @@ export const getCatValCatsByProductId = (id) => {
 }
 
 export const updateProductTycValTycByProductId = (id, tycValTycs, catValCats) => {
-  debugger
   const url = `${baseUrl}/products/${id}`
 
   const token = localStorage.getItem('token') || ''

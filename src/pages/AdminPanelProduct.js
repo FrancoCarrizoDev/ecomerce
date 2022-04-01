@@ -1,4 +1,4 @@
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faEye } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, memo, useCallback, useState } from 'react'
 import { Badge, Button, Col, Container, Form, ListGroup, Row } from 'react-bootstrap'
@@ -16,6 +16,8 @@ import {
   newProductChangeSubType,
   newProductChangeTycValTyc,
   newProductChangeType,
+  newProductFinishUploadImgAction,
+  newProductStartUploadImgAction,
 } from 'src/actions/newProduct'
 import { clearProductCategories, getProductCategories } from 'src/actions/productCategories'
 import { getProductSubType } from 'src/actions/productSubTypes'
@@ -27,6 +29,7 @@ import {
 import { createModal } from 'src/helpers/sweetAlert'
 import { useField } from 'src/hooks/useField'
 import { useForm } from 'src/hooks/useForm'
+// import { useMultipleImgField } from 'src/hooks/useMultipleImgField'
 import {
   createProductsValueCategory,
   getProductValuesCategories,
@@ -38,14 +41,15 @@ import {
   createProductTypeCategory,
   getProductTypeValuesCategories,
 } from 'src/services/productTypeCategories'
+import { fetchUploadImage } from 'src/services/upload'
 import { MODAL_TYPES } from 'src/types/modalTypes'
 import * as yup from 'yup'
 
 const userSchema = yup.object().shape({
-  subType: yup.string().required('Seleccione un sub tipo'),
-  type: yup.string().required('Seleecione un tipo'),
+  product_sub_type_fk: yup.string().required('Seleccione un sub tipo'),
+  product_type_fk: yup.string().required('Seleecione un tipo'),
   description: yup.string().required('El campo descripción es requerido'),
-  img: yup.string().required('El campo imágen es requerido'),
+  img: yup.array().required('El campo imágen es requerido'),
   quantity: yup.string().required('El campo cantidad es requerido'),
   price: yup.string().required('El campo precio es requerido'),
   name: yup
@@ -113,19 +117,81 @@ const QuantityForm = memo(() => {
 QuantityForm.displayName = 'QuantityForm'
 
 const ImgForm = memo(() => {
-  const img = useField({ type: 'text' })
   const dispatch = useDispatch()
+  const [files, setFiles] = useState([])
+  const { img, uploadingImg } = useSelector((state) => state.rootReducer.newProduct)
+
+  const onFileChange = (event) => {
+    setFiles(event.target.files)
+  }
 
   useEffect(() => {
-    dispatch(newProductChangeImg(img))
-  }, [img])
+    if (files.length > 0) {
+      const formData = new FormData()
+      for (let i = 0; i < files.length; i++) {
+        formData.append('collection', files[i])
+      }
+
+      const ejectFetchUploadImage = async () => {
+        dispatch(newProductStartUploadImgAction())
+        const resp = await fetchUploadImage(formData)
+        dispatch(newProductChangeImg(resp))
+        dispatch(newProductFinishUploadImgAction())
+      }
+      ejectFetchUploadImage()
+    }
+  }, [files])
+
+  const handleClickViewImg = (e) => {
+    const imgId = e.target.id ? e.target.id.split('-')[1] : e.target.parentNode.id.split('-')[1]
+    const captureImg = img.find((img) => img.asset_id === imgId)
+    createModal(MODAL_TYPES.imgViewer, captureImg.secure_url, 'Imágenes')
+  }
+
   return (
-    <Form.Group className='mb-3' controlId='formBasicPassword'>
-      <Form.Label>
-        <small>Imagen</small>
-      </Form.Label>
-      <Form.Control size='sm' type='text' {...img} />
-    </Form.Group>
+    <>
+      <Form.Group className='mb-3'>
+        <Form.Label>
+          <small>Imagen</small>
+        </Form.Label>
+        <Form.Control
+          size='sm'
+          type='file'
+          multiple
+          onChange={onFileChange}
+          id='multipleImgFilesInput'
+        />
+      </Form.Group>
+      <div className='d-flex'>
+        {uploadingImg ? (
+          <p>Cargando...</p>
+        ) : (
+          img?.length > 0 &&
+          img.map((img) => (
+            <div
+              key={`img-${img.asset_id}`}
+              className='smallImgToUpload img-thumbnail mx-1'
+              style={{ backgroundImage: `url(${img.secure_url})` }}
+            >
+              <Button
+                id={`btnView-${img.asset_id}`}
+                variant='warning'
+                size='sm'
+                className='float-end pointer'
+                onClick={handleClickViewImg}
+              >
+                <FontAwesomeIcon
+                  icon={faEye}
+                  size={'sm'}
+                  id={`svgView-${img.asset_id}`}
+                  onClick={handleClickViewImg}
+                />
+              </Button>
+            </div>
+          ))
+        )}
+      </div>
+    </>
   )
 })
 ImgForm.displayName = 'ImgForm'
@@ -717,9 +783,10 @@ const FormContainer = () => {
         product_type_fk: newProduct?.type?.value,
         product_sub_type_fk: newProduct?.subType?.value,
         description: newProduct.description.value,
-        img: newProduct.img.value,
+        img: newProduct.img,
       }
 
+      debugger
       const isValid = await userSchema
         .validate(validData)
         .then(function (data) {
@@ -791,6 +858,7 @@ export const AdminPanelProduct = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatch(cleanNewProduct())
     dispatch(getProductType())
     return () => {
       dispatch(cleanNewProduct())

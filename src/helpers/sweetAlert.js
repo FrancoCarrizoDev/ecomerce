@@ -15,6 +15,12 @@ export const defaultModal = () => {
 const MODALS_OPTIONS = {
   simpleModal: ({ title, message = '', status }) => Swal.fire(title, message, status),
   simpleModalFailed: (title, message) => Swal.fire(title, message, 'error'),
+  imgViewer: (url, alt) =>
+    Swal.fire({
+      imageUrl: url,
+      imageHeight: 400,
+      imageAlt: alt,
+    }),
   customizableModal: ({
     title,
     icon,

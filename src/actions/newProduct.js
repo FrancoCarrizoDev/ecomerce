@@ -49,6 +49,14 @@ const newProductChangeImgAction = (img) => ({
   payload: img,
 })
 
+export const newProductStartUploadImgAction = () => ({
+  type: types.newProductStartUploadImg,
+})
+
+export const newProductFinishUploadImgAction = () => ({
+  type: types.newProductFinishUploadImg,
+})
+
 export const newProductChangeImg = (img) => {
   return async (dispatch) => {
     dispatch(newProductChangeImgAction(img))
@@ -154,7 +162,6 @@ export const createNewProduct = ({
   return async (dispatch) => {
     dispatch(newProductStartChecking())
     try {
-      debugger
       const data = {
         name: name.value,
         price: price.value,
@@ -162,7 +169,7 @@ export const createNewProduct = ({
         product_type_fk: type.value,
         product_sub_type_fk: subType.value,
         description: description.value,
-        img: img.value,
+        img,
         code: code.value,
       }
       const newProduct = await createProduct(data)
