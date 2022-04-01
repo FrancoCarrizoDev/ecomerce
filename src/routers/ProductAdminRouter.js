@@ -1,14 +1,15 @@
 import { BrowserRouter as Router, Switch, Route, Redirect, NavLink } from 'react-router-dom'
 import { useRouteMatch } from '../../node_modules/react-router-dom/cjs/react-router-dom.min'
-import { AdminPanelProductCategories } from 'src/pages/AdminPanelProductCategories'
+import { GlobalCategories } from 'src/pages/AdminPanel/Products/GlobalCategories'
 import { useDispatch } from 'react-redux'
 import { selectApp } from 'src/actions/appSelected'
 import { APPS } from 'src/constants/apps'
 import { useEffect } from 'react'
-import { AdminPanelProductTypeCategories } from 'src/pages/AdminPanelProductTypeCategories'
-import { AdminPanelProductSubTypes } from 'src/pages/AdminPanelProductSubType'
-import { AdminPanelType } from 'src/pages/AdminPanelProductType'
-import { AdminPanelProduct } from 'src/pages/AdminPanelProduct'
+import { ProductTypeCategories } from 'src/pages/AdminPanel/Products/ProductTypeCategories'
+import { ProductSubTypes } from 'src/pages/AdminPanel/Products/ProductSubType'
+import { ProductType } from 'src/pages/AdminPanel/Products/ProductType'
+import { CreateProduct } from 'src/pages/AdminPanel/Products/CreateProduct'
+import { ProductList } from 'src/pages/AdminPanel/Products/ProductList'
 
 export const ProductAdminRouter = () => {
   const { path, url } = useRouteMatch()
@@ -25,6 +26,7 @@ export const ProductAdminRouter = () => {
           <ul className='d-flex flex-row navbar-nav'>
             <li className='nav-item'>
               <NavLink
+                id='product'
                 to={`${url}/create`}
                 className={(isActive) =>
                   !isActive ? ' unselected nav-link' : 'activeNav nav-link'
@@ -69,22 +71,22 @@ export const ProductAdminRouter = () => {
         </div>
         <Switch>
           <Route path={`${path}/create`}>
-            <AdminPanelProduct />
+            <CreateProduct />
           </Route>
           <Route path={`${path}/list`}>
-            <h4>Listado de productos</h4>
+            <ProductList />
           </Route>
           <Route path={`${path}/product-type`}>
-            <AdminPanelType />
+            <ProductType />
           </Route>
           <Route path={`${path}/product-sub-type`}>
-            <AdminPanelProductSubTypes />
+            <ProductSubTypes />
           </Route>
           <Route path={`${path}/product-type-categories`}>
-            <AdminPanelProductTypeCategories />
+            <ProductTypeCategories />
           </Route>
           <Route path={`${path}/product-categories`}>
-            <AdminPanelProductCategories />
+            <GlobalCategories />
           </Route>
           <Redirect to={`${path}/create`} />
         </Switch>

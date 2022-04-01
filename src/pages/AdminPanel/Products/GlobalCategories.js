@@ -18,7 +18,7 @@ import { columnsProductCategories, columnsProductsValuesCategories } from 'src/c
 
 // TODO que la llamada a los servicios se haga por un dispatch
 
-export const AdminPanelProductCategories = () => {
+export const GlobalCategories = () => {
   const dispatch = useDispatch()
   const { categories } = useSelector((state) => state.rootReducer.productCategories)
   const [categorySelected, setCategorySelected] = useState({})

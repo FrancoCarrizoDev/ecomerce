@@ -1,7 +1,7 @@
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faPlus, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import React, { useState, useEffect } from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, FormControl, InputGroup } from 'react-bootstrap'
 import DataTable from 'react-data-table-component'
 
 import { constructorData } from 'src/helpers/constructorsDataTable'
@@ -23,6 +23,30 @@ export const DynamicDataTable = ({
     setDataRows(constructorData(data, actionDelete, actionView, actionEdit))
   }, [data])
 
+  const [filterText, setFilterText] = React.useState('')
+  const filteredItems = data.filter(
+    (item) => item.name && item.name.toLowerCase().includes(filterText.toLowerCase())
+  )
+
+  useEffect(() => {
+    filteredItems && setDataRows(filteredItems)
+  }, [filterText])
+
+  const SubHeaderComponent = (
+    <div>
+      <InputGroup className='mb-3' size='sm' onChange={(e) => setFilterText(e.target.value)}>
+        <FormControl
+          placeholder='Buscar...'
+          aria-label='Buscar...'
+          aria-describedby='basic-addon2'
+        />
+        <InputGroup.Text id='basic-addon2'>
+          <FontAwesomeIcon icon={faSearch} size='sm' />
+        </InputGroup.Text>
+      </InputGroup>
+    </div>
+  )
+
   return (
     <div className=' bg-white pt-3 px-3 pb-0 sweetBorderRadius shadow-sm'>
       <div className='d-flex justify-content-between mb-1'>
@@ -39,6 +63,8 @@ export const DynamicDataTable = ({
         progressComponent={<SpinnerDataTable />}
         pagination
         paginationComponentOptions={{ rowsPerPageText: 'Filas por página:' }}
+        subHeader
+        subHeaderComponent={SubHeaderComponent}
       />
     </div>
   )

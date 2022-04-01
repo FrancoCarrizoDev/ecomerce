@@ -13,12 +13,12 @@ import {
   selectProductType,
 } from 'src/actions/productType'
 import { createProductType, disableProductType, updateProductType } from 'src/services/productType'
-import { AdminPanelProductSubTypes } from './AdminPanelProductSubType'
-import { AdminPanelProductTypeCategories } from './AdminPanelProductTypeCategories'
+import { ProductSubTypes } from './ProductSubType'
+import { ProductTypeCategories } from './ProductTypeCategories'
 
 // TODO que la llamada a los servicios se haga por un dispatch
 
-export const AdminPanelType = () => {
+export const ProductType = () => {
   const dispatch = useDispatch()
   const { productType, selectedType, checking } = useSelector(
     (state) => state.rootReducer.productType
@@ -84,12 +84,10 @@ export const AdminPanelType = () => {
           />
         </div>
         <div className='col-12 col-md-6 container fadeIn'>
-          {selectedType && Object.keys(selectedType).length > 0 && <AdminPanelProductSubTypes />}
+          {selectedType && Object.keys(selectedType).length > 0 && <ProductSubTypes />}
         </div>
         <div className='container-fluid col-12 pt-3'>
-          {selectedType && Object.keys(selectedType).length > 0 && (
-            <AdminPanelProductTypeCategories />
-          )}
+          {selectedType && Object.keys(selectedType).length > 0 && <ProductTypeCategories />}
         </div>
       </div>
     </div>

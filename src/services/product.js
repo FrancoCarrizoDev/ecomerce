@@ -92,3 +92,18 @@ export const updateProductTycValTycByProductId = (id, tycValTycs, catValCats) =>
     body: JSON.stringify({ tycValTycs, catValCats }),
   })
 }
+
+export const getProducts = () => {
+  const url = `${baseUrl}/products`
+
+  const token = localStorage.getItem('token') || ''
+  return fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-token': token,
+    },
+  })
+    .then((resp) => resp.json())
+    .then((data) => data.product)
+}

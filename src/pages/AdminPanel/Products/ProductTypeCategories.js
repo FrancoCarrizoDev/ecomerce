@@ -21,7 +21,7 @@ import {
 
 // TODO que la llamada a los servicios se haga por un dispatch
 
-export const AdminPanelProductTypeCategories = () => {
+export const ProductTypeCategories = () => {
   const dispatch = useDispatch()
   const { typeCategories, checking } = useSelector(
     (state) => state.rootReducer.productTypeCategories

@@ -11,13 +11,7 @@ import {
   updateProductSubType,
 } from 'src/services/productSubTypes'
 
-// TODO que la llamada a los servicios se haga por un dispatch
-
-// TODO acá el productType y Sub Type deben estar juntos
-
-// TODO quitar el isCheking state reducer
-
-export const AdminPanelProductSubTypes = () => {
+export const ProductSubTypes = () => {
   const dispatch = useDispatch()
   const { productSubTypes, checking } = useSelector((state) => state.rootReducer.productSubTypes)
   const { selectedType } = useSelector((state) => state.rootReducer.productType)

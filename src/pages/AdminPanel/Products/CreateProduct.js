@@ -105,6 +105,7 @@ const QuantityForm = memo(() => {
   useEffect(() => {
     dispatch(newProductChangeQuantity(quantity))
   }, [quantity])
+
   return (
     <Form.Group className='mb-3' controlId='formBasicPassword'>
       <Form.Label>
@@ -854,7 +855,7 @@ const FormContainer = () => {
   )
 }
 
-export const AdminPanelProduct = () => {
+export const CreateProduct = () => {
   const dispatch = useDispatch()
 
   useEffect(() => {
