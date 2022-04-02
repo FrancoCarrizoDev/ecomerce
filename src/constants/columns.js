@@ -125,4 +125,8 @@ export const columnsProducts = [
     name: 'Código',
     selector: (row) => row.code,
   },
+  {
+    name: 'Acción',
+    selector: (row) => row.action,
+  },
 ]

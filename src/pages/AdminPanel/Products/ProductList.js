@@ -8,6 +8,7 @@ const customStyles = {
     style: {
       minHeight: '72px', // override the row height
       maxHeigth: '100px',
+      cursor: 'pointer',
     },
   },
   headCells: {
@@ -28,11 +29,13 @@ const customStyles = {
 
 export const ProductList = () => {
   const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     const fetchProducts = async () => {
       const products = await getProducts()
       setProducts(products)
+      setLoading(false)
     }
     fetchProducts()
   }, [])
@@ -52,20 +55,19 @@ export const ProductList = () => {
   return (
     <div className='p-3'>
       <div className='bg-white'>
-        {products.length > 0 && (
-          <DynamicDataTable
-            highlightOnHover
-            title={'Producto'}
-            handleClickAdd={handleClickAddProduct}
-            data={products}
-            columns={columnsProducts}
-            onRowClicked={(row) => {
-              console.log(row)
-            }}
-            dense
-            customStyles={customStyles}
-          />
-        )}
+        <DynamicDataTable
+          highlightOnHover
+          title={'Producto'}
+          handleClickAdd={handleClickAddProduct}
+          data={products}
+          columns={columnsProducts}
+          dense
+          customStyles={customStyles}
+          progressPending={loading}
+          onRowClicked={() => {}}
+          actionDelete={() => {}}
+          actionEdit={() => {}}
+        />
       </div>
     </div>
   )

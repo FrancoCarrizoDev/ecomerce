@@ -1,7 +1,18 @@
 import { faPlus, faEye } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, memo, useCallback, useState } from 'react'
-import { Badge, Button, Col, Container, Form, ListGroup, Row } from 'react-bootstrap'
+import {
+  Badge,
+  Button,
+  Col,
+  Container,
+  Form,
+  FormControl,
+  FormGroup,
+  InputGroup,
+  ListGroup,
+  Row,
+} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import {
   cleanNewProduct,
@@ -88,12 +99,16 @@ const PriceInput = memo(() => {
     dispatch(newProductChangePrice(price))
   }, [price])
   return (
-    <Form.Group className='mb-3' controlId='formBasicPassword'>
+    <FormGroup className='mb-3'>
       <Form.Label>
         <small>Precio</small>
       </Form.Label>
-      <Form.Control size='sm' type='text' {...price} />
-    </Form.Group>
+      <InputGroup size='sm'>
+        <InputGroup.Text>$</InputGroup.Text>
+        <FormControl aria-label='Precio' type='text' {...price} />
+        <InputGroup.Text>.00</InputGroup.Text>
+      </InputGroup>
+    </FormGroup>
   )
 })
 PriceInput.displayName = 'PriceInput'
@@ -209,10 +224,13 @@ const DescriptionForm = memo(() => {
 
   return (
     <Form.Group className='mb-3' controlId='formBasicPassword'>
-      <Form.Label>
+      {/* <Form.Label>
         <small>Descripción</small>
-      </Form.Label>
-      <Form.Control size='sm' type='text' {...description} />
+      </Form.Label> */}
+      <InputGroup size='sm'>
+        <InputGroup.Text>Descripción</InputGroup.Text>
+        <FormControl as='textarea' aria-label='With textarea' type='textarea' {...description} />
+      </InputGroup>
     </Form.Group>
   )
 })
