@@ -93,8 +93,24 @@ export const updateProductTycValTycByProductId = (id, tycValTycs, catValCats) =>
   })
 }
 
-export const getProducts = () => {
-  const url = `${baseUrl}/products`
+export const getProducts = ({ limit = 12, skip = 0, ...rest } = { limit: 12, skip: 0 }) => {
+  const url = `${baseUrl}/products?`
+
+  const token = localStorage.getItem('token') || ''
+  const params = Object.keys(rest).length > 0 ? { limit, skip, ...rest } : { limit, skip }
+  return fetch(url + new URLSearchParams(params), {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-token': token,
+    },
+  })
+    .then((resp) => resp.json())
+    .then((data) => data.products)
+}
+
+export const getProductById = (id) => {
+  const url = `${baseUrl}/products/${id}`
 
   const token = localStorage.getItem('token') || ''
   return fetch(url, {
@@ -105,5 +121,5 @@ export const getProducts = () => {
     },
   })
     .then((resp) => resp.json())
-    .then((data) => data.product)
+    .then((data) => data)
 }

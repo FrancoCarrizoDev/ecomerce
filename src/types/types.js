@@ -35,6 +35,7 @@ export const types = {
   productTypeStopChecking: '[ProdType] Cheking stop',
   cleanSelectedType: '[ProdType] Clean Selected Product Tpye',
 
+  newProductChargeToEdit: '[CreatingNewProduct] Charge New Product To Edit',
   newProductChangeName: '[CreatingNewProduct]  Change Name',
   newProductChangePrice: '[CreatingNewProduct] Change Price',
   newProductChangeQuantity: '[CreatingNewProduct] Change Quantity',

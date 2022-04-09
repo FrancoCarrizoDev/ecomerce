@@ -667,8 +667,6 @@ const GlobalCategoriesForm = memo(() => {
       next: () => getProductValuesCategories(values.category, null, setCategoryById),
     })
 
-  console.log(catVal)
-
   return (
     <Col xxl={6}>
       <div className='d-flex align-items-center mb-1'>
@@ -805,7 +803,6 @@ const FormContainer = () => {
         img: newProduct.img,
       }
 
-      debugger
       const isValid = await userSchema
         .validate(validData)
         .then(function (data) {

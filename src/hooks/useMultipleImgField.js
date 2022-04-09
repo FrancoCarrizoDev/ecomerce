@@ -1,5 +1,6 @@
 import { useState } from 'react'
 
+// todo eliminar metodo
 export const useMultipleImgField = ({ type }) => {
   const [value] = useState('')
 

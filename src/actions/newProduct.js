@@ -205,3 +205,14 @@ export const createNewProduct = ({
     }
   }
 }
+
+const newProductChargeToEditAction = (newProduct) => ({
+  type: types.newProductChargeToEdit,
+  payload: newProduct,
+})
+
+export const newProductChargeToEdit = (newProduct) => {
+  return async (dispatch) => {
+    dispatch(newProductChargeToEditAction(newProduct))
+  }
+}

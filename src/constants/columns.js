@@ -93,7 +93,7 @@ export const columnsProducts = [
       ))
       return (
         <ul className='mb-0 overflow-auto' style={{ maxHeight: '75px' }}>
-          {globalCategories}
+          {row.product_cat_val_cat_fk.length > 0 ? globalCategories : <li>No tiene</li>}
         </ul>
       )
     },
@@ -108,7 +108,7 @@ export const columnsProducts = [
       ))
       return (
         <ul className='mb-0 overflow-auto' style={{ maxHeight: '75px' }}>
-          {typeCategories}
+          {row.product_tyc_val_tyc_fk.length > 0 ? typeCategories : <li>No tiene</li>}
         </ul>
       )
     },

@@ -60,6 +60,11 @@ const ACTIONS_REDUCERS = {
     ...state,
     checking: false,
   }),
+
+  [types.newProductChargeToEdit]: (state, action) => ({
+    ...state,
+    ...action.payload,
+  }),
   [types.cleanNewProductState]: () => ({
     undefined,
   }),

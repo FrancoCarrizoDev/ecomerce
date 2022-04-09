@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { DynamicDataTable } from 'src/components/DynamicDataTable'
 import { columnsProducts } from 'src/constants/columns'
 import { getProducts } from 'src/services/product'
@@ -30,6 +31,8 @@ const customStyles = {
 export const ProductList = () => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
+  // eslint-disable-next-line prefer-const
+  let history = useHistory()
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -40,16 +43,12 @@ export const ProductList = () => {
     fetchProducts()
   }, [])
 
-  useEffect(() => {
-    return () => {
-      const product = document.getElementById('product')
-      product.classList.remove('text-danger')
-    }
-  }, [])
-
   const handleClickAddProduct = () => {
-    const product = document.getElementById('product')
-    product.classList.add('text-danger')
+    history.push('/my-account/products/create')
+  }
+
+  const handleClickEditProduct = (id, product) => {
+    history.push('/my-account/products/edit/' + id, product)
   }
 
   return (
@@ -64,9 +63,9 @@ export const ProductList = () => {
           dense
           customStyles={customStyles}
           progressPending={loading}
-          onRowClicked={() => {}}
+          onRowClicked={(row) => console.log(row)}
           actionDelete={() => {}}
-          actionEdit={() => {}}
+          actionEdit={handleClickEditProduct}
         />
       </div>
     </div>

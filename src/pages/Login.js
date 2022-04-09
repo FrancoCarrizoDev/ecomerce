@@ -1,6 +1,6 @@
 import { startLogin } from 'src/actions/auth'
 import { Button, Form } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 
 import { useField } from '../hooks/useField'
@@ -8,8 +8,6 @@ import logo from '../images/owl.png'
 
 export const Login = () => {
   const dispatch = useDispatch()
-  const { auth } = useSelector((state) => state.rootReducer)
-  console.log(auth)
 
   const email = useField({ type: 'text' })
   const password = useField({ type: 'password' })

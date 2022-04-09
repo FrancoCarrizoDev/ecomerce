@@ -1,11 +1,21 @@
-import testPhoto from '../images/modelo/prueba1.jpeg'
-import testPhoto2 from '../images/modelo/prueba2.jpeg'
 import { Card, Form } from 'react-bootstrap'
 import { ImageAndHoverImage } from 'src/helpers/ImageAndHoverImage'
-
-const arrayTest = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+import { useState, useEffect } from 'react'
+import { getProducts } from 'src/services/product'
 
 export const CardProduct = ({ width }) => {
+  const [products, setProducts] = useState({})
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      const products = await getProducts({ genere: 'man' })
+      setProducts(products)
+      setLoading(false)
+    }
+    fetchProducts()
+  }, [])
+
   return (
     <div className=' mt-3 '>
       <div className='d-flex justify-content-between '>
@@ -26,20 +36,29 @@ export const CardProduct = ({ width }) => {
         )}
       </div>
       <div className='gridCards '>
-        {arrayTest.map((i) => (
-          <div className='mb-3' key={`card-product-${i}`}>
-            <Card className='border-0 shadow-sm'>
-              <ImageAndHoverImage background={testPhoto} hoverBackground={testPhoto2} />
-              <Card.Body>
-                <Card.Title>Blusa Reins</Card.Title>
-                <p className='card-text'>
-                  <del className='me-3 text-muted'>$3000</del>
-                  <span>$2000</span>
-                </p>
-              </Card.Body>
-            </Card>
-          </div>
-        ))}
+        {loading ? (
+          <p>Cargando...</p>
+        ) : products?.length > 0 ? (
+          products.map((product) => (
+            <div className='mb-3 h-100' key={`card-product-${product._id}`}>
+              <Card className='border-0 shadow-sm h-100'>
+                <ImageAndHoverImage
+                  background={product.img[0].secure_url}
+                  hoverBackground={product.img[1].secure_url}
+                />
+                <Card.Body>
+                  <Card.Title>{product.name}</Card.Title>
+                  <p className='card-text'>
+                    <del className='me-3 text-muted'>${product.price}</del>
+                    <span>${product.price - 1000}</span>
+                  </p>
+                </Card.Body>
+              </Card>
+            </div>
+          ))
+        ) : (
+          <p>No hay productos</p>
+        )}
       </div>
     </div>
   )
