@@ -1,9 +1,19 @@
-import { useState } from 'react'
-import { Accordion, Form, Button } from 'react-bootstrap'
+import { useEffect, useState } from 'react'
+import { Accordion, Button, Form } from 'react-bootstrap'
+import { getProductsCategories } from 'src/services/productCategories'
 import { ReactModal } from './ReactModal'
 
 export const CategoriesFilter = ({ width }) => {
   const [modalShow, setModalShow] = useState(false)
+  const [categories, setCategories] = useState([])
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      const response = await getProductsCategories()
+      setCategories(response)
+    }
+    fetchCategories()
+  }, [])
 
   return (
     <>
@@ -18,11 +28,40 @@ export const CategoriesFilter = ({ width }) => {
           <ReactModal show={modalShow} onHide={() => setModalShow(false)} />
         </div>
       ) : (
-        <Accordion>
-          <Accordion.Item eventKey='11'>
-            <Accordion.Header>TIPO DE PRODUCTO</Accordion.Header>
-          </Accordion.Item>
-          <Accordion.Item eventKey='0'>
+        categories.length > 0 && (
+          <Accordion>
+            {categories.map((category) => (
+              <>
+                <Accordion.Item key={category._id} eventKey={category._id}>
+                  <Accordion.Header>{category.name}</Accordion.Header>
+                  {category.values.length > 0 && (
+                    <Accordion.Body>
+                      <Form>
+                        <Form.Group>
+                          {category.values.map(({ _id, value }) => (
+                            <Form.Check
+                              key={`$valuesCategory-${_id}`}
+                              type='radio'
+                              label={value}
+                              name={value}
+                              id={_id}
+                            />
+                          ))}
+                        </Form.Group>
+                      </Form>
+                    </Accordion.Body>
+                  )}
+                </Accordion.Item>
+              </>
+            ))}
+          </Accordion>
+        )
+      )}
+    </>
+  )
+}
+
+/* <Accordion.Item eventKey='0'>
             <Accordion.Header>TALLE</Accordion.Header>
             <Accordion.Body>
               <Form>
@@ -48,27 +87,4 @@ export const CategoriesFilter = ({ width }) => {
                 </Form.Group>
               </Form>
             </Accordion.Body>
-          </Accordion.Item>
-          <Accordion.Item eventKey='1'>
-            <Accordion.Header>FIT</Accordion.Header>
-          </Accordion.Item>
-          <Accordion.Item eventKey='1'>
-            <Accordion.Header>TIRO</Accordion.Header>
-          </Accordion.Item>
-          <Accordion.Item eventKey='2'>
-            <Accordion.Header>ESTILO</Accordion.Header>
-          </Accordion.Item>
-          <Accordion.Item eventKey='3'>
-            <Accordion.Header>PRECIO</Accordion.Header>
-          </Accordion.Item>
-          <Accordion.Item eventKey='3'>
-            <Accordion.Header>COLOR</Accordion.Header>
-          </Accordion.Item>
-          <Accordion.Item eventKey='3'>
-            <Accordion.Header>CORTE</Accordion.Header>
-          </Accordion.Item>
-        </Accordion>
-      )}
-    </>
-  )
-}
+          </Accordion.Item> */
