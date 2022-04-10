@@ -18,6 +18,9 @@ export const types = {
   productCategoriesStopChecking: '[ProdCat] Stop Checking',
   clearProductCategories: '[ProdCat] Clear Products Cat',
 
+  selectProductCategory: '[Prod] Select Product Category',
+  cleanSelectedProductCategory: '[Prod] Clean Selected Product Category',
+
   getProductTypeCategories: '[ProdTyCat] Get ProdTypeCat',
   createProductTypeCategories: '[ProdTyCat] Create ProdTypeCat',
   clearProductTypeCategories: '[ProdTyCat] Clear ProdTypeCat',

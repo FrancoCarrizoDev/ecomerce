@@ -4,6 +4,7 @@ import { authReducer } from './authReducer'
 import { loadingReducer } from './loadingReducer'
 import { newProductReducer } from './newProductReducer'
 import { productCategoriesReducer } from './productCategoriesReducer'
+import { productReducer } from './productReducer'
 import { productSubTypesReducer } from './productSubTypesReducer'
 import { productTypeCategoriesReducer } from './productTypeCategoriesReducer'
 import { productTypeReducer } from './productTypeReducer'
@@ -17,4 +18,5 @@ export const rootReducer = combineReducers({
   productSubTypes: productSubTypesReducer,
   productType: productTypeReducer,
   newProduct: newProductReducer,
+  product: productReducer,
 })

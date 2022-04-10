@@ -76,6 +76,9 @@ export const ProductAdminRouter = () => {
           <Route path={`${path}/list`}>
             <ProductList />
           </Route>
+          <Route path={`${path}/edit/:id`}>
+            <h1>Holi</h1>
+          </Route>
           <Route path={`${path}/product-type`}>
             <ProductType />
           </Route>

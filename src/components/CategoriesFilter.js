@@ -1,19 +1,43 @@
 import { useEffect, useState } from 'react'
 import { Accordion, Button, Form } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
+import { cleanSelectedProductCategories, selectCategory } from 'src/actions/product'
 import { getProductsCategories } from 'src/services/productCategories'
 import { ReactModal } from './ReactModal'
 
 export const CategoriesFilter = ({ width }) => {
+  const dispatch = useDispatch()
   const [modalShow, setModalShow] = useState(false)
   const [categories, setCategories] = useState([])
+  const [selectedCategories, setSelectedCategories] = useState([])
 
   useEffect(() => {
+    dispatch(cleanSelectedProductCategories())
     const fetchCategories = async () => {
       const response = await getProductsCategories()
       setCategories(response)
     }
     fetchCategories()
   }, [])
+
+  useEffect(() => {
+    dispatch(selectCategory(selectedCategories))
+  }, [selectedCategories])
+
+  const handleSelectCategory = ({ id, categoryId, name }) => {
+    const categoryExists = selectedCategories.find((category) => category.categoryId === categoryId)
+
+    if (!categoryExists) {
+      setSelectedCategories([...selectedCategories, { id, categoryId, name }])
+    }
+
+    if (categoryExists) {
+      setSelectedCategories([
+        ...selectedCategories.filter((category) => category.categoryId !== categoryId),
+        { id, categoryId, name },
+      ])
+    }
+  }
 
   return (
     <>
@@ -30,29 +54,35 @@ export const CategoriesFilter = ({ width }) => {
       ) : (
         categories.length > 0 && (
           <Accordion>
-            {categories.map((category) => (
-              <>
-                <Accordion.Item key={category._id} eventKey={category._id}>
-                  <Accordion.Header>{category.name}</Accordion.Header>
-                  {category.values.length > 0 && (
-                    <Accordion.Body>
-                      <Form>
-                        <Form.Group>
-                          {category.values.map(({ _id, value }) => (
-                            <Form.Check
-                              key={`$valuesCategory-${_id}`}
-                              type='radio'
-                              label={value}
-                              name={value}
-                              id={_id}
-                            />
-                          ))}
-                        </Form.Group>
-                      </Form>
-                    </Accordion.Body>
-                  )}
-                </Accordion.Item>
-              </>
+            {categories.map((category, index) => (
+              <Accordion.Item key={`accordionId-${category._id + index}`} eventKey={category._id}>
+                <Accordion.Header>{category.name}</Accordion.Header>
+                {category.values.length > 0 && (
+                  <Accordion.Body>
+                    <Form>
+                      <Form.Group>
+                        {category.values.map(({ _id, value }, index) => (
+                          <Form.Check
+                            key={`valuesCategory-${_id + index}`}
+                            type='radio'
+                            label={value}
+                            name={`category-${category._id}`}
+                            id={_id}
+                            data-name={value}
+                            onClick={(e) =>
+                              handleSelectCategory({
+                                id: e.target.id,
+                                categoryId: category._id,
+                                name: e.target.dataset.name,
+                              })
+                            }
+                          />
+                        ))}
+                      </Form.Group>
+                    </Form>
+                  </Accordion.Body>
+                )}
+              </Accordion.Item>
             ))}
           </Accordion>
         )
