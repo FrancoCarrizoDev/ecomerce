@@ -10,6 +10,7 @@ import { ProductSubTypes } from 'src/pages/AdminPanel/Products/ProductSubType'
 import { ProductType } from 'src/pages/AdminPanel/Products/ProductType'
 import { CreateProduct } from 'src/pages/AdminPanel/Products/CreateProduct'
 import { ProductList } from 'src/pages/AdminPanel/Products/ProductList'
+import { EditProduct } from 'src/pages/AdminPanel/Products/EditProduct'
 
 export const ProductAdminRouter = () => {
   const { path, url } = useRouteMatch()
@@ -77,7 +78,7 @@ export const ProductAdminRouter = () => {
             <ProductList />
           </Route>
           <Route path={`${path}/edit/:id`}>
-            <h1>Holi</h1>
+            <EditProduct />
           </Route>
           <Route path={`${path}/product-type`}>
             <ProductType />

@@ -47,8 +47,8 @@ export const ProductList = () => {
     history.push('/my-account/products/create')
   }
 
-  const handleClickEditProduct = (id, product) => {
-    history.push('/my-account/products/edit/' + id, product)
+  const handleClickEditProduct = (id) => {
+    history.push('/my-account/products/edit/' + id)
   }
 
   return (
