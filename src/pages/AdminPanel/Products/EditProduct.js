@@ -5,10 +5,15 @@ import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
 import { getProductType } from 'src/actions/productType'
+import {
+  clearProductTypeCategories,
+  getProductTypeCategories,
+} from 'src/actions/productTypeCategories'
 import { createModal } from 'src/helpers/sweetAlert'
-import { useGlobalForm } from 'src/hooks/useForm'
+import { useForm, useGlobalForm } from 'src/hooks/useForm'
 import { getProductById } from 'src/services/product'
 import { createProductType } from 'src/services/productType'
+import { createProductTypeCategory } from 'src/services/productTypeCategories'
 import { fetchUploadImage } from 'src/services/upload'
 import { MODAL_TYPES } from 'src/types/modalTypes'
 
@@ -20,18 +25,25 @@ export const EditProduct = () => {
   const { productSubTypes, checking: checkingSubType } = useSelector(
     (state) => state.rootReducer.productSubTypes
   )
+  const { typeCategories, checkingTypeCategories } = useSelector(
+    (state) => state.rootReducer.productTypeCategories
+  )
   const { id } = useParams()
   const [product, setProduct] = useState({})
   const [loading, setLoading] = useState(true)
   const [values, handleInputChange] = useGlobalForm(product)
   const [files, setFiles] = useState([])
   const [uploading, setUploading] = useState(false)
-
+  const [typeCatVal, setTypeCatVal] = useState([])
+  const [valuesCategories, handleInputChangeCategories, reset] = useForm({})
+  const [categorySelected, setCategorySelected] = useState(false)
+  const [typeCategoriesById, setTypesCategoriesById] = useState([])
   useEffect(() => {
     const fetchProduct = async () => {
       const data = await getProductById(id)
       setProduct(data)
       setLoading(false)
+      dispatch(getProductTypeCategories(data?.product_type_fk?._id))
     }
     fetchProduct()
   }, [])
@@ -53,10 +65,23 @@ export const EditProduct = () => {
     }
   }, [files])
 
+  useEffect(() => {
+    if (valuesCategories.typeCategory && valuesCategories.subTypeCategory) {
+      setTypeCatVal((prev) => [
+        ...prev,
+        { typeCat: valuesCategories.typeCategory, subTypeValCat: valuesCategories.subTypeCategory },
+      ])
+      setCategorySelected(false)
+    }
+    reset()
+    dispatch(clearProductTypeCategories())
+    setTypesCategoriesById([])
+  }, [valuesCategories.subTypeCategory])
+
   console.log(values)
-  console.log(loading)
-  console.log(files)
-  console.log(setUploading)
+  console.log(valuesCategories)
+  console.log(categorySelected)
+  console.log(typeCategoriesById)
 
   const onFileChange = (event) => {
     setFiles(event.target.files)
@@ -82,6 +107,17 @@ export const EditProduct = () => {
       input: 'text',
       successDispatch: () => dispatch(getProductType()),
     })
+
+  const handleClickAddProductTypeCategories = () => {
+    createModal(MODAL_TYPES.customizableModal, {
+      title: `Agregar una nueva categoría por tipo`,
+      successMessage: 'Categoría agregada!',
+      service: createProductTypeCategory,
+      id: product.product_type_fk.name,
+      input: 'text',
+      successDispatch: () => dispatch(getProductTypeCategories(product.product_type_fk._id)),
+    })
+  }
 
   if (loading) return <p>Cargando...</p>
 
@@ -316,7 +352,61 @@ export const EditProduct = () => {
                       <hr />
                       <Container fluid>
                         <Row>
-                          <Col xxl={6}></Col>
+                          <Col xxl={6}>
+                            <div className='d-flex align-items-center mb-1'>
+                              <h6 className='mb-0 pe-1'>
+                                Categorias por <span className='text-danger'>Tipo</span>
+                              </h6>
+                              <Button
+                                variant='primary'
+                                className='btn-circle-small'
+                                onClick={handleClickAddProductTypeCategories}
+                              >
+                                <FontAwesomeIcon icon={faPlus} size='sm' />
+                              </Button>
+                            </div>
+                            <div className='d-flex flex-xl-column justify-content-between pt-2'>
+                              <Form.Group className='mb-3'>
+                                <Form.Select
+                                  size='sm'
+                                  name='typeCategory'
+                                  onChange={handleInputChangeCategories}
+                                >
+                                  {checkingTypeCategories ? (
+                                    <option>Cargando...</option>
+                                  ) : typeCategories && typeCategories.length > 0 ? (
+                                    <>
+                                      <option value='-1'>
+                                        Seleccione una opción (
+                                        {typeCategories.length - typeCatVal.length})
+                                      </option>
+                                      {typeCategories.map((productType) => {
+                                        const hasCategoryBeenSeleted = typeCatVal.some(
+                                          (typeCatVal) => typeCatVal.typeCat.id === productType._id
+                                        )
+
+                                        if (hasCategoryBeenSeleted) return null
+
+                                        return (
+                                          <option
+                                            value={JSON.stringify({
+                                              id: productType._id,
+                                              name: productType.name,
+                                            })}
+                                            key={`productTypeSelect-${productType._id}`}
+                                          >
+                                            {productType.name}
+                                          </option>
+                                        )
+                                      })}
+                                    </>
+                                  ) : (
+                                    <option>No se encuentran categorías</option>
+                                  )}
+                                </Form.Select>
+                              </Form.Group>
+                            </div>
+                          </Col>
                         </Row>
                       </Container>
                     </div>
