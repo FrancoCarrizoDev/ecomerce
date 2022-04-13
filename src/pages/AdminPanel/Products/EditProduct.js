@@ -13,7 +13,11 @@ import { createModal } from 'src/helpers/sweetAlert'
 import { useForm, useGlobalForm } from 'src/hooks/useForm'
 import { getProductById } from 'src/services/product'
 import { createProductType } from 'src/services/productType'
-import { createProductTypeCategory } from 'src/services/productTypeCategories'
+import {
+  createProductsTypeValueCategory,
+  createProductTypeCategory,
+  getProductTypeValuesCategories,
+} from 'src/services/productTypeCategories'
 import { fetchUploadImage } from 'src/services/upload'
 import { MODAL_TYPES } from 'src/types/modalTypes'
 
@@ -38,6 +42,9 @@ export const EditProduct = () => {
   const [valuesCategories, handleInputChangeCategories, reset] = useForm({})
   const [categorySelected, setCategorySelected] = useState(false)
   const [typeCategoriesById, setTypesCategoriesById] = useState([])
+  const [checkingProductTypeValuesCategories, setCheckingProductTypeValuesCategories] =
+    useState(false)
+
   useEffect(() => {
     const fetchProduct = async () => {
       const data = await getProductById(id)
@@ -72,16 +79,33 @@ export const EditProduct = () => {
         { typeCat: valuesCategories.typeCategory, subTypeValCat: valuesCategories.subTypeCategory },
       ])
       setCategorySelected(false)
+      console.log(valuesCategories)
     }
     reset()
     dispatch(clearProductTypeCategories())
     setTypesCategoriesById([])
   }, [valuesCategories.subTypeCategory])
 
+  useEffect(() => {
+    if (valuesCategories?.typeCategory) {
+      setCategorySelected(true)
+
+      const fetchGetProductTypeValuesCategories = async () =>
+        await getProductTypeValuesCategories(
+          valuesCategories.typeCategory,
+          null,
+          setTypesCategoriesById,
+          setCheckingProductTypeValuesCategories
+        )
+      fetchGetProductTypeValuesCategories()
+    }
+  }, [valuesCategories.typeCategory])
+
   console.log(values)
   console.log(valuesCategories)
   console.log(categorySelected)
   console.log(typeCategoriesById)
+  console.log(typeCatVal)
 
   const onFileChange = (event) => {
     setFiles(event.target.files)
@@ -115,9 +139,26 @@ export const EditProduct = () => {
       service: createProductTypeCategory,
       id: product.product_type_fk.name,
       input: 'text',
-      successDispatch: () => dispatch(getProductTypeCategories(product.product_type_fk._id)),
+      successDispatch: () =>
+        dispatch(getProductTypeCategories(valuesCategories.product_type_fk._id)),
     })
   }
+
+  const handleClickAddProductTypeValueCategories = () =>
+    createModal(MODAL_TYPES.customizableModal, {
+      title: `Agregar nuevo valor de la categoría`,
+      successMessage: 'Valor de categoría agregada!',
+      service: createProductsTypeValueCategory,
+      id: values.typeCategory.id,
+      input: 'text',
+      next: () =>
+        getProductTypeValuesCategories(
+          valuesCategories.product_type_fk._id,
+          null,
+          setTypesCategoriesById,
+          setCheckingProductTypeValuesCategories
+        ),
+    })
 
   if (loading) return <p>Cargando...</p>
 
@@ -405,6 +446,48 @@ export const EditProduct = () => {
                                   )}
                                 </Form.Select>
                               </Form.Group>
+                              {categorySelected && (
+                                <Form.Group className='mb-1'>
+                                  <Form.Select
+                                    size='sm'
+                                    name='subTypeCategory'
+                                    onChange={handleInputChangeCategories}
+                                  >
+                                    {checkingProductTypeValuesCategories ? (
+                                      <option>Cargando...</option>
+                                    ) : typeCategoriesById && typeCategoriesById.length > 0 ? (
+                                      <>
+                                        <option value='-1'>
+                                          Seleccione una opción ({typeCategoriesById.length})
+                                        </option>
+                                        {typeCategoriesById.map((typeCategoriesById) => (
+                                          <option
+                                            value={JSON.stringify({
+                                              id: typeCategoriesById._id,
+                                              value: typeCategoriesById.value,
+                                            })}
+                                            key={`productTypeSelect-${typeCategoriesById._id}`}
+                                          >
+                                            {typeCategoriesById.value}
+                                          </option>
+                                        ))}
+                                      </>
+                                    ) : (
+                                      <option>No se encuentran valores</option>
+                                    )}
+                                  </Form.Select>
+                                  <div className='d-flex justify-content-end align-items-center pe-1 pt-1'>
+                                    <small className='text-success me-1'>Agregar valor</small>
+                                    <Button
+                                      variant='primary'
+                                      className='btn-circle-small'
+                                      onClick={handleClickAddProductTypeValueCategories}
+                                    >
+                                      <FontAwesomeIcon icon={faPlus} size='sm' />
+                                    </Button>
+                                  </div>
+                                </Form.Group>
+                              )}
                             </div>
                           </Col>
                         </Row>
