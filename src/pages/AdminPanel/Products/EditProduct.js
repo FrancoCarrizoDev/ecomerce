@@ -21,7 +21,7 @@ import {
 } from 'src/services/productTypeCategories'
 import { fetchUploadImage } from 'src/services/upload'
 import { MODAL_TYPES } from 'src/types/modalTypes'
-
+import { getProductCategories } from 'src/actions/productCategories'
 export const EditProduct = () => {
   const dispatch = useDispatch()
   const { productType, checking: checkingProductType } = useSelector(
@@ -33,6 +33,9 @@ export const EditProduct = () => {
   const { typeCategories, checkingTypeCategories } = useSelector(
     (state) => state.rootReducer.productTypeCategories
   )
+  const { categories, checking: checkingGlobalCategories } = useSelector(
+    (state) => state.rootReducer.productCategories
+  )
   const { id } = useParams()
   const [product, setProduct] = useState({})
   const [loading, setLoading] = useState(true)
@@ -41,10 +44,12 @@ export const EditProduct = () => {
   const [uploading, setUploading] = useState(false)
   const [typeCatVal, setTypeCatVal] = useState([])
   const [valuesCategories, handleInputChangeCategories, reset] = useForm({})
-  const [categorySelected, setCategorySelected] = useState(false)
+  const [typeCategorySelected, setTypeCategorySelected] = useState(false)
   const [typeCategoriesById, setTypesCategoriesById] = useState([])
   const [checkingProductTypeValuesCategories, setCheckingProductTypeValuesCategories] =
     useState(false)
+  const [categorySelected, setCategorySelected] = useState(false)
+  const [catVal, setCatVal] = useState([])
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -96,7 +101,7 @@ export const EditProduct = () => {
         ...prev,
         { typeCat: valuesCategories.typeCategory, subTypeValCat: valuesCategories.subTypeCategory },
       ])
-      setCategorySelected(false)
+      setTypeCategorySelected(false)
       console.log(valuesCategories)
     }
     reset()
@@ -107,7 +112,7 @@ export const EditProduct = () => {
 
   useEffect(() => {
     if (valuesCategories?.typeCategory) {
-      setCategorySelected(true)
+      setTypeCategorySelected(true)
       const fetchGetProductTypeValuesCategories = async () =>
         await getProductTypeValuesCategories(
           valuesCategories.typeCategory,
@@ -119,9 +124,16 @@ export const EditProduct = () => {
     }
   }, [valuesCategories.typeCategory])
 
+  useEffect(() => {
+    dispatch(getProductCategories())
+    setCategorySelected(false)
+  }, [])
+
   console.clear()
   console.log(values)
   console.log(valuesCategories)
+  console.log(setCatVal)
+  console.log(categorySelected)
   // console.log(categorySelected)
   // console.log(typeCategoriesById)
   // console.log(typeCatVal)
@@ -494,7 +506,7 @@ export const EditProduct = () => {
                                   )}
                                 </Form.Select>
                               </Form.Group>
-                              {categorySelected && (
+                              {typeCategorySelected && (
                                 <Form.Group className='mb-1'>
                                   <Form.Select
                                     size='sm'
@@ -571,6 +583,58 @@ export const EditProduct = () => {
                                 ))
                               )}
                             </ListGroup>
+                          </Col>
+                          <Col xxl={6}>
+                            <div className='d-flex align-items-center mb-1'>
+                              <h6 className='mb-0 pe-1'>
+                                Categorias <span className='text-danger'>Globales</span>
+                              </h6>
+                              <Button variant='primary' className='btn-circle-small'>
+                                <FontAwesomeIcon icon={faPlus} size='sm' />
+                              </Button>
+                            </div>
+                            <div className='d-flex flex-xl-column justify-content-between pt-2'>
+                              <Form.Group className='mb-3'>
+                                <Form.Select
+                                  size='sm'
+                                  name='category'
+                                  onChange={handleInputChangeCategories}
+                                >
+                                  {checkingGlobalCategories ? (
+                                    <option>Cargando...</option>
+                                  ) : categories && categories.length > 0 ? (
+                                    <>
+                                      <option value='-1'>
+                                        Seleccione una opción ({categories.length - catVal.length})
+                                      </option>
+                                      {categories.map((productCat) => {
+                                        const hasCategoryBeenSeleted = catVal.some(
+                                          (typeCatVal) =>
+                                            typeCatVal.cat.id === productCat._id ||
+                                            typeCatVal.cat._id === productCat._id
+                                        )
+
+                                        if (hasCategoryBeenSeleted) return null
+
+                                        return (
+                                          <option
+                                            value={JSON.stringify({
+                                              id: productCat._id,
+                                              name: productCat.name,
+                                            })}
+                                            key={`productCatSelect-${productCat._id}`}
+                                          >
+                                            {productCat.name}
+                                          </option>
+                                        )
+                                      })}
+                                    </>
+                                  ) : (
+                                    <option>No se encuentran</option>
+                                  )}
+                                </Form.Select>
+                              </Form.Group>
+                            </div>
                           </Col>
                         </Row>
                       </Container>
