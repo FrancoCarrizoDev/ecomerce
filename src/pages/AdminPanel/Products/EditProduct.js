@@ -1,9 +1,10 @@
 import { faEye, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect, useState } from 'react'
-import { Button, Col, Container, Form, InputGroup, Row } from 'react-bootstrap'
+import { Badge, Button, Col, Container, Form, InputGroup, ListGroup, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
+import { getProductSubType } from 'src/actions/productSubTypes'
 import { getProductType } from 'src/actions/productType'
 import {
   clearProductTypeCategories,
@@ -51,9 +52,26 @@ export const EditProduct = () => {
       setProduct(data)
       setLoading(false)
       dispatch(getProductTypeCategories(data?.product_type_fk?._id))
+      let typeCatVals = []
+      data?.product_tyc_val_tyc_fk.forEach((element) => {
+        typeCatVals = [
+          ...typeCatVals,
+          { typeCat: element.product_tyc_fk, subTypeValCat: element.product_val_tyc_fk },
+        ]
+      })
+      setTypeCatVal(typeCatVals)
     }
     fetchProduct()
   }, [])
+
+  useEffect(() => {
+    if (
+      +valuesCategories.product_type_fk?._id !== -1 ||
+      +product.product_type_fk._id.value !== -1
+    ) {
+      dispatch(getProductSubType(values.product_type_fk || product.product_type_fk?._id))
+    }
+  }, [values.product_type_fk, product.product_type_fk])
 
   useEffect(() => {
     if (files.length > 0) {
@@ -83,13 +101,13 @@ export const EditProduct = () => {
     }
     reset()
     dispatch(clearProductTypeCategories())
+    dispatch(getProductTypeCategories(values.product_type_fk || product.product_type_fk?._id))
     setTypesCategoriesById([])
   }, [valuesCategories.subTypeCategory])
 
   useEffect(() => {
     if (valuesCategories?.typeCategory) {
       setCategorySelected(true)
-
       const fetchGetProductTypeValuesCategories = async () =>
         await getProductTypeValuesCategories(
           valuesCategories.typeCategory,
@@ -101,11 +119,12 @@ export const EditProduct = () => {
     }
   }, [valuesCategories.typeCategory])
 
+  console.clear()
   console.log(values)
   console.log(valuesCategories)
-  console.log(categorySelected)
-  console.log(typeCategoriesById)
-  console.log(typeCatVal)
+  // console.log(categorySelected)
+  // console.log(typeCategoriesById)
+  // console.log(typeCatVal)
 
   const onFileChange = (event) => {
     setFiles(event.target.files)
@@ -137,10 +156,14 @@ export const EditProduct = () => {
       title: `Agregar una nueva categoría por tipo`,
       successMessage: 'Categoría agregada!',
       service: createProductTypeCategory,
-      id: product.product_type_fk.name,
+      id: product.product_type_fk._id,
       input: 'text',
       successDispatch: () =>
-        dispatch(getProductTypeCategories(valuesCategories.product_type_fk._id)),
+        dispatch(
+          getProductTypeCategories(
+            valuesCategories.product_type_fk?._id || product.product_type_fk._id
+          )
+        ),
     })
   }
 
@@ -149,16 +172,36 @@ export const EditProduct = () => {
       title: `Agregar nuevo valor de la categoría`,
       successMessage: 'Valor de categoría agregada!',
       service: createProductsTypeValueCategory,
-      id: values.typeCategory.id,
+      id: valuesCategories.typeCategory.id,
       input: 'text',
       next: () =>
         getProductTypeValuesCategories(
-          valuesCategories.product_type_fk._id,
+          valuesCategories.typeCategory,
           null,
           setTypesCategoriesById,
           setCheckingProductTypeValuesCategories
         ),
     })
+
+  const removeTypCatValItem = (e) => {
+    debugger
+    const [typeCatId, subTypeCatValId] = e.target.id.split('-')
+
+    const findIndexItemToRemove = typeCatVal.findIndex(
+      (tyCatVal) =>
+        (tyCatVal.typeCat.id === typeCatId || tyCatVal.typeCat._id === typeCatId) &&
+        (tyCatVal.subTypeValCat.id === subTypeCatValId ||
+          tyCatVal.subTypeValCat._id === subTypeCatValId)
+    )
+    if (findIndexItemToRemove === -1) return
+
+    const typeCatValArr = typeCatVal
+    const newTypeCatValArr = typeCatValArr.splice(findIndexItemToRemove, 1)
+
+    if (newTypeCatValArr.length === 0) return
+
+    setTypeCatVal([...typeCatValArr])
+  }
 
   if (loading) return <p>Cargando...</p>
 
@@ -314,12 +357,17 @@ export const EditProduct = () => {
                         <FontAwesomeIcon icon={faPlus} size='sm' />
                       </Button>
                     </div>
-                    <Form.Select size='sm' onChange={handleInputChange} name='product_type_fk'>
+                    <Form.Select
+                      size='sm'
+                      onChange={handleInputChange}
+                      defaultValue={product.product_type_fk._id}
+                      name='product_type_fk'
+                    >
                       {checkingProductType ? (
                         <option>Cargando...</option>
                       ) : productType && productType.length > 0 ? (
                         <>
-                          <option value={product.product_type_fk._id} selected>
+                          <option value={product.product_type_fk._id}>
                             {product.product_type_fk.name}
                           </option>
                           {productType.map(
@@ -345,7 +393,7 @@ export const EditProduct = () => {
                       <Form.Group className='mb-3'>
                         <div className='d-flex justify-content-between'>
                           <Form.Label>
-                            <small>Tipo de producto</small>
+                            <small>SubTipo de producto</small>
                           </Form.Label>
                           <Button
                             variant='primary'
@@ -359,14 +407,12 @@ export const EditProduct = () => {
                           size='sm'
                           onChange={handleInputChange}
                           name='product_sub_type_fk'
+                          defaultValue={product.product_sub_type_fk._id}
                         >
                           {checkingSubType ? (
                             <option>Cargando...</option>
                           ) : productSubTypes && productSubTypes.length > 0 ? (
                             <>
-                              <option value={product.product_sub_type_fk._id} selected>
-                                {product.product_sub_type_fk.name}
-                              </option>
                               {productSubTypes.map((productType) => (
                                 <option
                                   value={productType._id}
@@ -423,7 +469,9 @@ export const EditProduct = () => {
                                       </option>
                                       {typeCategories.map((productType) => {
                                         const hasCategoryBeenSeleted = typeCatVal.some(
-                                          (typeCatVal) => typeCatVal.typeCat.id === productType._id
+                                          (typeCatVal) =>
+                                            typeCatVal.typeCat._id === productType._id ||
+                                            typeCatVal.typeCat.id === productType._id
                                         )
 
                                         if (hasCategoryBeenSeleted) return null
@@ -489,6 +537,40 @@ export const EditProduct = () => {
                                 </Form.Group>
                               )}
                             </div>
+                            <h6>Resumen</h6>
+                            <hr />
+                            <ListGroup as='ol' numbered>
+                              {typeCatVal.length === 0 ? (
+                                <li className='mb-1'>
+                                  <span>
+                                    <small>No hay categorías cargadas</small>
+                                  </span>
+                                </li>
+                              ) : (
+                                typeCatVal.map(({ typeCat, subTypeValCat }) => (
+                                  <ListGroup.Item
+                                    as='li'
+                                    className='d-flex justify-content-between align-items-start'
+                                    key={`typeValCatId-${typeCat._id || typeCat.id}`}
+                                  >
+                                    <div className='ms-2 me-auto'>
+                                      <div className='fw-bold'>{typeCat.name}</div>
+                                    </div>
+                                    <Badge bg='primary' pill>
+                                      {subTypeValCat.value}
+                                    </Badge>
+                                    <button
+                                      className='btn btn-close btn-sm'
+                                      id={`${typeCat._id || typeCat.id}-${
+                                        subTypeValCat._id || subTypeValCat.id
+                                      }`}
+                                      onClick={removeTypCatValItem}
+                                      type='button'
+                                    ></button>
+                                  </ListGroup.Item>
+                                ))
+                              )}
+                            </ListGroup>
                           </Col>
                         </Row>
                       </Container>

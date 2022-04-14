@@ -499,7 +499,9 @@ const TypeCategoriesForm = memo(() => {
                 </option>
                 {typeCategories.map((productType) => {
                   const hasCategoryBeenSeleted = typeCatVal.some(
-                    (typeCatVal) => typeCatVal.typeCat.id === productType._id
+                    (typeCatVal) =>
+                      typeCatVal.typeCat.id === productType._id ||
+                      typeCatVal.typeCat._id === productType._id
                   )
 
                   if (hasCategoryBeenSeleted) return null
