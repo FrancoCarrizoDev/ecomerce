@@ -85,6 +85,17 @@ export const newProductChangeCode = (code) => {
   }
 }
 
+const newProductChangeGenderAction = (gender) => ({
+  type: types.newProductChangeGender,
+  payload: gender,
+})
+
+export const newProductChangeGender = (gender) => {
+  return async (dispatch) => {
+    dispatch(newProductChangeGenderAction(gender))
+  }
+}
+
 const newProductChangeTypeAction = (type) => ({
   type: types.newProductChangeType,
   payload: type,
@@ -156,6 +167,7 @@ export const createNewProduct = ({
   description,
   img,
   code,
+  gender,
   tycValTycs,
   catValCats,
 }) => {
@@ -171,6 +183,7 @@ export const createNewProduct = ({
         description: description.value,
         img,
         code: code.value,
+        gender: gender.value,
       }
       const newProduct = await createProduct(data)
         .then((resp) => resp.json())

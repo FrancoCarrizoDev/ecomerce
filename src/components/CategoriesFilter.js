@@ -10,7 +10,6 @@ export const CategoriesFilter = ({ width }) => {
   const [modalShow, setModalShow] = useState(false)
   const [categories, setCategories] = useState([])
   const [selectedCategories, setSelectedCategories] = useState([])
-
   useEffect(() => {
     dispatch(cleanSelectedProductCategories())
     const fetchCategories = async () => {
@@ -39,6 +38,14 @@ export const CategoriesFilter = ({ width }) => {
     }
   }
 
+  const handleClickRemoveFilters = () => {
+    const radios = document.querySelectorAll('input[type=radio]:checked')
+    radios.forEach((radio) => {
+      radio.checked = false
+    })
+    setSelectedCategories([])
+  }
+
   return (
     <>
       {width < 768 ? (
@@ -53,38 +60,47 @@ export const CategoriesFilter = ({ width }) => {
         </div>
       ) : (
         categories.length > 0 && (
-          <Accordion>
-            {categories.map((category, index) => (
-              <Accordion.Item key={`accordionId-${category._id + index}`} eventKey={category._id}>
-                <Accordion.Header>{category.name}</Accordion.Header>
-                {category.values.length > 0 && (
-                  <Accordion.Body>
-                    <Form>
-                      <Form.Group>
-                        {category.values.map(({ _id, value }, index) => (
-                          <Form.Check
-                            key={`valuesCategory-${_id + index}`}
-                            type='radio'
-                            label={value}
-                            name={`category-${category._id}`}
-                            id={_id}
-                            data-name={value}
-                            onClick={(e) =>
-                              handleSelectCategory({
-                                id: e.target.id,
-                                categoryId: category._id,
-                                name: e.target.dataset.name,
-                              })
-                            }
-                          />
-                        ))}
-                      </Form.Group>
-                    </Form>
-                  </Accordion.Body>
-                )}
-              </Accordion.Item>
-            ))}
-          </Accordion>
+          <>
+            <Accordion>
+              {categories.map((category, index) => (
+                <Accordion.Item key={`accordionId-${category._id + index}`} eventKey={category._id}>
+                  <Accordion.Header>{category.name}</Accordion.Header>
+                  {category.values.length > 0 && (
+                    <Accordion.Body>
+                      <Form>
+                        <Form.Group>
+                          {category.values.map(({ _id, value }, index) => (
+                            <Form.Check
+                              key={`valuesCategory-${_id + index}`}
+                              type='radio'
+                              label={value}
+                              name={`category-${category._id}`}
+                              id={_id}
+                              data-name={value}
+                              onClick={(e) =>
+                                handleSelectCategory({
+                                  id: e.target.id,
+                                  categoryId: category._id,
+                                  name: e.target.dataset.name,
+                                })
+                              }
+                            />
+                          ))}
+                        </Form.Group>
+                      </Form>
+                    </Accordion.Body>
+                  )}
+                </Accordion.Item>
+              ))}
+            </Accordion>
+            <div className='d-flex justify-content-end mt-2'>
+              <span>
+                <button className='btn btn-sm btn-link' onClick={handleClickRemoveFilters}>
+                  Quitar filtros
+                </button>
+              </span>
+            </div>
+          </>
         )
       )}
     </>

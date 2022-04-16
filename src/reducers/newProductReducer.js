@@ -31,10 +31,13 @@ const ACTIONS_REDUCERS = {
     ...state,
     description: action.payload,
   }),
-
   [types.newProductChangeCode]: (state, action) => ({
     ...state,
     code: action.payload,
+  }),
+  [types.newProductChangeGender]: (state, action) => ({
+    ...state,
+    gender: action.payload,
   }),
   [types.newProductChangeType]: (state, action) => ({
     ...state,

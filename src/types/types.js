@@ -47,6 +47,7 @@ export const types = {
   newProductFinishUploadImg: '[CreatingNewProduct] Finish Upload Img',
   newProductChangeDescription: '[CreatingNewProduct] Change Description',
   newProductChangeCode: '[CreatingNewProduct] Change Code',
+  newProductChangeGender: '[CreatingNewProduct] Change Gender',
   newProductChangeType: '[CreatingNewProduct] Change select type',
   newProductChangeSubType: '[CreatingNewProduct] Change select subtype',
   newProductChangeTypeCategory: '[CreatingNewProduct] Change select Type And Value Cat',

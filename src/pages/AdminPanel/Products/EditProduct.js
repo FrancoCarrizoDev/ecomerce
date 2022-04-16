@@ -1,6 +1,6 @@
 import { faEye, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
 import { Badge, Button, Col, Container, Form, InputGroup, ListGroup, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min'
@@ -12,7 +12,7 @@ import {
 } from 'src/actions/productTypeCategories'
 import { createModal } from 'src/helpers/sweetAlert'
 import { useForm, useGlobalForm } from 'src/hooks/useForm'
-import { getProductById } from 'src/services/product'
+import { getGenders, getProductById } from 'src/services/product'
 import { createProductType } from 'src/services/productType'
 import {
   createProductsTypeValueCategory,
@@ -28,6 +28,23 @@ import {
   getProductValuesCategories,
 } from 'src/services/productCategories'
 import Swal from 'sweetalert2'
+import * as yup from 'yup'
+import { editProduct } from 'src/actions/product'
+import { useHistory } from 'react-router-dom'
+
+const userSchema = yup.object().shape({
+  product_sub_type_fk: yup.string().required('Seleccione un sub tipo'),
+  product_type_fk: yup.string().required('Seleecione un tipo'),
+  description: yup.string().required('El campo descripción es requerido'),
+  img: yup.array().required('El campo imágen es requerido'),
+  quantity: yup.string().required('El campo cantidad es requerido'),
+  price: yup.string().required('El campo precio es requerido'),
+  name: yup
+    .string()
+    .required('El campo nombre es requerido')
+    .min(3, 'El campo nombre es muy corto'),
+})
+
 export const EditProduct = () => {
   const dispatch = useDispatch()
   const { productType, checking: checkingProductType } = useSelector(
@@ -58,6 +75,11 @@ export const EditProduct = () => {
   const [catVal, setCatVal] = useState([])
   const [checkingProductValuesCategories, setCheckingProductValuesCategories] = useState(false)
   const [categoryById, setCategoryById] = useState([])
+  const [checkingGender, setCheckingGender] = useState(false)
+  const [genders, setGenders] = useState([])
+  const [errors, setErrors] = useState(null)
+  // eslint-disable-next-line prefer-const
+  let history = useHistory()
 
   useEffect(() => {
     const fetchProduct = async () => {
@@ -181,7 +203,16 @@ export const EditProduct = () => {
     if (valuesCategories.category && valuesCategories.valCategory) {
       setCatVal((prev) => [
         ...prev,
-        { cat: valuesCategories.category, valCat: valuesCategories.valCategory },
+        {
+          cat: {
+            _id: valuesCategories.category.id,
+            ...valuesCategories.category,
+          },
+          valCat: {
+            _id: valuesCategories.valCategory.id,
+            ...valuesCategories.valCategory,
+          },
+        },
       ])
       setCategorySelected(false)
     }
@@ -190,6 +221,16 @@ export const EditProduct = () => {
     dispatch(getProductCategories())
     setCategoryById([])
   }, [valuesCategories.valCategory])
+
+  useEffect(() => {
+    const fetchGetGenders = async () => {
+      setCheckingGender(true)
+      const { genders } = await getGenders()
+      setGenders(genders)
+      setCheckingGender(false)
+    }
+    fetchGetGenders()
+  }, [])
 
   const onFileChange = (event) => {
     setFiles(event.target.files)
@@ -268,7 +309,6 @@ export const EditProduct = () => {
     })
 
   const removeTypCatValItem = (e) => {
-    debugger
     const [typeCatId, subTypeCatValId] = e.target.id.split('-')
 
     const findIndexItemToRemove = typeCatVal.findIndex(
@@ -305,6 +345,44 @@ export const EditProduct = () => {
     setCatVal([...catValArr])
   }
 
+  console.log(values)
+
+  const handleSubmit = useCallback(
+    async (e) => {
+      e.preventDefault()
+
+      const productToEdit = {
+        id: product._id,
+        name: values.name ?? product.name,
+        price: values.price ?? product.price,
+        quantity: values.quantity ?? product.quantity,
+        product_type_fk: values.type ?? product.product_type_fk._id,
+        product_sub_type_fk: values?.subType ?? product.product_sub_type_fk._id,
+        description: values.description ?? product.description,
+        img: product.img,
+        code: values.code ?? product.code,
+        gender_fk: values.gender ?? product.gender_fk._id,
+      }
+
+      const isValid = await userSchema
+        .validate(productToEdit)
+        .then(function (data) {
+          setErrors(null)
+          return true
+        })
+        .catch(function (err) {
+          setErrors(err.errors)
+          return false
+        })
+
+      if (!isValid) return
+
+      await dispatch(editProduct({ productToEdit, typeCatVal, catVal }, setLoading))
+      history.push('/my-account/products/list')
+    },
+    [values, product, typeCatVal, catVal]
+  )
+
   if (loading) return <p>Cargando...</p>
 
   return (
@@ -338,6 +416,7 @@ export const EditProduct = () => {
                     type='text'
                     defaultValue={product.price || ''}
                     name='price'
+                    onChange={handleInputChange}
                   />
                   <InputGroup.Text>.00</InputGroup.Text>
                 </InputGroup>
@@ -370,7 +449,7 @@ export const EditProduct = () => {
               <div className='d-flex flex-column'>
                 <span>Subidas ({product.img.length})</span>
                 <hr />
-                <div className='d-flex'>
+                <div className='d-flex mb-3'>
                   {uploading ? (
                     <p>Cargando...</p>
                   ) : (
@@ -440,6 +519,37 @@ export const EditProduct = () => {
                   onChange={handleInputChange}
                 />
               </Form.Group>
+              <Form.Group className='mb-3' controlId='formBasicPassword'>
+                <Form.Label>
+                  <small>Género</small>
+                </Form.Label>
+                <Form.Select
+                  size='sm'
+                  name='gender'
+                  defaultValue={product.gender_fk._id}
+                  onChange={handleInputChange}
+                >
+                  {checkingGender ? (
+                    <option>Cargando...</option>
+                  ) : genders && genders.length > 0 ? (
+                    <>
+                      <option value='-1'>Seleccione una opción ({genders.length})</option>
+                      {genders.map((gender) => (
+                        <option value={gender._id} key={`gender-${gender._id}`}>
+                          {gender.name}
+                        </option>
+                      ))}
+                    </>
+                  ) : (
+                    <option>No se encuentran géneros</option>
+                  )}
+                </Form.Select>
+              </Form.Group>
+              {errors && (
+                <p className='text-danger'>
+                  <small>*{errors.map((err) => err)}</small>
+                </p>
+              )}
             </div>
           </Col>
           <Col>
@@ -812,7 +922,12 @@ export const EditProduct = () => {
             </Row>
           </Col>
           <Col xs={12}>
-            <Button variant='primary' type='submit' className='mt-3 float-end'>
+            <Button
+              variant='primary'
+              type='submit'
+              className='mt-3 float-end'
+              onClick={handleSubmit}
+            >
               Guardar
             </Button>
           </Col>

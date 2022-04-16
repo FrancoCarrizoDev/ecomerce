@@ -14,6 +14,20 @@ export const createProduct = (product) => {
   })
 }
 
+export const editProducts = (product) => {
+  const url = `${baseUrl}/products/${product.id}`
+
+  const token = localStorage.getItem('token') || ''
+  return fetch(url, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-token': token,
+    },
+    body: JSON.stringify(product),
+  })
+}
+
 export const createTycValTyc = (productId, tycValTyc) => {
   const url = `${baseUrl}/product-tyc-val-tyc`
   const token = localStorage.getItem('token') || ''
@@ -25,9 +39,21 @@ export const createTycValTyc = (productId, tycValTyc) => {
     },
     body: JSON.stringify({
       product_fk: productId,
-      product_tyc_fk: tycValTyc.typeCat.id,
-      product_val_tyc_fk: tycValTyc.subTypeValCat.id,
+      product_tyc_fk: tycValTyc.typeCat.id || tycValTyc.typeCat._id,
+      product_val_tyc_fk: tycValTyc.subTypeValCat.id || tycValTyc.subTypeValCat._id,
     }),
+  })
+}
+
+export const deleteTycValTycById = (tycValTycId) => {
+  const url = `${baseUrl}/product-tyc-val-tyc/${tycValTycId}`
+  const token = localStorage.getItem('token') || ''
+  return fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-token': token,
+    },
   })
 }
 
@@ -42,9 +68,21 @@ export const createCatValCat = (productId, catValCat) => {
     },
     body: JSON.stringify({
       product_fk: productId,
-      product_cat_fk: catValCat.cat.id,
-      product_val_cat_fk: catValCat.valCat.id,
+      product_cat_fk: catValCat.cat.id || catValCat.cat._id,
+      product_val_cat_fk: catValCat.valCat.id || catValCat.valCat._id,
     }),
+  })
+}
+
+export const deleteCatValCatById = (catValCatId) => {
+  const url = `${baseUrl}/product-cat-val-cat/${catValCatId}`
+  const token = localStorage.getItem('token') || ''
+  return fetch(url, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-token': token,
+    },
   })
 }
 
@@ -111,6 +149,21 @@ export const getProducts = ({ limit = 12, skip = 0, ...rest } = { limit: 12, ski
 
 export const getProductById = (id) => {
   const url = `${baseUrl}/products/${id}`
+
+  const token = localStorage.getItem('token') || ''
+  return fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-token': token,
+    },
+  })
+    .then((resp) => resp.json())
+    .then((data) => data)
+}
+
+export const getGenders = () => {
+  const url = `${baseUrl}/genders`
 
   const token = localStorage.getItem('token') || ''
   return fetch(url, {

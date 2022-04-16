@@ -20,6 +20,7 @@ import {
   newProductChangeCatValCats,
   newProductChangeCode,
   newProductChangeDescription,
+  newProductChangeGender,
   newProductChangeImg,
   newProductChangeName,
   newProductChangePrice,
@@ -40,6 +41,7 @@ import {
 import { createModal } from 'src/helpers/sweetAlert'
 import { useField } from 'src/hooks/useField'
 import { useForm } from 'src/hooks/useForm'
+import { getGenders } from 'src/services/product'
 // import { useMultipleImgField } from 'src/hooks/useMultipleImgField'
 import {
   createProductsValueCategory,
@@ -60,6 +62,7 @@ const userSchema = yup.object().shape({
   product_sub_type_fk: yup.string().required('Seleccione un sub tipo'),
   product_type_fk: yup.string().required('Seleecione un tipo'),
   description: yup.string().required('El campo descripción es requerido'),
+  gender: yup.string().required('Seleccione un género por favor'),
   img: yup.array().required('El campo imágen es requerido'),
   quantity: yup.string().required('El campo cantidad es requerido'),
   price: yup.string().required('El campo precio es requerido'),
@@ -178,7 +181,7 @@ const ImgForm = memo(() => {
           id='multipleImgFilesInput'
         />
       </Form.Group>
-      <div className='d-flex'>
+      <div className='d-flex '>
         {uploadingImg ? (
           <p>Cargando...</p>
         ) : (
@@ -186,7 +189,7 @@ const ImgForm = memo(() => {
           img.map((img) => (
             <div
               key={`img-${img.asset_id}`}
-              className='smallImgToUpload img-thumbnail mx-1'
+              className='smallImgToUpload img-thumbnail mx-1 mb-3'
               style={{ backgroundImage: `url(${img.secure_url})` }}
             >
               <Button
@@ -254,6 +257,52 @@ const CodeForm = memo(() => {
   )
 })
 CodeForm.displayName = 'CodeForm'
+
+const GendersForm = memo(() => {
+  const gender = useField({ type: 'text' })
+  const [checking, setChecking] = useState(false)
+  const [genders, setGenders] = useState([])
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    const fetchGetGenders = async () => {
+      setChecking(true)
+      const { genders } = await getGenders()
+      setGenders(genders)
+      setChecking(false)
+    }
+    fetchGetGenders()
+  }, [])
+
+  useEffect(() => {
+    dispatch(newProductChangeGender(gender))
+  }, [gender])
+
+  return (
+    <Form.Group className='mb-3' controlId='formBasicPassword'>
+      <Form.Label>
+        <small>Género</small>
+      </Form.Label>
+      <Form.Select size='sm' name='gender' {...gender}>
+        {checking ? (
+          <option>Cargando...</option>
+        ) : genders && genders.length > 0 ? (
+          <>
+            <option value='-1'>Seleccione una opción ({genders.length})</option>
+            {genders.map((gender) => (
+              <option value={gender._id} key={`gender-${gender._id}`}>
+                {gender.name}
+              </option>
+            ))}
+          </>
+        ) : (
+          <option>No se encuentran géneros</option>
+        )}
+      </Form.Select>
+    </Form.Group>
+  )
+})
+GendersForm.displayName = 'CodeForm'
 
 const TypeSelect = memo(() => {
   const typeProduct = useField({ type: 'text' })
@@ -803,6 +852,7 @@ const FormContainer = () => {
         product_sub_type_fk: newProduct?.subType?.value,
         description: newProduct.description.value,
         img: newProduct.img,
+        gender: newProduct.gender.value,
       }
 
       const isValid = await userSchema
@@ -836,6 +886,7 @@ const FormContainer = () => {
             <ImgForm />
             <DescriptionForm />
             <CodeForm />
+            <GendersForm />
             {errors && (
               <p className='text-danger'>
                 <small>*{errors.map((err) => err)}</small>

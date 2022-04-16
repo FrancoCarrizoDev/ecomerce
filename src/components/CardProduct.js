@@ -21,7 +21,9 @@ export const CardProduct = ({ width }) => {
   }, [])
 
   useEffect(() => {
-    if (globalCategoriesSelected.length > 0) findProductsByGlobalCategoriesSelected()
+    debugger
+    if (globalCategoriesSelected.length === 0) setProductsFilters(products)
+    if (globalCategoriesSelected?.length > 0) findProductsByGlobalCategoriesSelected()
   }, [globalCategoriesSelected])
 
   const findProductsByGlobalCategoriesSelected = () => {
