@@ -21,8 +21,7 @@ export const CardProduct = ({ width }) => {
   }, [])
 
   useEffect(() => {
-    debugger
-    if (globalCategoriesSelected.length === 0) setProductsFilters(products)
+    if (globalCategoriesSelected?.length === 0) setProductsFilters(products)
     if (globalCategoriesSelected?.length > 0) findProductsByGlobalCategoriesSelected()
   }, [globalCategoriesSelected])
 
@@ -44,7 +43,7 @@ export const CardProduct = ({ width }) => {
   }
 
   return (
-    <div className=' mt-3 '>
+    <div className=' my-5 '>
       <div className='d-flex justify-content-between '>
         <div className='flex-grow-1 pe-3'>
           <h5>HOMBRE</h5>

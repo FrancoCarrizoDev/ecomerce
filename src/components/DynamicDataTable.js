@@ -24,7 +24,7 @@ export const DynamicDataTable = ({
   }, [data])
 
   const [filterText, setFilterText] = React.useState('')
-  const filteredItems = data.filter(
+  const filteredItems = data?.filter(
     (item) => item.name && item.name.toLowerCase().includes(filterText.toLowerCase())
   )
 
